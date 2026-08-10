@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#14172b">
+<title>رضا — گوشهٔ من</title>
+<meta name="description" content="یه صفحهٔ شخصی ساده؛ نه بیشتر، نه کمتر.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/lalezar@5.0.12/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn@5.0.12/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn@5.0.12/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/vazirmatn@5.0.12/700.css">
+<style>
+:root{
+  --bg:#14172b; --sheet1:#1a1d33; --sheet2:#171a2c;
+  --card1:#262b45; --card2:#1c2038; --line:#343b5e;
+  --txt:#eef1ff; --muted:#a6adcc; --dim:#7d84a6;
+  --blue:#5b8cff; --cyan:#4dd6ff; --purple:#b07cff; --gold:#ffc94d; --green:#3ee6a0;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Vazirmatn',tahoma,sans-serif;line-height:1.9;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(640px 320px at 88% -60px,rgba(176,124,255,.30),transparent 60%),
+             radial-gradient(540px 300px at 8% -50px,rgba(91,140,255,.28),transparent 60%);
+  transition:opacity .6s}
+body.calm::before{opacity:.25}
+::selection{background:var(--blue);color:#fff}
+h1,h2,.clock,.tw-handle{font-family:'Lalezar','Vazirmatn',sans-serif;font-weight:400}
+button{font-family:inherit}
+
+/* ---------- top bar ---------- */
+.topbar{max-width:1020px;margin-inline:auto;padding:16px 16px 6px;display:flex;align-items:center;gap:8px}
+.pill{display:flex;align-items:center;gap:10px;background:#1e2238;border:1px solid #2c3352;border-radius:16px;padding:8px 14px}
+.pill .ava{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;
+  background:linear-gradient(135deg,#3550ff,#8b3dff);box-shadow:0 0 14px rgba(139,61,255,.5)}
+.pill .t1{font-size:.9rem;font-weight:700;color:#fff}
+.pill .t2{font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.tb-btn{width:44px;height:44px;border-radius:50%;border:1px solid #2c3352;background:#1e2238;color:var(--cyan);font-size:15px;font-weight:700;cursor:pointer;transition:transform .4s,border-color .3s;text-shadow:0 0 10px rgba(77,214,255,.8)}
+.tb-btn:hover{transform:translateY(-2px);border-color:var(--cyan)}
+#gearBtn{font-size:19px;margin-inline-start:auto}
+#gearBtn:hover{transform:rotate(90deg)}
+#gearBtn.spin{transform:rotate(360deg)}
+
+/* ---------- sheet ---------- */
+.sheet{max-width:1020px;margin:10px auto 0;background:linear-gradient(180deg,var(--sheet1),var(--sheet2));
+  border:1px solid #232a48;border-bottom:none;border-radius:30px 30px 0 0;padding:6px 20px 10px}
+.handle{width:46px;height:5px;border-radius:99px;background:#0b0d19;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.05);margin:12px auto 20px}
+.sheet-head{text-align:center;margin-bottom:26px}
+h1{font-size:clamp(1.9rem,5vw,2.7rem);color:#fff;min-height:1.3em}
+.sheet-head p{color:var(--muted);font-size:.92rem}
+
+/* ---------- cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin-bottom:34px}
+.card{position:relative;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;
+  background:linear-gradient(145deg,var(--card1),var(--card2));border:1px solid var(--line);border-radius:22px;
+  padding:26px 14px 20px;cursor:pointer;text-decoration:none;color:var(--txt);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:transform .25s,border-color .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);border-color:#4a5382}
+.icon{color:#fff;line-height:1;filter:drop-shadow(0 0 10px var(--glow)) drop-shadow(0 0 24px var(--glow));animation:float 4.5s ease-in-out infinite}
+.icon svg{width:44px;height:44px;fill:currentColor;display:block}
+.icon.emo{font-size:44px}
+.card:nth-child(2) .icon{animation-delay:.6s}.card:nth-child(3) .icon{animation-delay:1.2s}.card:nth-child(4) .icon{animation-delay:1.8s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.c-title{font-size:1.15rem;font-weight:700;color:#fff}
+.c-sub{font-size:.78rem;color:var(--muted)}
+.badge{position:absolute;top:11px;right:11px;width:23px;height:23px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;display:grid;place-items:center;box-shadow:0 0 12px rgba(91,140,255,.8);opacity:0;transform:scale(.4);transition:.3s}
+.card.active{border-color:var(--blue);box-shadow:0 0 0 1.5px var(--blue),0 0 28px rgba(91,140,255,.45),inset 0 0 20px rgba(91,140,255,.12)}
+.card.active .badge{opacity:1;transform:scale(1)}
+
+/* ---------- sections ---------- */
+section{padding:14px 4px 30px;scroll-margin-top:24px}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:1.45rem;color:#fff;margin-bottom:14px}
+.sec-title::before{content:"";width:8px;height:24px;border-radius:4px;background:var(--sg,var(--blue));box-shadow:0 0 14px var(--sg,var(--blue))}
+.about-txt{color:var(--muted);max-width:44rem;font-size:.98rem}
+.about-txt b{color:#fff;font-weight:500}
+
+/* timer */
+.timer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.t-box{background:linear-gradient(145deg,var(--card1),var(--card2));border:1px solid var(--line);border-radius:20px;padding:18px 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.t-label{font-size:.8rem;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.clock{font-size:clamp(2.1rem,6vw,3rem);color:var(--cyan);text-shadow:0 0 18px rgba(77,214,255,.65);line-height:1.3}
+.elapsed{color:#e2ccff;text-shadow:0 0 14px rgba(176,124,255,.6);font-weight:700;font-size:1.02rem;line-height:2.1;min-height:3.2em}
+.t-date{font-size:.72rem;color:var(--dim);margin-top:6px}
+
+/* notes */
+.note{background:linear-gradient(145deg,var(--card1),var(--card2));border:1px solid var(--line);border-inline-start:3px solid var(--glow);border-radius:18px;padding:16px 18px;margin-bottom:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:transform .3s,box-shadow .3s}
+.note:hover{transform:translateX(-6px);box-shadow:0 0 20px rgba(255,255,255,.08),inset 0 1px 0 rgba(255,255,255,.06)}
+.note time{display:block;font-size:.74rem;color:var(--dim);margin-bottom:4px}
+.note p{font-size:.93rem;color:#dde2f5}
+.note bdi{color:var(--cyan)}
+
+/* twitter */
+.tw-card{background:linear-gradient(145deg,#232a4a,#1a1e36);border:1px solid var(--blue);border-radius:24px;padding:28px 22px;text-align:center;
+  box-shadow:0 0 30px rgba(91,140,255,.3),inset 0 0 24px rgba(91,140,255,.1)}
+.tw-card .icon{display:inline-block}
+.tw-card .icon svg{width:52px;height:52px}
+.tw-handle{direction:ltr;font-size:clamp(1.8rem,6vw,2.6rem);color:#fff;margin:8px 0 4px;letter-spacing:.02em}
+.tw-sub{color:var(--muted);font-size:.85rem;margin-bottom:18px}
+.cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.cta{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:.65rem 1.5rem;font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 6px 22px rgba(90,110,255,.4);transition:transform .2s,box-shadow .2s}
+.cta:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(90,110,255,.55)}
+.cta.ghosty{background:#232948;color:#cdd3ea;box-shadow:none;border:1px dashed #4a5382}
+
+footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;transition-delay:var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:560px){
+  .sheet{padding-inline:14px}
+  .grid{grid-template-columns:1fr 1fr;gap:11px}
+  .card{padding:20px 10px 16px}
+  .icon.emo{font-size:38px}
+  .icon svg{width:38px;height:38px}
+  .tw-card .icon svg{width:46px;height:46px}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="pill">
+    <span class="ava">💻</span>
+    <span class="t1" data-i18n="pillName">رضا</span>
+    <span class="t2"><span class="dot"></span> <span data-i18n="status">آنلاین</span></span>
+  </div>
+  <button id="gearBtn" class="tb-btn" type="button" title="حالت آروم">⚙️</button>
+  <button id="langBtn" class="tb-btn" type="button" title="زبان / Language">EN</button>
+</div>
+
+<div class="sheet">
+  <div class="handle" aria-hidden="true"></div>
+
+  <div class="sheet-head">
+    <h1 id="scrambleTitle" data-text="گوشهٔ من">گوشهٔ من</h1>
+    <p data-i18n="subtitle">یه صفحهٔ شخصی؛ ساده، بی‌سروصدا، بدونِ اضافه.</p>
+  </div>
+
+  <div class="grid">
+    <button class="card active" type="button" data-target="#about" style="--glow:#5b8cff">
+      <span class="badge">✓</span><span class="icon emo">💻</span>
+      <span class="c-title" data-i18n="cAbout">درباره</span><span class="c-sub" data-i18n="cAboutSub">ماجرا چیه؟</span>
+    </button>
+    <button class="card" type="button" data-target="#notes" style="--glow:#ffc94d">
+      <span class="badge">✓</span><span class="icon emo">⌨️</span>
+      <span class="c-title" data-i18n="cNotes">نوت‌ها</span><span class="c-sub" data-i18n="cNotesSub">یادداشت‌های گاه‌به‌گاه</span>
+    </button>
+    <button class="card" type="button" data-target="#timer" style="--glow:#b07cff">
+      <span class="badge">✓</span><span class="icon emo">🖥️</span>
+      <span class="c-title" data-i18n="cTimer">ساعت و عمر سایت</span><span class="c-sub" data-i18n="cTimerSub">هر ثانیه می‌شماره</span>
+    </button>
+    <a class="card" href="https://x.com/Reza_ZeroOnee" target="_blank" rel="noopener" style="--glow:#4dd6ff">
+      <span class="badge">✓</span>
+      <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></span>
+      <span class="c-title" data-i18n="cTw">توییتر</span><span class="c-sub" dir="ltr">@Reza_ZeroOnee</span>
+    </a>
+  </div>
+
+  <section id="about">
+    <h2 class="sec-title" style="--sg:#5b8cff"><span data-i18n="sAbout">ماجرا چیه؟</span></h2>
+    <p class="about-txt" data-i18n-html="aboutTxt">این‌جا یه صفحهٔ شخصیِ ساده‌ست؛ نه رزومه‌ست، نه فروشگاه، نه هیچ چیز دیگه. هر از گاهی یه نوت می‌ذارم، هر از گاهی هم فقط سکوت. <b>همون‌قدر که لازمه، نه یه کلمه بیشتر.</b> اگه حرفی هم بود، توییتر پیدام می‌کنی.</p>
+  </section>
+
+  <section id="timer">
+    <h2 class="sec-title" style="--sg:#b07cff"><span data-i18n="sTimer">ساعت و عمر سایت</span></h2>
+    <div class="timer-grid">
+      <div class="t-box reveal">
+        <div class="t-label"><span class="dot"></span> <span data-i18n="lblClock">ساعت الان</span></div>
+        <div class="clock" id="clock">--:--:--</div>
+      </div>
+      <div class="t-box reveal" style="--d:.12s">
+        <div class="t-label">⏳ <span data-i18n="lblElapsed">از ساخته شدن این سایت گذشته</span></div>
+        <div class="elapsed" id="elapsed">…</div>
+        <div class="t-date" data-i18n="startDate">شروع: ۱۹ مرداد ۱۴۰۵</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="notes">
+    <h2 class="sec-title" style="--sg:#ffc94d"><span data-i18n="sNotes">نوت‌ها</span></h2>
+    <article class="note reveal" style="--glow:#5b8cff">
+      <time data-i18n="n1d">۱۹ مرداد ۱۴۰۵</time>
+      <p data-i18n="n1p">بالاخره سایت رو راه انداختم. ساده و بی‌سروصدا، همون‌جوری که خودم دوست دارم.</p>
+    </article>
+    <article class="note reveal" style="--glow:#ffc94d;--d:.1s">
+      <time data-i18n="n2d">۳ مرداد ۱۴۰۵</time>
+      <p data-i18n="n2p">یه پروژهٔ کوچیک دستمه. وقتی به یه سروشکل رسید، همین‌جا ازش می‌گم.</p>
+    </article>
+    <article class="note reveal" style="--glow:#3ee6a0;--d:.2s">
+      <time data-i18n="n3d">۲۱ تیر ۱۴۰۵</time>
+      <p data-i18n="n3p">تصمیم گرفتم بیشتر توییتر باشم. اگه حرفی، نظری، چیزی: <bdi dir="ltr">@Reza_ZeroOnee</bdi></p>
+    </article>
+  </section>
+
+  <section id="twitter">
+    <h2 class="sec-title" style="--sg:#4dd6ff"><span data-i18n="sTw">توییتر</span></h2>
+    <div class="tw-card reveal">
+      <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></span>
+      <div class="tw-handle">@Reza_ZeroOnee</div>
+      <p class="tw-sub" data-i18n="twSub">من اینجام؛ هر خبری هم باشه، اول همون‌جا می‌گم.</p>
+      <div class="cta-row">
+        <a class="cta" href="https://x.com/Reza_ZeroOnee" target="_blank" rel="noopener"><span data-i18n="btnOpen">باز کردن توییتر</span> ↗</a>
+        <button class="cta ghosty" id="copyBtn" type="button" data-i18n="btnCopy">کپی آیدی</button>
+      </div>
+    </div>
+  </section>
+
+  <footer data-i18n="foot">© ۱۴۰۵ · رضا — همین و بس.</footer>
+</div>
+
+<script>
+(function(){
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CUR_LANG = 'fa';
+  var clockFmt = null;
+
+  var I18N = {
+    fa: {
+      docTitle:'رضا — گوشهٔ من', pillName:'رضا', status:'آنلاین',
+      title:'گوشهٔ من', subtitle:'یه صفحهٔ شخصی؛ ساده، بی‌سروصدا، بدونِ اضافه.',
+      cAbout:'درباره', cAboutSub:'ماجرا چیه؟',
+      cNotes:'نوت‌ها', cNotesSub:'یادداشت‌های گاه‌به‌گاه',
+      cTimer:'ساعت و عمر سایت', cTimerSub:'هر ثانیه می‌شماره',
+      cTw:'توییتر',
+      sAbout:'ماجرا چیه؟',
+      aboutTxt:'این‌جا یه صفحهٔ شخصیِ ساده‌ست؛ نه رزومه‌ست، نه فروشگاه، نه هیچ چیز دیگه. هر از گاهی یه نوت می‌ذارم، هر از گاهی هم فقط سکوت. <b>همون‌قدر که لازمه، نه یه کلمه بیشتر.</b> اگه حرفی هم بود، توییتر پیدام می‌کنی.',
+      sTimer:'ساعت و عمر سایت', lblClock:'ساعت الان', lblElapsed:'از ساخته شدن این سایت گذشته',
+      startDate:'شروع: ۱۹ مرداد ۱۴۰۵',
+      sNotes:'نوت‌ها',
+      n1d:'۱۹ مرداد ۱۴۰۵', n1p:'بالاخره سایت رو راه انداختم. ساده و بی‌سروصدا، همون‌جوری که خودم دوست دارم.',
+      n2d:'۳ مرداد ۱۴۰۵', n2p:'یه پروژهٔ کوچیک دستمه. وقتی به یه سروشکل رسید، همین‌جا ازش می‌گم.',
+      n3d:'۲۱ تیر ۱۴۰۵', n3p:'تصمیم گرفتم بیشتر توییتر باشم. اگه حرفی، نظری، چیزی: <bdi dir="ltr">@Reza_ZeroOnee</bdi>',
+      sTw:'توییتر', twSub:'من اینجام؛ هر خبری هم باشه، اول همون‌جا می‌گم.',
+      btnOpen:'باز کردن توییتر', btnCopy:'کپی آیدی', copied:'کپی شد ✓',
+      foot:'© ۱۴۰۵ · رضا — همین و بس.', gearTitle:'حالت آروم',
+      locale:'fa-IR', and:' و ',
+      units:{y:'سال', d:'روز', h:'ساعت', m:'دقیقه', s:'ثانیه'}
+    },
+    en: {
+      docTitle:'Reza — My Corner', pillName:'Reza', status:'online',
+      title:'My Corner', subtitle:'A simple personal page; quiet, no extra.',
+      cAbout:'About', cAboutSub:"What's the story?",
+      cNotes:'Notes', cNotesSub:'Occasional notes',
+      cTimer:'Clock & site age', cTimerSub:'Counting every second',
+      cTw:'X',
+      sAbout:"What's the story?",
+      aboutTxt:"This is a simple personal page; not a résumé, not a store, nothing else. I drop a note now and then, and sometimes just silence. <b>Only as much as needed, not a word more.</b> If you want to talk, find me on X.",
+      sTimer:'Clock & site age', lblClock:'Current time', lblElapsed:'Time since this site was born',
+      startDate:'Start: August 10, 2026',
+      sNotes:'Notes',
+      n1d:'August 10, 2026', n1p:'Finally launched the site. Simple and quiet, just the way I like it.',
+      n2d:'July 25, 2026', n2p:"I'm working on a small project. Once it takes shape, I'll talk about it here.",
+      n3d:'July 12, 2026', n3p:'Decided to be more on X. If you have anything to say: <bdi dir="ltr">@Reza_ZeroOnee</bdi>',
+      sTw:'X', twSub:"Find me here; whatever news there is, I say it there first.",
+      btnOpen:'Open X', btnCopy:'Copy handle', copied:'Copied ✓',
+      foot:'© 2026 · Reza — that\u2019s it.', gearTitle:'Calm mode',
+      locale:'en-GB', and:', ',
+      units:{y:'years', d:'days', h:'hours', m:'mins', s:'secs'}
+    }
+  };
+
+  function toFa(s){ return String(s).replace(/\d/g, function(d){ return '۰۱۲۳۴۵۶۷۸۹'[d]; }); }
+  function num(n){ return CUR_LANG === 'fa' ? toFa(n) : String(n); }
+
+  var gear = document.getElementById('gearBtn');
+  var langBtn = document.getElementById('langBtn');
+  var clockEl = document.getElementById('clock');
+  var elapsedEl = document.getElementById('elapsed');
+  var copyBtn = document.getElementById('copyBtn');
+  var titleEl = document.getElementById('scrambleTitle');
+
+  gear.addEventListener('click', function(){
+    document.body.classList.toggle('calm');
+    gear.classList.add('spin');
+    setTimeout(function(){ gear.classList.remove('spin'); }, 500);
+  });
+
+  /* cards: active + scroll */
+  var cards = document.querySelectorAll('.card');
+  cards.forEach(function(c){
+    c.addEventListener('click', function(){
+      cards.forEach(function(x){ x.classList.remove('active'); });
+      c.classList.add('active');
+      var t = c.getAttribute('data-target');
+      if(t){
+        var el = document.querySelector(t);
+        if(el) el.scrollIntoView({behavior: RM ? 'auto' : 'smooth', block:'start'});
+      }
+    });
+  });
+
+  /* timer — fixed birth date, never resets */
+  var BORN = new Date('2026-08-10T00:00:00+03:30');
+  function elapsedStr(now){
+    var d = I18N[CUR_LANG];
+    var years = now.getFullYear() - BORN.getFullYear();
+    var anchor = new Date(BORN); anchor.setFullYear(BORN.getFullYear() + years);
+    if(anchor > now){ years--; anchor = new Date(BORN); anchor.setFullYear(BORN.getFullYear() + years); }
+    var ms = Math.max(0, now - anchor);
+    var days = Math.floor(ms / 864e5); ms -= days * 864e5;
+    var hours = Math.floor(ms / 36e5); ms -= hours * 36e5;
+    var mins = Math.floor(ms / 6e4);  ms -= mins * 6e4;
+    var secs = Math.floor(ms / 1e3);
+    var parts = [];
+    if(years > 0) parts.push(num(years) + ' ' + d.units.y);
+    if(days > 0)  parts.push(num(days) + ' ' + d.units.d);
+    if(hours > 0) parts.push(num(hours) + ' ' + d.units.h);
+    if(mins > 0)  parts.push(num(mins) + ' ' + d.units.m);
+    parts.push(num(secs) + ' ' + d.units.s);
+    return parts.join(d.and);
+  }
+  function tick(){
+    var now = new Date();
+    clockEl.textContent = clockFmt ? clockFmt.format(now) : '--:--:--';
+    elapsedEl.textContent = elapsedStr(now);
+  }
+  setInterval(tick, 1000);
+
+  /* copy id */
+  copyBtn.addEventListener('click', function(){
+    var id = '@Reza_ZeroOnee';
+    function done(){
+      copyBtn.textContent = I18N[CUR_LANG].copied;
+      setTimeout(function(){ copyBtn.textContent = I18N[CUR_LANG].btnCopy; }, 1600);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(id).then(done).catch(done);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = id; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta); done();
+    }
+  });
+
+  /* scramble title */
+  function scramble(el){
+    var target = el.dataset.text || el.textContent;
+    if(RM){ el.textContent = target; return; }
+    var pool = CUR_LANG === 'fa' ? 'ابپتثجچحخدذرزسشصطعفقکگلمنوهی' : 'abcdefghijklmnopqrstuvwxyz';
+    var step = 0;
+    var iv = setInterval(function(){
+      step++;
+      var shown = Math.floor(step / 2), out = '';
+      for(var j = 0; j < target.length; j++){
+        var c = target[j];
+        if(pool.indexOf(c) === -1 && c.toLowerCase && pool.indexOf(c.toLowerCase()) === -1){
+          out += c;
+        } else if(j < shown){
+          out += c;
+        } else {
+          out += pool[(Math.random() * pool.length) | 0];
+        }
+      }
+      el.textContent = out;
+      if(shown >= target.length){ clearInterval(iv); el.textContent = target; }
+    }, 45);
+  }
+
+  /* language switch */
+  function applyLang(l){
+    CUR_LANG = l;
+    var d = I18N[l];
+    document.documentElement.lang = l;
+    document.documentElement.dir = l === 'fa' ? 'rtl' : 'ltr';
+    document.title = d.docTitle;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var k = el.getAttribute('data-i18n');
+      if(d[k] != null) el.textContent = d[k];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+      var k = el.getAttribute('data-i18n-html');
+      if(d[k] != null) el.innerHTML = d[k];
+    });
+    gear.title = d.gearTitle;
+    langBtn.textContent = l === 'fa' ? 'EN' : 'فا';
+    clockFmt = new Intl.DateTimeFormat(d.locale, {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+    titleEl.dataset.text = d.title;
+    titleEl.textContent = d.title;
+    scramble(titleEl);
+    tick();
+    try{ localStorage.setItem('rz-lang', l); }catch(e){}
+  }
+
+  langBtn.addEventListener('click', function(){
+    applyLang(CUR_LANG === 'fa' ? 'en' : 'fa');
+  });
+
+  /* reveal */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  /* init — default fa, or saved */
+  var saved = null;
+  try{ saved = localStorage.getItem('rz-lang'); }catch(e){}
+  applyLang(saved === 'en' ? 'en' : 'fa');
+})();
+</script>
+</body>
+</html>
