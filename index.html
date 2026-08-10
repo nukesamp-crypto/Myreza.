@@ -287,6 +287,22 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   else killUsd();
 })();
 </script>
+<style>
+/* مخفی کردن آنی همهٔ کارت‌های قیمت */
+.price-card{display:none!important}
+</style>
+<script>
+/* حذف کامل همهٔ ویجت‌های قیمت */
+(function(){
+  function kill(){
+    document.querySelectorAll('.price-card').forEach(function(c){
+      if(c.parentNode) c.parentNode.removeChild(c);
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', kill);
+  else kill();
+})();
+</script>
 </head>
 <body>
 
