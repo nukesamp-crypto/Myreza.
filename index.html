@@ -15,7 +15,7 @@
   --bg:#14172b; --sheet1:#1a1d33; --sheet2:#171a2c;
   --card1:#262b45; --card2:#1c2038; --line:#343b5e;
   --txt:#eef1ff; --muted:#a6adcc; --dim:#7d84a6;
-  --blue:#5b8cff; --cyan:#4dd6ff; --purple:#b07cff; --gold:#ffc94d; --green:#3ee6a0;
+  --blue:#5b8cff; --cyan:#4dd6ff; --purple:#b07cff; --gold:#ffc94d; --green:#3ee6a0; --red:#ff5d6c;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -26,7 +26,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   transition:opacity .6s}
 body.calm::before{opacity:.25}
 ::selection{background:var(--blue);color:#fff}
-h1,h2,.clock,.tw-handle{font-family:'Lalezar','Vazirmatn',sans-serif;font-weight:400}
+h1,h2,.clock,.tw-handle,.room-title{font-family:'Lalezar','Vazirmatn',sans-serif;font-weight:400}
 button{font-family:inherit}
 
 /* ---------- top bar ---------- */
@@ -43,6 +43,16 @@ button{font-family:inherit}
 #gearBtn{font-size:19px;margin-inline-start:auto}
 #gearBtn:hover{transform:rotate(90deg)}
 #gearBtn.spin{transform:rotate(360deg)}
+
+/* ---------- red banner ---------- */
+.banner{max-width:1020px;margin:4px auto 0;padding:10px 16px;border:1px solid rgba(255,93,108,.6);border-radius:16px;
+  background:linear-gradient(145deg,rgba(255,60,80,.16),rgba(255,60,80,.05));
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  box-shadow:0 0 22px rgba(255,60,80,.25),inset 0 0 18px rgba(255,60,80,.08);animation:bannerPulse 2.4s infinite}
+@keyframes bannerPulse{0%,100%{box-shadow:0 0 22px rgba(255,60,80,.25),inset 0 0 18px rgba(255,60,80,.08)}50%{box-shadow:0 0 36px rgba(255,60,80,.5),inset 0 0 18px rgba(255,60,80,.08)}}
+.banner .txt{color:#ff7b88;font-weight:700;font-size:.95rem;text-shadow:0 0 12px rgba(255,80,90,.7);display:flex;align-items:center;gap:8px}
+.red-dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:pulse 1.4s infinite}
+.banner .left{margin-inline-start:auto;color:#ffb3b9;font-size:.78rem;background:rgba(255,60,80,.12);border:1px dashed rgba(255,93,108,.5);padding:4px 12px;border-radius:99px}
 
 /* ---------- sheet ---------- */
 .sheet{max-width:1020px;margin:10px auto 0;background:linear-gradient(180deg,var(--sheet1),var(--sheet2));
@@ -85,12 +95,39 @@ section{padding:14px 4px 30px;scroll-margin-top:24px}
 .elapsed{color:#e2ccff;text-shadow:0 0 14px rgba(176,124,255,.6);font-weight:700;font-size:1.02rem;line-height:2.1;min-height:3.2em}
 .t-date{font-size:.72rem;color:var(--dim);margin-top:6px}
 
-/* notes */
-.note{background:linear-gradient(145deg,var(--card1),var(--card2));border:1px solid var(--line);border-inline-start:3px solid var(--glow);border-radius:18px;padding:16px 18px;margin-bottom:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:transform .3s,box-shadow .3s}
-.note:hover{transform:translateX(-6px);box-shadow:0 0 20px rgba(255,255,255,.08),inset 0 1px 0 rgba(255,255,255,.06)}
+/* notes preview */
+.note{background:linear-gradient(145deg,var(--card1),var(--card2));border:1px solid var(--line);border-inline-start:3px solid var(--glow);border-radius:18px;padding:16px 18px;margin-bottom:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:transform .3s,box-shadow .3s,border-color .3s;cursor:pointer}
+.note:hover{transform:translateX(-6px);border-color:#4a5382;box-shadow:0 0 20px rgba(255,255,255,.08)}
 .note time{display:block;font-size:.74rem;color:var(--dim);margin-bottom:4px}
 .note p{font-size:.93rem;color:#dde2f5}
 .note bdi{color:var(--cyan)}
+.note.hot{border-color:rgba(255,93,108,.55);border-inline-start-color:var(--red)}
+.hot-tag{display:inline-block;font-size:.68rem;color:#ff8088;border:1px solid rgba(255,93,108,.6);background:rgba(255,60,80,.14);padding:1px 8px;border-radius:99px;margin-inline-start:8px;animation:pulse 2s infinite}
+
+/* ---------- notes room ---------- */
+.room{position:fixed;inset:0;z-index:60;background:radial-gradient(700px 400px at 50% -100px,rgba(176,124,255,.20),transparent 60%),#0d0f1e;
+  visibility:hidden;opacity:0;transition:opacity .35s,visibility .35s;overflow-y:auto;padding:16px 16px 70px}
+.room.open{visibility:visible;opacity:1}
+.room-inner{max-width:760px;margin:0 auto;transform:translateY(26px);transition:transform .4s}
+.room.open .room-inner{transform:none}
+.room-head{display:flex;align-items:center;gap:12px;position:sticky;top:0;background:linear-gradient(#0d0f1e 70%,rgba(13,15,30,.7));padding:12px 0 16px;z-index:2}
+.room-title{font-size:1.6rem;color:#fff}
+.room-count{font-size:.72rem;color:var(--muted);background:#1c2038;border:1px solid #343b5e;padding:3px 12px;border-radius:99px}
+.room-close{margin-inline-start:auto;width:42px;height:42px;border-radius:50%;border:1px solid #343b5e;background:#1c2038;color:#fff;font-size:16px;cursor:pointer;transition:transform .35s,border-color .3s,color .3s}
+.room-close:hover{transform:rotate(90deg);border-color:var(--red);color:#ff8088}
+.room-sub{color:var(--muted);font-size:.82rem;margin-bottom:18px}
+.rnote{position:relative;background:linear-gradient(145deg,#20243c,#171a2c);border:1px solid #333a5c;border-inline-start:3px solid var(--glow);border-radius:16px;padding:16px 18px;margin-bottom:12px;transition:transform .3s,border-color .3s}
+.rnote:hover{transform:translateX(-6px);border-color:#4a5382}
+.rnote .no{position:absolute;top:12px;inset-inline-end:14px;font-size:.68rem;color:var(--dim)}
+.rnote time{display:block;font-size:.74rem;color:var(--dim)}
+.rnote p{color:#e3e7f7;font-size:.95rem;margin-top:2px}
+.rnote bdi{color:var(--cyan)}
+.rnote.hot{border-color:rgba(255,93,108,.55);border-inline-start-color:var(--red)}
+.rnote.flash{animation:flash .9s}
+@keyframes flash{0%{box-shadow:0 0 0 rgba(91,140,255,0)}30%{box-shadow:0 0 26px rgba(91,140,255,.65)}100%{box-shadow:none}}
+
+.pop{animation:fadeUp .5s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 /* twitter */
 .tw-card{background:linear-gradient(145deg,#232a4a,#1a1e36);border:1px solid var(--blue);border-radius:24px;padding:28px 22px;text-align:center;
@@ -106,7 +143,6 @@ section{padding:14px 4px 30px;scroll-margin-top:24px}
 
 footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
 
-/* reveal */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;transition-delay:var(--d,0s)}
 .reveal.in{opacity:1;transform:none}
 
@@ -117,11 +153,12 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   .icon.emo{font-size:38px}
   .icon svg{width:38px;height:38px}
   .tw-card .icon svg{width:46px;height:46px}
+  .banner .left{margin-inline-start:0;width:100%;text-align:center}
 }
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .reveal{opacity:1;transform:none}
+  .reveal,.pop{opacity:1;transform:none}
 }
 </style>
 </head>
@@ -135,6 +172,11 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   </div>
   <button id="gearBtn" class="tb-btn" type="button" title="حالت آروم">⚙️</button>
   <button id="langBtn" class="tb-btn" type="button" title="زبان / Language">EN</button>
+</div>
+
+<div id="banner" class="banner" style="display:none">
+  <span class="txt"><span class="red-dot"></span><span data-i18n="bannerTxt">به زودی آیپی اسکنر میدیم بیرون</span> 🚨</span>
+  <span class="left" id="bannerLeft"></span>
 </div>
 
 <div class="sheet">
@@ -187,18 +229,10 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
 
   <section id="notes">
     <h2 class="sec-title" style="--sg:#ffc94d"><span data-i18n="sNotes">نوت‌ها</span></h2>
-    <article class="note reveal" style="--glow:#5b8cff">
-      <time data-i18n="n1d">۱۹ مرداد ۱۴۰۵</time>
-      <p data-i18n="n1p">بالاخره سایت رو راه انداختم. ساده و بی‌سروصدا، همون‌جوری که خودم دوست دارم.</p>
-    </article>
-    <article class="note reveal" style="--glow:#ffc94d;--d:.1s">
-      <time data-i18n="n2d">۳ مرداد ۱۴۰۵</time>
-      <p data-i18n="n2p">یه پروژهٔ کوچیک دستمه. وقتی به یه سروشکل رسید، همین‌جا ازش می‌گم.</p>
-    </article>
-    <article class="note reveal" style="--glow:#3ee6a0;--d:.2s">
-      <time data-i18n="n3d">۲۱ تیر ۱۴۰۵</time>
-      <p data-i18n="n3p">تصمیم گرفتم بیشتر توییتر باشم. اگه حرفی، نظری، چیزی: <bdi dir="ltr">@Reza_ZeroOnee</bdi></p>
-    </article>
+    <div id="notesPreview"></div>
+    <div style="text-align:center;margin-top:4px">
+      <button id="allNotesBtn" class="cta ghosty" type="button" data-i18n="allNotes">همهٔ نوت‌ها ←</button>
+    </div>
   </section>
 
   <section id="twitter">
@@ -215,6 +249,19 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   </section>
 
   <footer data-i18n="foot">© ۱۴۰۵ · رضا — همین و بس.</footer>
+</div>
+
+<!-- اتاق نوت‌ها -->
+<div id="room" class="room" aria-hidden="true">
+  <div class="room-inner">
+    <div class="room-head">
+      <h2 class="room-title" data-i18n="roomTitle">اتاق نوت‌ها</h2>
+      <span class="room-count" id="roomCount"></span>
+      <button id="roomClose" class="room-close" type="button" aria-label="close">✕</button>
+    </div>
+    <p class="room-sub" data-i18n="roomSub">هر نوتی که نوشته بشه، این‌جا می‌مونه. روی هر کدوم که خواستی بگرد.</p>
+    <div id="roomFeed"></div>
+  </div>
 </div>
 
 <script>
@@ -235,10 +282,10 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       aboutTxt:'این‌جا یه صفحهٔ شخصیِ ساده‌ست؛ نه رزومه‌ست، نه فروشگاه، نه هیچ چیز دیگه. هر از گاهی یه نوت می‌ذارم، هر از گاهی هم فقط سکوت. <b>همون‌قدر که لازمه، نه یه کلمه بیشتر.</b> اگه حرفی هم بود، توییتر پیدام می‌کنی.',
       sTimer:'ساعت و عمر سایت', lblClock:'ساعت الان', lblElapsed:'از ساخته شدن این سایت گذشته',
       startDate:'شروع: ۱۹ مرداد ۱۴۰۵',
-      sNotes:'نوت‌ها',
-      n1d:'۱۹ مرداد ۱۴۰۵', n1p:'بالاخره سایت رو راه انداختم. ساده و بی‌سروصدا، همون‌جوری که خودم دوست دارم.',
-      n2d:'۳ مرداد ۱۴۰۵', n2p:'یه پروژهٔ کوچیک دستمه. وقتی به یه سروشکل رسید، همین‌جا ازش می‌گم.',
-      n3d:'۲۱ تیر ۱۴۰۵', n3p:'تصمیم گرفتم بیشتر توییتر باشم. اگه حرفی، نظری، چیزی: <bdi dir="ltr">@Reza_ZeroOnee</bdi>',
+      sNotes:'نوت‌ها', allNotes:'همهٔ نوت‌ها ←',
+      roomTitle:'اتاق نوت‌ها', roomSub:'هر نوتی که نوشته بشه، این‌جا می‌مونه. روی هر کدوم که خواستی بگرد.',
+      noteWord:'نوت', hotTag:'به زودی',
+      bannerTxt:'به زودی آیپی اسکنر میدیم بیرون', bannerLbl:'مانده:',
       sTw:'توییتر', twSub:'من اینجام؛ هر خبری هم باشه، اول همون‌جا می‌گم.',
       btnOpen:'باز کردن توییتر', btnCopy:'کپی آیدی', copied:'کپی شد ✓',
       foot:'© ۱۴۰۵ · رضا — همین و بس.', gearTitle:'حالت آروم',
@@ -256,10 +303,10 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       aboutTxt:"This is a simple personal page; not a résumé, not a store, nothing else. I drop a note now and then, and sometimes just silence. <b>Only as much as needed, not a word more.</b> If you want to talk, find me on X.",
       sTimer:'Clock & site age', lblClock:'Current time', lblElapsed:'Time since this site was born',
       startDate:'Start: August 10, 2026',
-      sNotes:'Notes',
-      n1d:'August 10, 2026', n1p:'Finally launched the site. Simple and quiet, just the way I like it.',
-      n2d:'July 25, 2026', n2p:"I'm working on a small project. Once it takes shape, I'll talk about it here.",
-      n3d:'July 12, 2026', n3p:'Decided to be more on X. If you have anything to say: <bdi dir="ltr">@Reza_ZeroOnee</bdi>',
+      sNotes:'Notes', allNotes:'All notes →',
+      roomTitle:'Notes Room', roomSub:'Every note stays here. Take your time.',
+      noteWord:'note', hotTag:'soon',
+      bannerTxt:'Coming soon: IP Scanner', bannerLbl:'Left:',
       sTw:'X', twSub:"Find me here; whatever news there is, I say it there first.",
       btnOpen:'Open X', btnCopy:'Copy handle', copied:'Copied ✓',
       foot:'© 2026 · Reza — that\u2019s it.', gearTitle:'Calm mode',
@@ -267,6 +314,33 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       units:{y:'years', d:'days', h:'hours', m:'mins', s:'secs'}
     }
   };
+
+  var NOTES = [
+    {
+      glow:'#ff5d6c', hot:true,
+      d:{fa:'۱۹ مرداد ۱۴۰۵', en:'August 10, 2026'},
+      p:{fa:'به زودی یه آیپی اسکنر میدیم بیرون؛ خبرش همین‌جا میاد.',
+         en:'An IP scanner is coming soon; the news drops right here.'}
+    },
+    {
+      glow:'#5b8cff', hot:false,
+      d:{fa:'۱۹ مرداد ۱۴۰۵', en:'August 10, 2026'},
+      p:{fa:'بالاخره سایت رو راه انداختم. ساده و بی‌سروصدا، همون‌جوری که خودم دوست دارم.',
+         en:'Finally launched the site. Simple and quiet, just the way I like it.'}
+    },
+    {
+      glow:'#ffc94d', hot:false,
+      d:{fa:'۳ مرداد ۱۴۰۵', en:'July 25, 2026'},
+      p:{fa:'یه پروژهٔ کوچیک دستمه. وقتی به یه سروشکل رسید، همین‌جا ازش می‌گم.',
+         en:"I'm working on a small project. Once it takes shape, I'll talk about it here."}
+    },
+    {
+      glow:'#3ee6a0', hot:false,
+      d:{fa:'۲۱ تیر ۱۴۰۵', en:'July 12, 2026'},
+      p:{fa:'تصمیم گرفتم بیشتر توییتر باشم. اگه حرفی، نظری، چیزی: <bdi dir="ltr">@Reza_ZeroOnee</bdi>',
+         en:'Decided to be more on X. If you have anything to say: <bdi dir="ltr">@Reza_ZeroOnee</bdi>'}
+    }
+  ];
 
   function toFa(s){ return String(s).replace(/\d/g, function(d){ return '۰۱۲۳۴۵۶۷۸۹'[d]; }); }
   function num(n){ return CUR_LANG === 'fa' ? toFa(n) : String(n); }
@@ -277,6 +351,14 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   var elapsedEl = document.getElementById('elapsed');
   var copyBtn = document.getElementById('copyBtn');
   var titleEl = document.getElementById('scrambleTitle');
+  var banner = document.getElementById('banner');
+  var bannerLeft = document.getElementById('bannerLeft');
+  var notesPreview = document.getElementById('notesPreview');
+  var room = document.getElementById('room');
+  var roomFeed = document.getElementById('roomFeed');
+  var roomCount = document.getElementById('roomCount');
+  var roomClose = document.getElementById('roomClose');
+  var allNotesBtn = document.getElementById('allNotesBtn');
 
   gear.addEventListener('click', function(){
     document.body.classList.toggle('calm');
@@ -298,8 +380,10 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     });
   });
 
-  /* timer — fixed birth date, never resets */
+  /* timer — fixed birth date, never resets; banner expires 7 days after */
   var BORN = new Date('2026-08-10T00:00:00+03:30');
+  var DEADLINE = BORN.getTime() + 7 * 864e5;
+
   function elapsedStr(now){
     var d = I18N[CUR_LANG];
     var years = now.getFullYear() - BORN.getFullYear();
@@ -318,10 +402,26 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     parts.push(num(secs) + ' ' + d.units.s);
     return parts.join(d.and);
   }
+
+  function bannerTick(now){
+    var diff = DEADLINE - now.getTime();
+    if(diff <= 0){ banner.style.display = 'none'; return; }
+    banner.style.display = 'flex';
+    var d = I18N[CUR_LANG];
+    var days = Math.floor(diff / 864e5); diff -= days * 864e5;
+    var hours = Math.floor(diff / 36e5); diff -= hours * 36e5;
+    var mins = Math.floor(diff / 6e4); diff -= mins * 6e4;
+    var secs = Math.floor(diff / 1e3);
+    bannerLeft.textContent = d.bannerLbl + ' ' + num(days) + ' ' + d.units.d + d.and +
+      num(hours) + ' ' + d.units.h + d.and + num(mins) + ' ' + d.units.m + d.and +
+      num(secs) + ' ' + d.units.s;
+  }
+
   function tick(){
     var now = new Date();
     clockEl.textContent = clockFmt ? clockFmt.format(now) : '--:--:--';
     elapsedEl.textContent = elapsedStr(now);
+    bannerTick(now);
   }
   setInterval(tick, 1000);
 
@@ -342,6 +442,63 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     }
   });
 
+  /* ---------- notes ---------- */
+  function noteEl(n, i, preview){
+    var d = I18N[CUR_LANG];
+    var el = document.createElement('article');
+    el.className = (preview ? 'note' : 'rnote') + (n.hot ? ' hot' : '') + ' pop';
+    el.style.setProperty('--glow', n.glow);
+    el.style.animationDelay = (i * 0.07) + 's';
+    var tag = n.hot ? ' <span class="hot-tag">' + d.hotTag + '</span>' : '';
+    if(preview){
+      el.innerHTML = '<time>' + n.d[CUR_LANG] + '</time><p>' + n.p[CUR_LANG] + tag + '</p>';
+      el.addEventListener('click', function(){ openRoom(i); });
+    } else {
+      var no = NOTES.length - i;
+      var noTxt = CUR_LANG === 'fa' ? d.noteWord + ' ' + num(no) : d.noteWord + ' #' + no;
+      el.innerHTML = '<span class="no">' + noTxt + '</span><time>' + n.d[CUR_LANG] + '</time><p>' + n.p[CUR_LANG] + tag + '</p>';
+    }
+    return el;
+  }
+
+  function renderNotes(){
+    notesPreview.innerHTML = '';
+    roomFeed.innerHTML = '';
+    NOTES.forEach(function(n, i){
+      notesPreview.appendChild(noteEl(n, i, true));
+      roomFeed.appendChild(noteEl(n, i, false));
+    });
+    var d = I18N[CUR_LANG];
+    roomCount.textContent = CUR_LANG === 'fa' ? num(NOTES.length) + ' ' + d.noteWord : NOTES.length + ' ' + (NOTES.length === 1 ? 'note' : 'notes');
+  }
+
+  function openRoom(idx){
+    renderNotes();
+    room.classList.add('open');
+    room.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if(typeof idx === 'number' && roomFeed.children[idx]){
+      var target = roomFeed.children[idx];
+      setTimeout(function(){
+        target.scrollIntoView({behavior: RM ? 'auto' : 'smooth', block: 'center'});
+        target.classList.remove('flash');
+        void target.offsetWidth;
+        target.classList.add('flash');
+      }, 90);
+    }
+  }
+  function closeRoom(){
+    room.classList.remove('open');
+    room.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  allNotesBtn.addEventListener('click', function(){ openRoom(0); });
+  roomClose.addEventListener('click', closeRoom);
+  room.addEventListener('click', function(e){ if(e.target === room) closeRoom(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && room.classList.contains('open')) closeRoom();
+  });
+
   /* scramble title */
   function scramble(el){
     var target = el.dataset.text || el.textContent;
@@ -353,13 +510,10 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       var shown = Math.floor(step / 2), out = '';
       for(var j = 0; j < target.length; j++){
         var c = target[j];
-        if(pool.indexOf(c) === -1 && c.toLowerCase && pool.indexOf(c.toLowerCase()) === -1){
-          out += c;
-        } else if(j < shown){
-          out += c;
-        } else {
-          out += pool[(Math.random() * pool.length) | 0];
-        }
+        var inPool = pool.indexOf(c) !== -1 || pool.indexOf((c || '').toLowerCase()) !== -1;
+        if(!inPool){ out += c; }
+        else if(j < shown){ out += c; }
+        else { out += pool[(Math.random() * pool.length) | 0]; }
       }
       el.textContent = out;
       if(shown >= target.length){ clearInterval(iv); el.textContent = target; }
@@ -387,6 +541,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     titleEl.dataset.text = d.title;
     titleEl.textContent = d.title;
     scramble(titleEl);
+    renderNotes();
     tick();
     try{ localStorage.setItem('rz-lang', l); }catch(e){}
   }
