@@ -303,6 +303,192 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   else kill();
 })();
 </script>
+<style>
+/* دستیار هوش مصنوعی */
+.ai-wrap{display:flex;flex-direction:column;gap:12px}
+.ai-msgs{background:#0f1222;border:1px solid #343b5e;border-radius:16px;padding:14px;min-height:220px;max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.ai-msg{display:flex;flex-direction:column;gap:4px;max-width:85%}
+.ai-user{align-self:flex-start;align-items:flex-start}
+.ai-bot{align-self:flex-end;align-items:flex-end}
+.ai-bubble{padding:10px 14px;border-radius:14px;font-size:.9rem;line-height:1.8;white-space:pre-wrap;word-break:break-word}
+.ai-user .ai-bubble{background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;border-bottom-right-radius:4px}
+.ai-bot .ai-bubble{background:#1e2238;color:#e8eaf2;border:1px solid #343b5e;border-bottom-left-radius:4px}
+.ai-copy{background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:8px;padding:3px 10px;font-size:.72rem;cursor:pointer;transition:.2s;font-family:inherit}
+.ai-copy:hover{border-color:var(--cyan);color:var(--cyan)}
+.ai-typing{color:var(--dim);font-size:.8rem;font-style:italic}
+.ai-quick{display:flex;gap:8px;flex-wrap:wrap}
+.ai-chip{background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:99px;padding:6px 14px;font-size:.78rem;cursor:pointer;transition:.2s;font-family:inherit}
+.ai-chip:hover{transform:translateY(-2px);border-color:var(--purple);color:#fff;box-shadow:0 0 12px rgba(176,124,255,.4)}
+.ai-input-row{display:flex;gap:8px;align-items:flex-end}
+#aiInput{flex:1;background:#12142a;border:1px solid #343b5e;border-radius:12px;color:#fff;font-family:inherit;font-size:.92rem;padding:10px 12px;resize:vertical;min-height:48px;line-height:1.7}
+#aiInput:focus{outline:none;border-color:var(--purple);box-shadow:0 0 12px rgba(176,124,255,.35)}
+.ai-head{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.ai-head .t{color:#e2ccff;font-weight:700;font-size:.95rem}
+.ai-clear{margin-inline-start:auto}
+</style>
+<script>
+/* دستیار هوش مصنوعی رایگان - Pollinations */
+(function(){
+  if(window.__rezaAI) return; window.__rezaAI = true;
+
+  var SYSTEM = 'تو یک دستیار هوشمند و خلاق برای مدیریت یک وب‌سایت شخصی فارسی هستی. همیشه به فارسی روان و صمیمی پاسخ بده. در نوشتن نوت، متن بنر، ایده‌پردازی و کدنویسی کمک می‌کنی. پاسخ‌هایت کوتاه، مفید و کاربردی باشد.';
+  var chatHistory = [{role:'system', content:SYSTEM}];
+
+  function init(){
+    var tabs = document.querySelector('.tabs');
+    var adminCard = document.querySelector('.admin-card');
+    if(!tabs || !adminCard || document.getElementById('tab-ai')) return;
+
+    /* تب جدید */
+    var tab = document.createElement('button');
+    tab.type='button'; tab.className='tab'; tab.dataset.tab='ai';
+    tab.textContent='🤖 هوش مصنوعی';
+    tabs.appendChild(tab);
+
+    /* پنل چت */
+    var pane = document.createElement('div');
+    pane.id='tab-ai'; pane.className='tabpane'; pane.hidden=true;
+    pane.innerHTML =
+      '<div class="ai-wrap">'+
+        '<div class="ai-head"><span class="t">🤖 دستیار هوش مصنوعی (رایگان)</span>'+
+          '<button type="button" class="ai-clear cta sm ghosty" id="aiClear">پاک کردن گفتگو 🗑</button></div>'+
+        '<div class="ai-msgs" id="aiMsgs"></div>'+
+        '<div class="ai-quick" id="aiQuick"></div>'+
+        '<div class="ai-input-row">'+
+          '<textarea id="aiInput" rows="2" placeholder="سوالت رو بنویس… (Enter برای ارسال)"></textarea>'+
+          '<button type="button" id="aiSend" class="cta sm ok">ارسال ⬆</button>'+
+        '</div>'+
+      '</div>';
+    adminCard.appendChild(pane);
+
+    /* سوییچ تب (مثل بقیه) */
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(x){ x.classList.remove('sel'); });
+      tab.classList.add('sel');
+      document.querySelectorAll('.tabpane').forEach(function(p){ p.hidden=true; });
+      pane.hidden=false;
+    });
+
+    var aiMsgs=document.getElementById('aiMsgs');
+    var aiInput=document.getElementById('aiInput');
+    var aiSend=document.getElementById('aiSend');
+    var aiClear=document.getElementById('aiClear');
+    var aiQuick=document.getElementById('aiQuick');
+
+    /* دکمه‌های آماده */
+    var quicks=[
+      ['✍️ یه نوت جدید بنویس','یه نوت کوتاه و صمیمی برای سایت شخصی من بنویس که انگار خودم نوشتم.'],
+      ['🎯 ایده برای بنر','چند ایده جذاب برای متن بنر بالای سایت شخصی بده.'],
+      ['💡 چی به سایت اضافه کنم؟','چند پیشنهاد خلاقانه بده که به یه سایت شخصی ساده اضافه کنم.'],
+      ['🔧 یه اسکریپت ساده','یه اسکریپت جاوااسکریپت ساده و کاربردی برای یه صفحه وب بنویس.']
+    ];
+    quicks.forEach(function(q){
+      var b=document.createElement('button');
+      b.type='button'; b.className='ai-chip'; b.textContent=q[0];
+      b.addEventListener('click', function(){ sendAI(q[1]); });
+      aiQuick.appendChild(b);
+    });
+
+    function copyTxt(t, done){
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(t).then(done).catch(function(){ fbCopy(t,done); });
+      } else fbCopy(t,done);
+    }
+    function fbCopy(t,done){
+      var ta=document.createElement('textarea'); ta.value=t;
+      ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try{document.execCommand('copy');}catch(e){}
+      document.body.removeChild(ta); done();
+    }
+
+    function addMsg(role, text){
+      var wrap=document.createElement('div');
+      wrap.className='ai-msg '+(role==='user'?'ai-user':'ai-bot');
+      var bub=document.createElement('div');
+      bub.className='ai-bubble'; bub.textContent=text;
+      wrap.appendChild(bub);
+      if(role==='bot'){
+        var cp=document.createElement('button');
+        cp.type='button'; cp.className='ai-copy'; cp.textContent='📋 کپی';
+        cp.addEventListener('click', function(){
+          copyTxt(text, function(){ cp.textContent='✓ کپی شد'; setTimeout(function(){ cp.textContent='📋 کپی'; },1500); });
+        });
+        wrap.appendChild(cp);
+      }
+      aiMsgs.appendChild(wrap);
+      aiMsgs.scrollTop=aiMsgs.scrollHeight;
+      return wrap;
+    }
+
+    async function askAI(messages){
+      /* تلاش اول: فرمت OpenAI */
+      try{
+        var resp=await fetch('https://text.pollinations.ai/openai',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({model:'openai', messages:messages})
+        });
+        if(resp.ok){
+          var txt=await resp.text();
+          try{
+            var j=JSON.parse(txt);
+            if(j && j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content)
+              return j.choices[0].message.content;
+          }catch(e){}
+          if(txt && txt.trim()) return txt;
+        }
+      }catch(e){}
+      /* تلاش دوم: GET ساده */
+      var lastUser='', sys='';
+      for(var i=messages.length-1;i>=0;i--){ if(messages[i].role==='user'){ lastUser=messages[i].content; break; } }
+      for(var k=0;k<messages.length;k++){ if(messages[k].role==='system'){ sys=messages[k].content; break; } }
+      var url='https://text.pollinations.ai/'+encodeURIComponent(lastUser)+(sys?('?system='+encodeURIComponent(sys)):'');
+      var r2=await fetch(url);
+      if(!r2.ok) throw new Error('خطا در ارتباط با هوش مصنوعی');
+      return await r2.text();
+    }
+
+    async function sendAI(text){
+      text=(text||'').trim();
+      if(!text) return;
+      addMsg('user', text);
+      chatHistory.push({role:'user', content:text});
+      aiInput.value='';
+      aiSend.disabled=true;
+      var typing=addMsg('bot','…');
+      typing.querySelector('.ai-bubble').classList.add('ai-typing');
+      try{
+        var msgs=[chatHistory[0]].concat(chatHistory.slice(-12)); /* سیستم + آخرین پیام‌ها */
+        var ans=await askAI(msgs);
+        chatHistory.push({role:'assistant', content:ans});
+        typing.remove();
+        addMsg('bot', ans);
+      }catch(err){
+        typing.remove();
+        addMsg('bot','⚠️ '+(err.message||'مشکلی پیش اومد. اینترنت رو چک کن و دوباره امتحان کن.'));
+      }finally{
+        aiSend.disabled=false;
+        aiInput.focus();
+      }
+    }
+
+    aiSend.addEventListener('click', function(){ sendAI(aiInput.value); });
+    aiInput.addEventListener('keydown', function(e){
+      if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendAI(aiInput.value); }
+    });
+    aiClear.addEventListener('click', function(){
+      chatHistory=[{role:'system', content:SYSTEM}];
+      aiMsgs.innerHTML='';
+    });
+
+    addMsg('bot','سلام! 👋 من دستیار هوش مصنوعیتم. هر چی می‌خوای بپرس، یا از دکمه‌های آماده بالا استفاده کن.');
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
 </head>
 <body>
 
