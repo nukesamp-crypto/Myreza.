@@ -1700,5 +1700,123 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   document.body.appendChild(menu);
 })();
 </script>
+<script>
+(function(){
+  if(window.__mzAI)return;window.__mzAI=true;
+  var SYSTEM='تو یک دستیار هوشمند برای مدیریت یک وب‌سایت شخصی فارسی هستی. به فارسی روان و صمیمی پاسخ بده. در نوشتن نوت، بنر، ایده و کدنویسی کمک کن. پاسخ کوتاه و کاربردی باشد.';
+  var chatHist=[{role:'system',content:SYSTEM}];
+  var fab=document.createElement('button');
+  fab.type='button';fab.textContent='🤖';
+  fab.style.cssText='position:fixed;bottom:20px;right:20px;z-index:9999;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 8px 24px rgba(90,110,255,.5);display:none;place-items:center;';
+  document.body.appendChild(fab);
+  var ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;z-index:10000;background:rgba(6,8,18,.8);backdrop-filter:blur(6px);display:none;place-items:center;padding:16px;';
+  ov.innerHTML='<div style="max-width:600px;width:100%;background:linear-gradient(145deg,#1a1d33,#14172b);border:1px solid #343b5e;border-radius:22px;padding:20px;max-height:85vh;overflow-y:auto;">'
+    +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">'
+    +'<span style="color:#e2ccff;font-weight:700;">🤖 دستیار هوش مصنوعی</span>'
+    +'<button type="button" id="aiX" style="margin-inline-start:auto;width:36px;height:36px;border-radius:50%;border:1px solid #343b5e;background:#181c30;color:#fff;cursor:pointer;">✕</button></div>'
+    +'<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">'
+    +'<input id="aiKeyIn" type="password" placeholder="کلید Gemini (اختیاری) — AIza..." style="flex:1;min-width:180px;background:#0f1222;border:1px solid #343b5e;border-radius:10px;color:#fff;padding:9px 12px;font-family:inherit;direction:ltr;">'
+    +'<button type="button" id="aiSaveK" style="background:#232948;color:#cdd3ea;border:1px dashed #4a5382;border-radius:10px;padding:9px 14px;cursor:pointer;font-family:inherit;">ذخیره 🔑</button>'
+    +'<button type="button" id="aiRev" style="background:linear-gradient(135deg,#1f7a4a,#2ea86e);color:#fff;border:none;border-radius:10px;padding:9px 14px;cursor:pointer;font-family:inherit;font-weight:700;">🔍 بررسی کد سایت</button></div>'
+    +'<div id="aiMsgs" style="background:#0f1222;border:1px solid #343b5e;border-radius:14px;padding:12px;min-height:180px;max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;"></div>'
+    +'<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">'
+    +'<button type="button" class="aiq" data-q="یه نوت کوتاه و صمیمی برای سایت شخصی من بنویس." style="background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:99px;padding:6px 12px;font-size:.78rem;cursor:pointer;font-family:inherit;">✍️ نوشتن نوت</button>'
+    +'<button type="button" class="aiq" data-q="چند ایده جذاب برای متن بنر سایت بده." style="background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:99px;padding:6px 12px;font-size:.78rem;cursor:pointer;font-family:inherit;">🎯 ایده بنر</button>'
+    +'<button type="button" class="aiq" data-q="چند پیشنهاد خلاقانه برای سایت شخصی بده." style="background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:99px;padding:6px 12px;font-size:.78rem;cursor:pointer;font-family:inherit;">💡 ایده سایت</button></div>'
+    +'<div style="display:flex;gap:8px;">'
+    +'<textarea id="aiIn" rows="2" placeholder="سوالت رو بنویس…" style="flex:1;background:#12142a;border:1px solid #343b5e;border-radius:12px;color:#fff;padding:10px 12px;font-family:inherit;resize:vertical;"></textarea>'
+    +'<button type="button" id="aiSendB" style="background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;border:none;border-radius:12px;padding:10px 18px;cursor:pointer;font-family:inherit;font-weight:700;">ارسال ⬆</button></div></div>';
+  document.body.appendChild(ov);
+  function $(id){return document.getElementById(id);}
+  var msgs=$('aiMsgs');
+  $('aiKeyIn').value=localStorage.getItem('rz-ai-key')||'';
+  fab.addEventListener('click',function(){ov.style.display='grid';});
+  $('aiX').addEventListener('click',function(){ov.style.display='none';});
+  ov.addEventListener('click',function(e){if(e.target===ov)ov.style.display='none';});
+  $('aiSaveK').addEventListener('click',function(){localStorage.setItem('rz-ai-key',$('aiKeyIn').value.trim());toastMsg('کلید ذخیره شد ✓');});
+  function key(){return ($('aiKeyIn').value.trim()||localStorage.getItem('rz-ai-key')||'').trim();}
+  function toastMsg(m){var t=document.createElement('div');t.textContent=m;t.style.cssText='position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:10001;background:#1a1d33;border:1px solid #34d399;border-radius:14px;padding:10px 16px;color:#fff;font-size:.85rem;';document.body.appendChild(t);setTimeout(function(){t.remove();},2500);}
+  function addMsg(role,text){
+    var w=document.createElement('div');
+    w.style.cssText='display:flex;flex-direction:column;gap:4px;max-width:88%;'+(role==='user'?'align-self:flex-start;':'align-self:flex-end;align-items:flex-end;');
+    var b=document.createElement('div');b.textContent=text;
+    b.style.cssText='padding:10px 14px;border-radius:14px;font-size:.9rem;line-height:1.8;white-space:pre-wrap;word-break:break-word;'+(role==='user'?'background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;':'background:#1e2238;color:#e8eaf2;border:1px solid #343b5e;');
+    w.appendChild(b);
+    if(role==='bot'){
+      var cp=document.createElement('button');cp.type='button';cp.textContent='📋 کپی';
+      cp.style.cssText='background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:8px;padding:3px 10px;font-size:.72rem;cursor:pointer;font-family:inherit;';
+      cp.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(text);cp.textContent='✓ کپی شد';setTimeout(function(){cp.textContent='📋 کپی';},1500);});
+      w.appendChild(cp);
+    }
+    msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;return w;
+  }
+  async function gemini(k,messages){
+    var url='https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='+encodeURIComponent(k);
+    var contents=[],sys='';
+    messages.forEach(function(m){if(m.role==='system')sys=m.content;else contents.push({role:m.role==='assistant'?'model':'user',parts:[{text:m.content}]});});
+    var body={contents:contents};if(sys)body.systemInstruction={parts:[{text:sys}]};
+    var r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok)throw new Error('Gemini '+r.status);
+    var j=await r.json();
+    if(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts)return j.candidates[0].content.parts.map(function(p){return p.text||'';}).join('');
+    throw new Error('پاسخی نبود');
+  }
+  async function polli(messages){
+    try{
+      var r=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',messages:messages})});
+      if(r.ok){var t=await r.text();try{var j=JSON.parse(t);if(j&&j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)return j.choices[0].message.content;}catch(e){}if(t&&t.trim())return t;}
+    }catch(e){}
+    var last='';for(var i=messages.length-1;i>=0;i--){if(messages[i].role==='user'){last=messages[i].content;break;}}
+    var r2=await fetch('https://text.pollinations.ai/'+encodeURIComponent(last));
+    return await r2.text();
+  }
+  async function ask(messages){
+    var k=key();
+    if(k){try{return await gemini(k,messages);}catch(e){}}
+    return await polli(messages);
+  }
+  async function send(text){
+    text=(text||'').trim();if(!text)return;
+    addMsg('user',text);chatHist.push({role:'user',content:text});
+    $('aiIn').value='';$('aiSendB').disabled=true;
+    var ty=addMsg('bot','…');
+    try{
+      var m=[chatHist[0]].concat(chatHist.slice(-12));
+      var ans=await ask(m);
+      chatHist.push({role:'assistant',content:ans});
+      ty.remove();addMsg('bot',ans);
+    }catch(e){ty.remove();addMsg('bot','⚠️ '+(e.message||'مشکل'));}
+    finally{$('aiSendB').disabled=false;}
+  }
+  $('aiSendB').addEventListener('click',function(){send($('aiIn').value);});
+  $('aiIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send($('aiIn').value);}});
+  document.querySelectorAll('.aiq').forEach(function(b){b.addEventListener('click',function(){send(b.dataset.q);});});
+  $('aiRev').addEventListener('click',async function(){
+    var cfg=null;try{cfg=JSON.parse(localStorage.getItem('rz-gh-cfg')||'null');}catch(e){}
+    if(!cfg){addMsg('bot','⚠️ اول توی همگام‌سازی به گیت‌هاب وصل شو.');return;}
+    $('aiRev').disabled=true;
+    var ty=addMsg('bot','دارم کد سایت رو از گیت‌هاب می‌گیرم…');
+    try{
+      var raw='https://raw.githubusercontent.com/'+encodeURIComponent(cfg.user)+'/'+encodeURIComponent(cfg.repo)+'/'+encodeURIComponent(cfg.branch||'main')+'/'+encodeURIComponent(cfg.path||'index.html');
+      var r=await fetch(raw);
+      if(!r.ok)throw new Error('فایل پیدا نشد ('+r.status+')');
+      var code=await r.text();
+      if(code.length>80000)code=code.slice(0,80000)+'\n/* ... */';
+      var prompt='این کد کامل سایت شخصی من است. بررسی کن و به فارسی بگو: ۱) نقاط قوت ۲) مشکلات/باگ‌ها ۳) چه چیزهایی می‌شود اضافه کرد ۴) نکات امنیتی/عملکردی.\n\n```html\n'+code+'\n```';
+      var m=[{role:'system',content:'تو یک توسعه‌دهنده وب حرفه‌ای هستی که کد را بررسی و به فارسی نظر می‌دهی.'},{role:'user',content:prompt}];
+      var ans=await ask(m);
+      ty.remove();addMsg('bot',ans);
+    }catch(e){ty.remove();addMsg('bot','⚠️ '+(e.message||'مشکل در بررسی'));}
+    finally{$('aiRev').disabled=false;}
+  });
+  function gate(){
+    var isAdmin=(location.hash||'').toLowerCase().indexOf('admin')!==-1;
+    fab.style.display=isAdmin?'grid':'none';
+  }
+  window.addEventListener('hashchange',gate);
+  gate();
+})();
+</script>
 </body>
 </html>
