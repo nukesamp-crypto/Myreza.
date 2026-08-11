@@ -489,6 +489,48 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   else init();
 })();
 </script>
+<style>
+/* فقط ۲ نوت اول پیش‌نمایش دیده بشه */
+#notesPreview .note:nth-child(n+3){display:none}
+</style>
+<script>
+(function(){
+  if(window.__mzFix1)return;window.__mzFix1=true;
+
+  /* دکمهٔ «بقیه» زیر نوت‌ها */
+  var prev=document.getElementById('notesPreview');
+  if(prev && !document.getElementById('restBtn')){
+    var rb=document.createElement('button');
+    rb.id='restBtn';rb.type='button';rb.className='cta sm ghosty';
+    rb.style.cssText='margin-top:10px;';
+    rb.textContent='بقیهٔ نوت‌ها این‌جا ←';
+    rb.onclick=function(){var a=document.getElementById('allNotesBtn');if(a)a.click();};
+    prev.parentNode.insertBefore(rb,prev.nextSibling);
+  }
+
+  /* پاک‌سازی اضافه‌ها: شناورهای موسیقی/🤖، ☰ تکراری، قیمت‌ها */
+  document.querySelectorAll('button,div').forEach(function(el){
+    if(el.style&&el.style.position==='fixed'){
+      var t=(el.textContent||'');
+      if(t.indexOf('موسیقی')>-1||t.indexOf('🤖')>-1)el.remove();
+    }
+  });
+  var hams=document.querySelectorAll('button');
+  var seen=false;
+  hams.forEach(function(b){ if((b.textContent||'').trim()==='☰'){ if(seen)b.remove(); else seen=true; } });
+  var pT=document.querySelector('.tab[data-tab="prices"]');if(pT)pT.remove();
+  var pP=document.getElementById('tab-prices');if(pP)pP.remove();
+  document.querySelectorAll('.price-card').forEach(function(c){c.remove();});
+
+  /* برچسب داشبورد رو درست کن */
+  document.querySelectorAll('.card').forEach(function(c){
+    var t=c.querySelector('.c-title');
+    if(t&&t.textContent.indexOf('داشبورد')>-1){
+      var s=c.querySelector('.c-sub');if(s)s.textContent='ساعت و موسیقی';
+    }
+  });
+})();
+</script>
 </head>
 <body>
 
