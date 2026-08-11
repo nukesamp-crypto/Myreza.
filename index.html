@@ -1984,5 +1984,85 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   };
 })();
 </script>
+<script>
+(function(){
+  if(window.__mzPub4)return;window.__mzPub4=true;
+  var old=document.getElementById('safeBox');if(old)old.remove();
+  var pane=document.getElementById('tab-sync')||document.querySelector('.admin-card')||document.body;
+  var inp='background:#0f1222;border:1px solid #343b5e;border-radius:10px;color:#fff;padding:9px 12px;font-family:inherit;font-size:.85rem;';
+  var box=document.createElement('div');box.id='safeBox';
+  box.style.cssText='margin-top:14px;border-top:1px dashed #343b5e;padding-top:14px;';
+  box.innerHTML=
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">'+
+      '<input id="pUser" placeholder="نام کاربری" style="'+inp+'">'+
+      '<input id="pRepo" placeholder="مخزن (Myreza.)" style="'+inp+'">'+
+      '<input id="pBranch" placeholder="شاخه" value="main" style="'+inp+'">'+
+      '<input id="pPath" placeholder="مسیر" value="index.html" style="'+inp+'">'+
+    '</div>'+
+    '<input id="pTok" type="password" placeholder="توکن github_pat_…" style="'+inp+';width:100%;direction:ltr;margin-bottom:8px;">'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;">'+
+      '<button id="pTest" class="cta sm ghosty" type="button">آزمایش اتصال 🔌</button>'+
+      '<button id="pPub" class="cta sm ok" type="button">انتشار ☁</button>'+
+      '<button id="pSave" class="cta sm ghosty" type="button">ذخیره 💾</button>'+
+    '</div>'+
+    '<div id="pStat" style="font-size:.75rem;margin-top:10px;color:#7d84a6;line-height:1.9;"></div>';
+  pane.appendChild(box);
+
+  function $(id){return box.querySelector('#'+id);}
+  function stat(m,c){var s=$('pStat');s.textContent=m;s.style.color=(c==='ok')?'#3ee6a0':(c==='err'?'#ff8088':'#7d84a6');}
+
+  var cfg=null;try{cfg=JSON.parse(localStorage.getItem('rz-gh-cfg')||'null');}catch(e){}
+  if(cfg){$('pUser').value=cfg.user||'';$('pRepo').value=cfg.repo||'';$('pBranch').value=cfg.branch||'main';$('pPath').value=cfg.path||'index.html';}
+  $('pTok').value=localStorage.getItem('rz-gh-token')||'';
+
+  $('pSave').onclick=function(){
+    localStorage.setItem('rz-gh-token',$('pTok').value.trim());
+    localStorage.setItem('rz-gh-cfg',JSON.stringify({user:$('pUser').value.trim(),repo:$('pRepo').value.trim(),branch:$('pBranch').value.trim()||'main',path:$('pPath').value.trim()||'index.html'}));
+    stat('تنظیمات ذخیره شد ✓','ok');
+  };
+
+  function H(t){return{'Accept':'application/vnd.github+json','Authorization':'Bearer '+t};}
+  function b64d(s){var b=atob(String(s).replace(/\s/g,''));var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return new TextDecoder('utf-8').decode(u);}
+  function b64e(s){var u=new TextEncoder().encode(s);var b='';for(var i=0;i<u.length;i++)b+=String.fromCharCode(u[i]);return btoa(b);}
+  function swap(c,V,M,j){var s=c.indexOf(V);if(s===-1)return c;var m=c.indexOf(M,s);if(m===-1)return c;return c.slice(0,s)+V+j+'; '+M+c.slice(m+M.length);}
+  function vals(){return{user:$('pUser').value.trim(),repo:$('pRepo').value.trim(),branch:$('pBranch').value.trim()||'main',path:$('pPath').value.trim()||'index.html',tok:$('pTok').value.trim()};}
+  function base(v){return 'https://api.github.com/repos/'+encodeURIComponent(v.user)+'/'+encodeURIComponent(v.repo)+'/contents/'+v.path.split('/').map(encodeURIComponent).join('/');}
+
+  $('pTest').onclick=async function(){
+    var v=vals();
+    if(!v.user||!v.repo||!v.tok){stat('نام کاربری، مخزن و توکن رو پر کن','err');return;}
+    stat('در حال آزمایش…');
+    try{
+      var r=await fetch(base(v)+'?ref='+encodeURIComponent(v.branch),{headers:H(v.tok)});
+      if(r.ok)stat('✅ اتصال خوبه؛ فایل پیدا شد. می‌تونی منتشر کنی.','ok');
+      else if(r.status===401)stat('⚠️ 401: توکن اشتباه یا منقضی شده → یه توکن جدید بساز و بذار.','err');
+      else if(r.status===404)stat('⚠️ 404: نام مخزن / مسیر / شاخه اشتباهه.','err');
+      else stat('⚠️ خطا '+r.status,'err');
+    }catch(e){stat('⚠️ '+e.message,'err');}
+  };
+
+  $('pPub').onclick=async function(){
+    var v=vals();
+    if(!v.user||!v.repo||!v.tok){stat('اول تنظیمات و توکن رو پر کن و «ذخیره» بزن','err');return;}
+    var btn=this;btn.disabled=true;stat('در حال انتشار…');
+    try{
+      var g=await fetch(base(v)+'?ref='+encodeURIComponent(v.branch),{headers:H(v.tok)});
+      if(!g.ok)throw new Error('خواندن '+g.status+(g.status===401?' (توکن اشتباه)':g.status===404?' (مسیر اشتباه)':''));
+      var gj=await g.json();
+      var content=b64d(gj.content);
+      var N=JSON.parse(localStorage.getItem('rz-notes')||'[]');
+      var B=JSON.parse(localStorage.getItem('rz-banners')||'[]');
+      var S=JSON.parse(localStorage.getItem('rz-socials')||'[]');
+      content=swap(content,'var SAVED_NOTES = ','/*SAVED_NOTES*/',JSON.stringify(N).replace(/</g,'\\u003c'));
+      content=swap(content,'var SAVED_BANNERS = ','/*SAVED_BANNERS*/',JSON.stringify(B).replace(/</g,'\\u003c'));
+      content=swap(content,'var SAVED_SOCIALS = ','/*SAVED_SOCIALS*/',JSON.stringify(S).replace(/</g,'\\u003c'));
+      var p=await fetch(base(v),{method:'PUT',headers:Object.assign({'Content-Type':'application/json'},H(v.tok)),body:JSON.stringify({message:'update',content:b64e(content),branch:v.branch,sha:gj.sha})});
+      if(!p.ok){var m='';try{m=(await p.json()).message||'';}catch(e){}throw new Error('انتشار '+p.status+(m?' — '+m:''));}
+      stat('✅ منتشر شد؛ ۱-۲ دقیقه دیگه روی سایت میاد.','ok');
+    }catch(e){stat('⚠️ '+e.message,'err');}
+    finally{btn.disabled=false;}
+  };
+})();
+</script>
 </body>
 </html>
