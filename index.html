@@ -1972,7 +1972,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       var S=JSON.parse(localStorage.getItem('rz-socials')||'[]');
       content=swap(content,'var SAVED_NOTES = ','/*SAVED_NOTES*/',JSON.stringify(N).replace(/</g,'\\u003c'));
       content=swap(content,'var SAVED_BANNERS = ','/*SAVED_BANNERS*/',JSON.stringify(B).replace(/</g,'\\u003c'));
-      content=swap(content,'var SAVED_SOCIALS = []; /*SAVED_SOCIALS*/',JSON.stringify(S).replace(/</g,'\\u003c'));
+      content=swap(content,'var SAVED_SOCIALS = []; /*SAVED_SOCIALS*/undefined; []; /*SAVED_SOCIALS*/',JSON.stringify(S).replace(/</g,'\\u003c'));
       var p=await fetch(base,{method:'PUT',headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify({message:'update',content:b64e(content),branch:cfg.branch||'main',sha:gj.sha})});
       if(!p.ok){var e='';try{e=(await p.json()).message||'';}catch(x){}throw new Error('انتشار خطا '+p.status+(e?' — '+e:''));}
       btn.textContent='منتشر شد ✓';
