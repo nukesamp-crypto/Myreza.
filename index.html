@@ -1590,5 +1590,82 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   document.body.appendChild(btn);
 })();
 </script>
+<script>
+(function(){
+  if(window.__mzMusic)return;window.__mzMusic=true;
+  var AC=null,on=false,nodes=[],timer=null,master=null,send=null,step=0;
+  var mel=[523.25,659.25,783.99,659.25,880,783.99,659.25,587.33,523.25,587.33,659.25,783.99,880,783.99,659.25,523.25];
+  var SP=0.45;
+  function ctx(){AC=AC||new (window.AudioContext||window.webkitAudioContext)();return AC;}
+  function build(){
+    var ac=ctx();
+    master=ac.createGain();master.gain.value=0.0001;master.connect(ac.destination);
+    master.gain.linearRampToValueAtTime(0.22,ac.currentTime+1.2);
+    var d=ac.createDelay(1);d.delayTime.value=0.38;
+    var fb=ac.createGain();fb.gain.value=0.32;
+    var wet=ac.createGain();wet.gain.value=0.25;
+    d.connect(fb);fb.connect(d);d.connect(wet);wet.connect(ac.destination);
+    send=ac.createGain();send.gain.value=1;send.connect(d);
+    [130.81,164.81,196,246.94].forEach(function(f){
+      var o=ac.createOscillator();o.type='sine';o.frequency.value=f;
+      var g=ac.createGain();g.gain.value=0.018;
+      var l=ac.createOscillator();l.frequency.value=0.07+Math.random()*0.05;
+      var lg=ac.createGain();lg.gain.value=0.011;
+      l.connect(lg);lg.connect(g.gain);
+      o.connect(g);g.connect(master);o.start();l.start();
+      nodes.push(o,l,g);
+    });
+    nodes.push(master,d,fb,wet,send);
+  }
+  function note(f,t,dur,v){
+    var o=AC.createOscillator();o.type='sine';o.frequency.value=f;
+    var g=AC.createGain();
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(v,t+0.04);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    o.connect(g);g.connect(master);g.connect(send);
+    o.start(t);o.stop(t+dur+0.15);
+  }
+  function bar(){
+    if(!on)return;
+    var t=ctx().currentTime+0.06;
+    for(var i=0;i<16;i++)note(mel[(step+i)%16],t+i*SP,1.1,0.1);
+    step=(step+16)%16;
+  }
+  function start(){
+    var ac=ctx();if(ac.state==='suspended')ac.resume();
+    if(!master)build();
+    on=true;bar();timer=setInterval(bar,16*SP*1000);setLbl();
+  }
+  function stop(){
+    on=false;if(timer){clearInterval(timer);timer=null;}
+    if(master){
+      try{master.gain.cancelScheduledValues(0);master.gain.linearRampToValueAtTime(0.0001,ctx().currentTime+0.4);}catch(e){}
+      var keep=nodes.slice();setTimeout(function(){keep.forEach(function(n){try{n.disconnect();}catch(e){}});},500);
+      nodes.forEach(function(n){try{if(n.stop)n.stop();}catch(e){}});
+      nodes=[];master=null;send=null;
+    }
+    setLbl();
+  }
+  var eqEl=document.getElementById('eq');
+  var card=document.querySelector('.music-card');
+  var btn;
+  if(card){
+    card.querySelectorAll('button').forEach(function(b){b.style.display='none';});
+    btn=document.createElement('button');btn.type='button';btn.className='cta sm ghosty';
+    card.appendChild(btn);
+  } else {
+    btn=document.createElement('button');btn.type='button';
+    btn.style.cssText='position:fixed;bottom:20px;left:20px;z-index:9999;background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;border:none;border-radius:99px;padding:12px 22px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(90,110,255,.5);font-family:inherit;';
+    document.body.appendChild(btn);
+  }
+  function setLbl(){
+    btn.textContent=on?'قطع کن ⏸':'پخش کن ▶';
+    if(eqEl)eqEl.classList.toggle('off',!on);
+  }
+  setLbl();
+  btn.addEventListener('click',function(){on?stop():start();});
+})();
+</script>
 </body>
 </html>
