@@ -1926,5 +1926,63 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   })();
 })();
 </script>
+<script>
+(function(){
+  if(window.__mzFix2)return;window.__mzFix2=true;
+  var pane=document.getElementById('tab-sync');
+  if(!pane)return;
+  if(document.getElementById('safeBox'))return;
+
+  var box=document.createElement('div');
+  box.id='safeBox';
+  box.style.cssText='margin-top:14px;border-top:1px dashed #343b5e;padding-top:14px;';
+  box.innerHTML=
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">'+
+      '<input id="safeTok" type="password" placeholder="توکن گیت‌هاب (github_pat_…)" style="flex:1;min-width:200px;background:#0f1222;border:1px solid #343b5e;border-radius:10px;color:#fff;padding:9px 12px;font-family:inherit;direction:ltr;">'+
+      '<button id="safeSave" class="cta sm ghosty" type="button">ذخیره 🔑</button>'+
+    '</div>'+
+    '<button id="safePub" class="cta sm ok" type="button">انتشار مطمئن ☁</button>'+
+    '<p style="font-size:.72rem;color:#7d84a6;margin-top:8px;">توکن فقط روی همین مرورگر ذخیره می‌شه و انتشار فقط نوت/بنر/شبکه‌ها رو عوض می‌کنه.</p>';
+  pane.appendChild(box);
+
+  var tok=box.querySelector('#safeTok');
+  tok.value=localStorage.getItem('rz-gh-token')||'';
+  box.querySelector('#safeSave').onclick=function(){
+    localStorage.setItem('rz-gh-token',tok.value.trim());
+    alert('توکن ذخیره شد ✓');
+  };
+
+  function b64d(s){var b=atob(String(s).replace(/\s/g,''));var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return new TextDecoder('utf-8').decode(u);}
+  function b64e(s){var u=new TextEncoder().encode(s);var b='';for(var i=0;i<u.length;i++)b+=String.fromCharCode(u[i]);return btoa(b);}
+  function swap(c,V,M,json){var s=c.indexOf(V);if(s===-1)return c;var m=c.indexOf(M,s);if(m===-1)return c;return c.slice(0,s)+V+json+'; '+M+c.slice(m+M.length);}
+
+  box.querySelector('#safePub').onclick=async function(){
+    var btn=this;btn.disabled=true;btn.textContent='در حال انتشار…';
+    try{
+      var cfg=JSON.parse(localStorage.getItem('rz-gh-cfg')||'null');
+      var t=tok.value.trim()||localStorage.getItem('rz-gh-token')||'';
+      if(!cfg||!t)throw new Error('اول توکن و اتصال رو تنظیم کن');
+      var base='https://api.github.com/repos/'+encodeURIComponent(cfg.user)+'/'+encodeURIComponent(cfg.repo)+'/contents/'+encodeURIComponent(cfg.path||'index.html');
+      var g=await fetch(base+'?ref='+encodeURIComponent(cfg.branch||'main'),{headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+t}});
+      if(!g.ok)throw new Error('خواندن فایل خطا '+g.status);
+      var gj=await g.json();
+      var content=b64d(gj.content);
+      var N=JSON.parse(localStorage.getItem('rz-notes')||'[]');
+      var B=JSON.parse(localStorage.getItem('rz-banners')||'[]');
+      var S=JSON.parse(localStorage.getItem('rz-socials')||'[]');
+      content=swap(content,'var SAVED_NOTES = ','/*SAVED_NOTES*/',JSON.stringify(N).replace(/</g,'\\u003c'));
+      content=swap(content,'var SAVED_BANNERS = ','/*SAVED_BANNERS*/',JSON.stringify(B).replace(/</g,'\\u003c'));
+      content=swap(content,'var SAVED_SOCIALS = ','/*SAVED_SOCIALS*/',JSON.stringify(S).replace(/</g,'\\u003c'));
+      var p=await fetch(base,{method:'PUT',headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify({message:'update',content:b64e(content),branch:cfg.branch||'main',sha:gj.sha})});
+      if(!p.ok){var e='';try{e=(await p.json()).message||'';}catch(x){}throw new Error('انتشار خطا '+p.status+(e?' — '+e:''));}
+      btn.textContent='منتشر شد ✓';
+      setTimeout(function(){btn.textContent='انتشار مطمئن ☁';},2000);
+    }catch(err){
+      alert('⚠️ '+err.message);
+      btn.textContent='انتشار مطمئن ☁';
+    }finally{btn.disabled=false;}
+  };
+})();
+</script>
 </body>
 </html>
