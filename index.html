@@ -228,6 +228,9 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
 .auth-input{width:100%;background:#0f1222;border:1px solid #343b5e;border-radius:10px;color:#fff;font-family:inherit;font-size:1rem;padding:12px;text-align:center;letter-spacing:2px;margin-bottom:14px}
 .auth-input:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 14px rgba(77,214,255,.4)}
 
+.exit-admin-btn{position:fixed;top:20px;inset-inline-end:20px;z-index:200;background:rgba(255,93,108,.15);border:1px dashed rgba(255,93,108,.5);color:#ff8088;padding:8px 16px;border-radius:12px;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;backdrop-filter:blur(6px)}
+.exit-admin-btn:hover{background:rgba(255,93,108,.25)}
+
 @media(max-width:560px){
   .sheet{padding-inline:14px}
   .grid{grid-template-columns:1fr 1fr;gap:11px}
@@ -492,6 +495,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   // === SECURITY ===
   var ADMIN_HASH = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9'; // admin123
   var IS_AUTHENTICATED = false;
+  var ADMIN_MODE = false; // NEW: Master switch for admin panel
   
   async function sha256(message){
     var msgBuffer = new TextEncoder().encode(message);
@@ -501,7 +505,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   }
 
   var ADMIN = false;
-
   var TOKEN_URL = 'https://github.com/settings/personal-access-tokens/new';
 
   var I18N = {
@@ -549,7 +552,8 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       foot:'© ۱۴۰۵ · رضا — همین و بس.', gearTitle:'حالت آروم', syncTitle:'اتصال به سایت',
       locale:'fa-IR', and:' و ',
       units:{y:'سال', d:'روز', h:'ساعت', m:'دقیقه', s:'ثانیه'},
-      authWrong:'رمز اشتباه است!', authWelcome:'خوش آمدی رضا 👑'
+      authWrong:'رمز اشتباه است!', authWelcome:'خوش آمدی رضا 👑',
+      exitAdmin:'✕ خروج از پنل'
     },
     en: {
       docTitle:'Reza — My Corner', pillName:'Reza', status:'online',
@@ -595,7 +599,8 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       foot:'© 2026 · Reza — that\u2019s it.', gearTitle:'Calm mode', syncTitle:'Connect to site',
       locale:'en-GB', and:', ',
       units:{y:'years', d:'days', h:'hours', m:'mins', s:'secs'},
-      authWrong:'Wrong password!', authWelcome:'Welcome Reza 👑'
+      authWrong:'Wrong password!', authWelcome:'Welcome Reza 👑',
+      exitAdmin:'✕ Exit Admin'
     }
   };
 
@@ -731,9 +736,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   function hideAuth(){
     authModal.classList.remove('open');
     authPass.value = '';
-    if(location.hash.toLowerCase().indexOf('admin') !== -1){
-      history.replaceState(null, '', location.pathname + location.search);
-    }
   }
 
   authSubmit.addEventListener('click', async function(){
@@ -745,8 +747,12 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       var hash = await sha256(pass);
       if(hash === ADMIN_HASH){
         IS_AUTHENTICATED = true;
-        ADMIN = true;
+        ADMIN_MODE = true; // FIXED: Set master switch
         hideAuth();
+        // Set hash to persist admin mode
+        if(location.hash.toLowerCase().indexOf('admin') === -1){
+          history.replaceState(null, '', location.pathname + location.search + '#admin');
+        }
         applyAdmin();
         showToast(I18N[CUR_LANG].authWelcome, 'ok');
       } else {
@@ -768,16 +774,19 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
 
   authCancel.addEventListener('click', hideAuth);
 
-  // === FIX: Always render, toggle visibility based on ADMIN ===
+  // === FIXED: applyAdmin now uses ADMIN_MODE ===
   function applyAdmin(){
     var wantsAdmin = (location.hash || '').toLowerCase().indexOf('admin') !== -1;
     
+    // If URL has #admin but not authenticated, show auth modal
     if(wantsAdmin && !IS_AUTHENTICATED){
       showAuth();
-      // Still render normal content for everyone
       ADMIN = false;
+    } else if(ADMIN_MODE && IS_AUTHENTICATED){
+      // FIXED: Keep admin mode active if ADMIN_MODE is true
+      ADMIN = true;
     } else {
-      ADMIN = IS_AUTHENTICATED && wantsAdmin;
+      ADMIN = false;
     }
     
     document.body.classList.toggle('admin', ADMIN);
@@ -785,7 +794,27 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       if(ADMIN) el.removeAttribute('hidden'); else el.setAttribute('hidden','');
     });
     
-    // ALWAYS render content (fixes the bug!)
+    // Add exit admin button when in admin mode
+    var existingExit = document.getElementById('exitAdminBtn');
+    if(ADMIN && !existingExit){
+      var exitBtn = document.createElement('button');
+      exitBtn.id = 'exitAdminBtn';
+      exitBtn.className = 'exit-admin-btn';
+      exitBtn.textContent = I18N[CUR_LANG].exitAdmin;
+      exitBtn.addEventListener('click', function(){
+        ADMIN_MODE = false;
+        ADMIN = false;
+        if(location.hash.toLowerCase().indexOf('admin') !== -1){
+          history.replaceState(null, '', location.pathname + location.search);
+        }
+        applyAdmin();
+        showToast('از پنل مدیریت خارج شدی', 'warn');
+      });
+      document.body.appendChild(exitBtn);
+    } else if(!ADMIN && existingExit){
+      existingExit.remove();
+    }
+    
     renderNotes();
     renderBanners();
   }
@@ -795,8 +824,11 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     if(wantsAdmin && !IS_AUTHENTICATED){
       showAuth();
     } else if(!wantsAdmin) {
-      ADMIN = false;
-      applyAdmin();
+      // Only exit admin if user manually removed #admin from URL
+      if(ADMIN_MODE){
+        ADMIN_MODE = false;
+        applyAdmin();
+      }
     }
   });
 
@@ -993,7 +1025,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     bannerTick(now);
   }
   setInterval(tick, 1000);
-  tick(); // Immediate first tick
+  tick();
 
   if(copyBtn) copyBtn.addEventListener('click', function(){
     var id = '@Reza_ZeroOnee';
@@ -1285,6 +1317,16 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
 
   var adminPanelBtn = document.getElementById('adminPanelBtn');
   if(adminPanelBtn) adminPanelBtn.addEventListener('click', function(){
+    // FIXED: Check authentication before opening admin panel
+    if(!IS_AUTHENTICATED){
+      showAuth();
+      return;
+    }
+    ADMIN_MODE = true;
+    if(location.hash.toLowerCase().indexOf('admin') === -1){
+      history.replaceState(null, '', location.pathname + location.search + '#admin');
+    }
+    applyAdmin();
     openRoom();
     var adminPanel = document.getElementById('adminPanel');
     if(adminPanel){
@@ -1585,6 +1627,11 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     renderBanners();
     updateSyncUI();
     tick();
+    
+    // Update exit admin button text if exists
+    var exitBtn = document.getElementById('exitAdminBtn');
+    if(exitBtn) exitBtn.textContent = d.exitAdmin;
+    
     try{ localStorage.setItem('rz-lang', l); }catch(e){}
   }
 
