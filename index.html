@@ -54,6 +54,9 @@ button{font-family:inherit}
 .red-dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:pulse 1.4s infinite}
 .banner .left{margin-inline-start:auto;color:#ffb3b9;font-size:.78rem;background:rgba(255,60,80,.12);border:1px dashed rgba(255,93,108,.5);padding:4px 12px;border-radius:99px}
 
+.custom-banner{max-width:1020px;margin:4px auto 0;padding:10px 16px;border-radius:16px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;animation:bannerPulse 2.4s infinite}
+
 .sheet{max-width:1020px;margin:10px auto 0;background:linear-gradient(180deg,var(--sheet1),var(--sheet2));
   border:1px solid #232a48;border-bottom:none;border-radius:30px 30px 0 0;padding:6px 20px 10px}
 .handle{width:46px;height:5px;border-radius:99px;background:#0b0d19;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.05);margin:12px auto 20px}
@@ -207,16 +210,15 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
 .spin-sm{animation:spinSm .8s linear infinite;display:inline-block}
 @keyframes spinSm{to{transform:rotate(360deg)}}
 
-/* === ADMIN NEW STYLES === */
+/* === ADMIN PANEL STYLES === */
 .admin-panel{background:linear-gradient(145deg,#20243c,#171a2c);border:1px solid #343b5e;border-radius:18px;padding:18px;margin-bottom:20px}
 .admin-panel h4{color:#ffd98a;font-size:1rem;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .admin-panel textarea{width:100%;background:#12142a;border:1px solid #343b5e;border-radius:10px;color:#cdd3ea;font-family:'Courier New',monospace;font-size:.85rem;padding:10px;min-height:140px;resize:vertical;direction:ltr}
 .admin-panel textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 12px rgba(77,214,255,.3)}
 .admin-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .banner-item{background:#181c30;border:1px solid #343b5e;border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.banner-item input{flex:1;background:#12142a;border:1px solid #343b5e;border-radius:8px;color:#fff;padding:6px 10px;font-family:inherit;font-size:.85rem;min-width:200px}
-.banner-item input:focus{outline:none;border-color:var(--cyan)}
-.banner-item .color-pick{width:40px;height:34px;border:1px solid #343b5e;border-radius:8px;background:none;cursor:pointer;padding:0}
+.banner-item input[type="text"]{flex:1;background:#12142a;border:1px solid #343b5e;border-radius:8px;color:#fff;padding:6px 10px;font-family:inherit;font-size:.85rem;min-width:200px}
+.banner-item input[type="color"]{width:40px;height:34px;border:1px solid #343b5e;border-radius:8px;background:none;cursor:pointer;padding:0}
 .banner-del{width:34px;height:34px;border-radius:50%;background:rgba(255,60,80,.1);border:1px solid rgba(255,93,108,.4);color:#ff8088;cursor:pointer;font-size:14px}
 .auth-modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:grid;place-items:center;visibility:hidden;opacity:0;transition:.3s}
 .auth-modal.open{visibility:visible;opacity:1}
@@ -261,8 +263,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   <span class="left" id="bannerLeft"></span>
 </div>
 
-<!-- BANNERS CONTAINER (injected from admin) -->
-<div id="bannersContainer" style="max-width:1020px;margin:0 auto;padding:0 16px"></div>
+<div id="bannersContainer"></div>
 
 <div class="sheet">
   <div class="handle" aria-hidden="true"></div>
@@ -394,7 +395,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       <p class="comp-hint" data-i18n="compHint">نوت‌ها رو ثبت کن، بعد «انتشار نوت‌ها» رو بزن — فقط نوت‌ها روی سایت عوض می‌شن، بقیهٔ کد دست نمی‌خوره.</p>
     </div>
 
-    <!-- ADMIN PANEL IN ROOM -->
+    <!-- ADMIN PANEL -->
     <div class="admin-panel owner-only" id="adminPanel" hidden>
       <h4>🔐 پنل مدیریت پیشرفته</h4>
       
@@ -408,16 +409,12 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       <details style="margin-bottom:16px">
         <summary style="cursor:pointer;color:var(--cyan);font-weight:700;padding:8px 0">💉 تزریق کد (HTML/CSS/JS)</summary>
         <p style="font-size:.75rem;color:var(--dim);margin:8px 0">کدهایی که اینجا بنویسی به فایل اصلی تزریق میشن. با هوش مصنوعی میتونی کدهای اضافی رو حذف کنی.</p>
-        <textarea id="injectedCode" placeholder="<!-- کد HTML، CSS یا JS خود را اینجا بنویسید -->
-<!-- مثال: -->
-<!-- &lt;style&gt;.custom{color:red}&lt;/style&gt; -->
-<!-- &lt;div class=&quot;custom&quot;&gt;سلام&lt;/div&gt; -->
-<!-- &lt;script&gt;console.log('hello')&lt;/script&gt; --></textarea>
+        <textarea id="injectedCode" placeholder="<!-- کد HTML، CSS یا JS خود را اینجا بنویسید -->"></textarea>
         <div class="admin-actions">
           <button id="aiCleanBtn" class="cta sm" type="button" style="background:linear-gradient(135deg,#b07cff,#8b3dff)">🤖 حذف کدهای شلوغ با AI</button>
           <button id="saveCodeBtn" class="cta sm ok" type="button">💾 ذخیره و تزریق</button>
         </div>
-        <p style="font-size:.68rem;color:var(--dim);margin-top:8px">⚠️ توجه: کد تزریق شده با هر انتشار GitHub به فایل اصلی اضافه میشه.</p>
+        <p style="font-size:.68rem;color:var(--dim);margin-top:8px">⚠️ کد تزریق شده با هر انتشار GitHub به فایل اصلی اضافه میشه.</p>
       </details>
     </div>
 
@@ -492,8 +489,8 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   var SAVED_BANNERS = []; /*SAVED_BANNERS*/
   var INJECTED_CODE = ""; /*INJECTED_CODE*/
 
-  /* === SECURITY: SHA-256 HASH VERIFICATION === */
-  var ADMIN_HASH = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9'; // SHA-256 of "admin123"
+  // === SECURITY ===
+  var ADMIN_HASH = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9'; // admin123
   var IS_AUTHENTICATED = false;
   
   async function sha256(message){
@@ -503,9 +500,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     return hashArray.map(function(b){ return b.toString(16).padStart(2, '0'); }).join('');
   }
 
-  /* Admin check: must have #admin AND valid password */
-  var ADMIN_REQUEST = (location.hash || '').toLowerCase().indexOf('admin') !== -1;
-  var ADMIN = false; // Will only be true after auth
+  var ADMIN = false;
 
   var TOKEN_URL = 'https://github.com/settings/personal-access-tokens/new';
 
@@ -721,7 +716,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     toastTimer = setTimeout(function(){ toast.className = 'toast'; }, 3200);
   }
 
-  /* === AUTH MODAL === */
+  // === AUTH MODAL ===
   var authModal = document.getElementById('authModal');
   var authPass = document.getElementById('authPass');
   var authSubmit = document.getElementById('authSubmit');
@@ -736,7 +731,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   function hideAuth(){
     authModal.classList.remove('open');
     authPass.value = '';
-    // Remove #admin from URL so it doesn't re-trigger
     if(location.hash.toLowerCase().indexOf('admin') !== -1){
       history.replaceState(null, '', location.pathname + location.search);
     }
@@ -774,27 +768,35 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
 
   authCancel.addEventListener('click', hideAuth);
 
-  /* Admin: needs #admin AND authentication */
+  // === FIX: Always render, toggle visibility based on ADMIN ===
   function applyAdmin(){
-    ADMIN_REQUEST = (location.hash || '').toLowerCase().indexOf('admin') !== -1;
+    var wantsAdmin = (location.hash || '').toLowerCase().indexOf('admin') !== -1;
     
-    if(ADMIN_REQUEST && !IS_AUTHENTICATED){
+    if(wantsAdmin && !IS_AUTHENTICATED){
       showAuth();
-      return;
+      // Still render normal content for everyone
+      ADMIN = false;
+    } else {
+      ADMIN = IS_AUTHENTICATED && wantsAdmin;
     }
-
-    ADMIN = IS_AUTHENTICATED && ADMIN_REQUEST;
+    
     document.body.classList.toggle('admin', ADMIN);
     document.querySelectorAll('.owner-only').forEach(function(el){
       if(ADMIN) el.removeAttribute('hidden'); else el.setAttribute('hidden','');
     });
+    
+    // ALWAYS render content (fixes the bug!)
     renderNotes();
     renderBanners();
   }
 
   window.addEventListener('hashchange', function(){
-    if(!IS_AUTHENTICATED && location.hash.toLowerCase().indexOf('admin') !== -1){
+    var wantsAdmin = location.hash.toLowerCase().indexOf('admin') !== -1;
+    if(wantsAdmin && !IS_AUTHENTICATED){
       showAuth();
+    } else if(!wantsAdmin) {
+      ADMIN = false;
+      applyAdmin();
     }
   });
 
@@ -821,13 +823,13 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     var html = on
       ? '<span class="dot-ok"></span> <span>' + d.syncOn + '</span>'
       : '<span class="dot-off"></span> <span>' + d.syncOff + '</span>';
-    syncStatus.innerHTML = html;
-    syncStatus2.innerHTML = html;
-    syncNowBtn.disabled = !on;
-    syncNowBtn2.disabled = !on;
-    discBtn.style.display = on ? '' : 'none';
-    discBtn2.style.display = on ? '' : 'none';
-    syncBtnTop.classList.toggle('linked', on);
+    if(syncStatus) syncStatus.innerHTML = html;
+    if(syncStatus2) syncStatus2.innerHTML = html;
+    if(syncNowBtn) syncNowBtn.disabled = !on;
+    if(syncNowBtn2) syncNowBtn2.disabled = !on;
+    if(discBtn) discBtn.style.display = on ? '' : 'none';
+    if(discBtn2) discBtn2.style.display = on ? '' : 'none';
+    if(syncBtnTop) syncBtnTop.classList.toggle('linked', on);
   }
 
   gear.addEventListener('click', function(){
@@ -873,14 +875,14 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     modal.setAttribute('aria-hidden', 'true');
     fToken.value = '';
   }
-  openSettingsBtn.addEventListener('click', openModal);
-  openSettingsBtn2.addEventListener('click', openModal);
-  syncBtnTop.addEventListener('click', function(){
+  if(openSettingsBtn) openSettingsBtn.addEventListener('click', openModal);
+  if(openSettingsBtn2) openSettingsBtn2.addEventListener('click', openModal);
+  if(syncBtnTop) syncBtnTop.addEventListener('click', function(){
     if(!connected()) openModal();
     else doSync(syncBtnTop);
   });
-  mCancel.addEventListener('click', closeModal);
-  modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+  if(mCancel) mCancel.addEventListener('click', closeModal);
+  if(modal) modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape'){
       if(authModal.classList.contains('open')) hideAuth();
@@ -897,7 +899,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     };
   }
 
-  mConnect.addEventListener('click', async function(){
+  if(mConnect) mConnect.addEventListener('click', async function(){
     var d = I18N[CUR_LANG];
     var u = fUser.value.trim();
     var r = fRepo.value.trim();
@@ -945,8 +947,8 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     updateSyncUI();
     showToast(d.disconnected, 'warn');
   }
-  discBtn.addEventListener('click', disconnect);
-  discBtn2.addEventListener('click', disconnect);
+  if(discBtn) discBtn.addEventListener('click', disconnect);
+  if(discBtn2) discBtn2.addEventListener('click', disconnect);
 
   var BORN = new Date('2026-08-10T00:00:00+03:30');
   var DEADLINE = BORN.getTime() + 7 * 864e5;
@@ -986,13 +988,14 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
 
   function tick(){
     var now = new Date();
-    clockEl.textContent = clockFmt ? clockFmt.format(now) : '--:--:--';
-    elapsedEl.textContent = elapsedStr(now);
+    if(clockEl) clockEl.textContent = clockFmt ? clockFmt.format(now) : '--:--:--';
+    if(elapsedEl) elapsedEl.textContent = elapsedStr(now);
     bannerTick(now);
   }
   setInterval(tick, 1000);
+  tick(); // Immediate first tick
 
-  copyBtn.addEventListener('click', function(){
+  if(copyBtn) copyBtn.addEventListener('click', function(){
     var id = '@Reza_ZeroOnee';
     function done(){
       copyBtn.textContent = I18N[CUR_LANG].copied;
@@ -1075,17 +1078,17 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   }
 
   function renderNotes(){
-    notesPreview.innerHTML = '';
-    roomFeed.innerHTML = '';
+    if(notesPreview) notesPreview.innerHTML = '';
+    if(roomFeed) roomFeed.innerHTML = '';
     NOTES.forEach(function(n, i){
-      notesPreview.appendChild(noteEl(n, i, true));
-      roomFeed.appendChild(noteEl(n, i, false));
+      if(notesPreview) notesPreview.appendChild(noteEl(n, i, true));
+      if(roomFeed) roomFeed.appendChild(noteEl(n, i, false));
     });
     var d = I18N[CUR_LANG];
-    roomCount.textContent = CUR_LANG === 'fa'
+    if(roomCount) roomCount.textContent = CUR_LANG === 'fa'
       ? num(NOTES.length) + ' ' + d.noteWord
       : NOTES.length + ' ' + (NOTES.length === 1 ? 'note' : 'notes');
-    compDate.textContent = d.todayLbl + ' ' + todayDates()[CUR_LANG];
+    if(compDate) compDate.textContent = d.todayLbl + ' ' + todayDates()[CUR_LANG];
   }
 
   function flashEl(el){
@@ -1120,12 +1123,12 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     document.body.style.overflow = '';
   }
 
-  allNotesBtn.addEventListener('click', function(){ openRoom(0); });
-  writeBtn.addEventListener('click', function(){ openRoom(null, true); });
-  roomClose.addEventListener('click', closeRoom);
-  room.addEventListener('click', function(e){ if(e.target === room) closeRoom(); });
+  if(allNotesBtn) allNotesBtn.addEventListener('click', function(){ openRoom(0); });
+  if(writeBtn) writeBtn.addEventListener('click', function(){ openRoom(null, true); });
+  if(roomClose) roomClose.addEventListener('click', closeRoom);
+  if(room) room.addEventListener('click', function(e){ if(e.target === room) closeRoom(); });
 
-  addNoteBtn.addEventListener('click', function(){
+  if(addNoteBtn) addNoteBtn.addEventListener('click', function(){
     var txt = noteInput.value.trim();
     if(!txt){
       noteInput.classList.add('err');
@@ -1151,61 +1154,57 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     if(roomFeed.children[0]) flashEl(roomFeed.children[0]);
   });
 
-  /* === BANNERS MANAGEMENT === */
+  // === BANNERS ===
   var bannersList = document.getElementById('bannersList');
   var addBannerBtn = document.getElementById('addBannerBtn');
   var saveBannersBtn = document.getElementById('saveBannersBtn');
   var bannersContainer = document.getElementById('bannersContainer');
 
-  function renderBannerItem(b, idx){
-    var div = document.createElement('div');
-    div.className = 'banner-item';
-    div.innerHTML = 
-      '<input type="text" value="' + esc(b.text || '') + '" placeholder="متن بنر..." data-idx="' + idx + '" data-field="text">' +
-      '<input type="color" value="' + (b.color || '#ff5d6c') + '" data-idx="' + idx + '" data-field="color" class="color-pick">' +
-      '<button class="banner-del" data-idx="' + idx + '">✕</button>';
-    return div;
-  }
-
   function renderBanners(){
     if(bannersList){
       bannersList.innerHTML = '';
       BANNERS.forEach(function(b, i){
-        bannersList.appendChild(renderBannerItem(b, i));
+        var div = document.createElement('div');
+        div.className = 'banner-item';
+        div.innerHTML = 
+          '<input type="text" value="' + esc(b.text || '') + '" placeholder="متن بنر..." data-idx="' + i + '" data-field="text">' +
+          '<input type="color" value="' + (b.color || '#ff5d6c') + '" data-idx="' + i + '" data-field="color">' +
+          '<button class="banner-del" data-idx="' + i + '">✕</button>';
+        bannersList.appendChild(div);
       });
     }
-    // Render public banners
-    bannersContainer.innerHTML = '';
-    BANNERS.forEach(function(b){
-      if(!b.text) return;
-      var el = document.createElement('div');
-      el.className = 'banner';
-      el.style.display = 'flex';
-      el.style.borderColor = b.color || '#ff5d6c';
-      el.style.background = 'linear-gradient(145deg, ' + (b.color || '#ff5d6c') + '26, ' + (b.color || '#ff5d6c') + '0d)';
-      el.innerHTML = '<span class="txt"><span class="red-dot" style="background:' + (b.color || '#ff5d6c') + ';box-shadow:0 0 10px ' + (b.color || '#ff5d6c') + '"></span> ' + esc(b.text) + '</span>';
-      bannersContainer.appendChild(el);
-    });
+    if(bannersContainer){
+      bannersContainer.innerHTML = '';
+      BANNERS.forEach(function(b){
+        if(!b.text) return;
+        var el = document.createElement('div');
+        el.className = 'custom-banner';
+        el.style.display = 'flex';
+        el.style.borderColor = b.color || '#ff5d6c';
+        el.style.border = '1px solid ' + (b.color || '#ff5d6c');
+        el.style.background = 'linear-gradient(145deg, ' + (b.color || '#ff5d6c') + '26, ' + (b.color || '#ff5d6c') + '0d)';
+        el.style.boxShadow = '0 0 22px ' + (b.color || '#ff5d6c') + '40';
+        el.innerHTML = '<span class="txt" style="color:' + (b.color || '#ff5d6c') + '"><span class="red-dot" style="background:' + (b.color || '#ff5d6c') + ';box-shadow:0 0 10px ' + (b.color || '#ff5d6c') + '"></span> ' + esc(b.text) + '</span>';
+        bannersContainer.appendChild(el);
+      });
+    }
   }
 
-  addBannerBtn.addEventListener('click', function(){
+  if(addBannerBtn) addBannerBtn.addEventListener('click', function(){
     BANNERS.push({text: '', color: '#ff5d6c'});
     renderBanners();
   });
 
-  bannersList.addEventListener('input', function(e){
+  if(bannersList) bannersList.addEventListener('input', function(e){
     var idx = parseInt(e.target.dataset.idx);
     var field = e.target.dataset.field;
     if(!isNaN(idx) && field){
       BANNERS[idx][field] = e.target.value;
-      if(field === 'color'){
-        e.target.style.borderColor = e.target.value;
-      }
-      renderBanners(); // update preview
+      renderBanners();
     }
   });
 
-  bannersList.addEventListener('click', function(e){
+  if(bannersList) bannersList.addEventListener('click', function(e){
     if(e.target.classList.contains('banner-del')){
       var idx = parseInt(e.target.dataset.idx);
       if(!isNaN(idx)){
@@ -1215,17 +1214,17 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     }
   });
 
-  saveBannersBtn.addEventListener('click', function(){
+  if(saveBannersBtn) saveBannersBtn.addEventListener('click', function(){
     saveBannersStore();
     showToast('✓ بنرها ذخیره شدن', 'ok');
   });
 
-  /* === CODE INJECTION === */
+  // === CODE INJECTION ===
   var aiCleanBtn = document.getElementById('aiCleanBtn');
   var saveCodeBtn = document.getElementById('saveCodeBtn');
   var injectedTA = document.getElementById('injectedCode');
 
-  aiCleanBtn.addEventListener('click', function(){
+  if(aiCleanBtn) aiCleanBtn.addEventListener('click', function(){
     var code = injectedTA.value;
     if(!code.trim()){
       showToast('کدی برای پاکسازی نیست', 'warn');
@@ -1234,20 +1233,11 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     aiCleanBtn.disabled = true;
     aiCleanBtn.innerHTML = '<span class="spin-sm">🤖</span> در حال تحلیل...';
     
-    // Simulate AI cleaning (removes comments, extra whitespace, empty lines)
     setTimeout(function(){
       var cleaned = code;
-      // Remove HTML comments
       cleaned = cleaned.replace(/<!--[\s\S]*?-->/g, '');
-      // Remove JS single-line comments (carefully)
-      cleaned = cleaned.replace(/(^|[^:])\/\/.*$/gm, '$1');
-      // Remove JS multi-line comments
       cleaned = cleaned.replace(/\/\*[\s\S]*?\*\//g, '');
-      // Remove CSS comments
-      cleaned = cleaned.replace(/\/\*[\s\S]*?\*\//g, '');
-      // Remove empty lines
       cleaned = cleaned.replace(/^\s*[\r\n]/gm, '');
-      // Trim
       cleaned = cleaned.trim();
       
       injectedTA.value = cleaned;
@@ -1259,31 +1249,25 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     }, 1200);
   });
 
-  saveCodeBtn.addEventListener('click', function(){
+  if(saveCodeBtn) saveCodeBtn.addEventListener('click', function(){
     INJECTED_CODE = injectedTA.value;
     saveInjected();
     showToast('✓ کد ذخیره شد و در انتشار بعدی اعمال میشه', 'ok');
-    // Apply immediately for preview
     applyInjected();
   });
 
   function applyInjected(){
-    // Remove old injected elements
     document.querySelectorAll('[data-injected]').forEach(function(el){ el.remove(); });
     
     if(!INJECTED_CODE.trim()) return;
     
     try{
-      // Sanitize for XSS (basic)
-      var safeCode = INJECTED_CODE;
-      // Allow it but warn
       var container = document.createElement('div');
       container.setAttribute('data-injected', 'true');
       container.style.display = 'contents';
-      container.innerHTML = safeCode;
+      container.innerHTML = INJECTED_CODE;
       document.body.appendChild(container);
       
-      // Execute scripts
       var scripts = container.querySelectorAll('script');
       scripts.forEach(function(oldScript){
         var newScript = document.createElement('script');
@@ -1299,34 +1283,33 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     }
   }
 
-  /* === ADMIN PANEL TOGGLE === */
   var adminPanelBtn = document.getElementById('adminPanelBtn');
-  var adminPanel = document.getElementById('adminPanel');
-
-  adminPanelBtn.addEventListener('click', function(){
+  if(adminPanelBtn) adminPanelBtn.addEventListener('click', function(){
     openRoom();
-    setTimeout(function(){
-      adminPanel.scrollIntoView({behavior:'smooth', block:'start'});
-    }, 300);
+    var adminPanel = document.getElementById('adminPanel');
+    if(adminPanel){
+      setTimeout(function(){
+        adminPanel.scrollIntoView({behavior:'smooth', block:'start'});
+      }, 300);
+    }
   });
 
-  /* === BUILD CODE (with all 3 markers) === */
   function buildCode(){
     var wasOpen = room.classList.contains('open');
     room.classList.remove('open');
     room.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     document.body.classList.remove('calm');
-    notesPreview.innerHTML = '';
-    roomFeed.innerHTML = '';
-    var draft = noteInput.value;
-    noteInput.value = '';
-    bannerLeft.textContent = '';
-    clockEl.textContent = '--:--:--';
-    elapsedEl.textContent = '…';
-    copyBtn.textContent = I18N[CUR_LANG].btnCopy;
-    addNoteBtn.textContent = I18N[CUR_LANG].addBtn;
-    titleEl.textContent = I18N[CUR_LANG].title;
+    if(notesPreview) notesPreview.innerHTML = '';
+    if(roomFeed) roomFeed.innerHTML = '';
+    var draft = noteInput ? noteInput.value : '';
+    if(noteInput) noteInput.value = '';
+    if(bannerLeft) bannerLeft.textContent = '';
+    if(clockEl) clockEl.textContent = '--:--:--';
+    if(elapsedEl) elapsedEl.textContent = '…';
+    if(copyBtn) copyBtn.textContent = I18N[CUR_LANG].btnCopy;
+    if(addNoteBtn) addNoteBtn.textContent = I18N[CUR_LANG].addBtn;
+    if(titleEl) titleEl.textContent = I18N[CUR_LANG].title;
     var activeIdx = 0;
     cards.forEach(function(x, i){ if(x.classList.contains('active')) activeIdx = i; });
     cards.forEach(function(x){ x.classList.remove('active'); });
@@ -1334,7 +1317,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
 
     var html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
 
-    // Replace notes
     var NOTES_MARK = '/*SAVED_NOTES*/';
     var NOTES_VAR = 'var SAVED_NOTES = ';
     var s1 = html.indexOf(NOTES_VAR);
@@ -1344,7 +1326,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       html = html.slice(0, s1) + NOTES_VAR + json1 + '; ' + NOTES_MARK + html.slice(m1 + NOTES_MARK.length);
     }
 
-    // Replace banners
     var BANNERS_MARK = '/*SAVED_BANNERS*/';
     var BANNERS_VAR = 'var SAVED_BANNERS = ';
     var s2 = html.indexOf(BANNERS_VAR);
@@ -1354,7 +1335,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       html = html.slice(0, s2) + BANNERS_VAR + json2 + '; ' + BANNERS_MARK + html.slice(m2 + BANNERS_MARK.length);
     }
 
-    // Replace injected code
     var INJ_MARK = '/*INJECTED_CODE*/';
     var INJ_VAR = 'var INJECTED_CODE = ';
     var s3 = html.indexOf(INJ_VAR);
@@ -1364,7 +1344,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       html = html.slice(0, s3) + INJ_VAR + json3 + '; ' + INJ_MARK + html.slice(m3 + INJ_MARK.length);
     }
 
-    noteInput.value = draft;
+    if(noteInput) noteInput.value = draft;
     cards.forEach(function(x, i){ x.classList.toggle('active', i === activeIdx); });
     renderNotes();
     renderBanners();
@@ -1433,10 +1413,10 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     setTimeout(function(){ btn.textContent = back; }, 1800);
   }
 
-  dlBtn.addEventListener('click', function(){ downloadCode(dlBtn); });
-  dlBtn2.addEventListener('click', function(){ downloadCode(dlBtn2); });
-  copyCodeBtn.addEventListener('click', function(){ copyCode(copyCodeBtn); });
-  copyCodeBtn2.addEventListener('click', function(){ copyCode(copyCodeBtn2); });
+  if(dlBtn) dlBtn.addEventListener('click', function(){ downloadCode(dlBtn); });
+  if(dlBtn2) dlBtn2.addEventListener('click', function(){ downloadCode(dlBtn2); });
+  if(copyCodeBtn) copyCodeBtn.addEventListener('click', function(){ copyCode(copyCodeBtn); });
+  if(copyCodeBtn2) copyCodeBtn2.addEventListener('click', function(){ copyCode(copyCodeBtn2); });
 
   function base64ToUtf8(b64){
     var bin = atob(String(b64).replace(/\s/g,''));
@@ -1510,19 +1490,13 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       }
       
       var newContent = live;
-      // Update notes
       var json1 = JSON.stringify(NOTES).replace(/</g, '\\u003c');
       newContent = newContent.slice(0, s1) + NOTES_VAR + json1 + '; ' + NOTES_MARK + newContent.slice(m1 + NOTES_MARK.length);
-      // Recalculate positions
       var shift1 = (NOTES_VAR + json1 + '; ' + NOTES_MARK).length - (m1 - s1 + NOTES_MARK.length);
-      s2 = live.indexOf(BANNERS_VAR);
-      m2 = live.indexOf(BANNERS_MARK, s2);
       s2 += shift1; m2 += shift1;
       var json2 = JSON.stringify(BANNERS).replace(/</g, '\\u003c');
       newContent = newContent.slice(0, s2) + BANNERS_VAR + json2 + '; ' + BANNERS_MARK + newContent.slice(m2 + BANNERS_MARK.length);
       var shift2 = (BANNERS_VAR + json2 + '; ' + BANNERS_MARK).length - (m2 - s2 + BANNERS_MARK.length);
-      s3 = live.indexOf(INJ_VAR);
-      m3 = live.indexOf(INJ_MARK, s3);
       s3 += shift1 + shift2; m3 += shift1 + shift2;
       var json3 = JSON.stringify(INJECTED_CODE).replace(/</g, '\\u003c');
       newContent = newContent.slice(0, s3) + INJ_VAR + json3 + '; ' + INJ_MARK + newContent.slice(m3 + INJ_MARK.length);
@@ -1558,8 +1532,8 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     }
   }
 
-  syncNowBtn.addEventListener('click', function(){ doSync(syncNowBtn); });
-  syncNowBtn2.addEventListener('click', function(){ doSync(syncNowBtn2); });
+  if(syncNowBtn) syncNowBtn.addEventListener('click', function(){ doSync(syncNowBtn); });
+  if(syncNowBtn2) syncNowBtn2.addEventListener('click', function(){ doSync(syncNowBtn2); });
 
   function scramble(el){
     var target = el.dataset.text || el.textContent;
@@ -1599,12 +1573,14 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       var k = el.getAttribute('data-i18n-ph');
       if(d[k] != null) el.setAttribute('placeholder', d[k]);
     });
-    gear.title = d.gearTitle;
-    langBtn.textContent = l === 'fa' ? 'EN' : 'فا';
+    if(gear) gear.title = d.gearTitle;
+    if(langBtn) langBtn.textContent = l === 'fa' ? 'EN' : 'فا';
     clockFmt = new Intl.DateTimeFormat(d.locale, {hour:'2-digit', minute:'2-digit', second:'2-digit'});
-    titleEl.dataset.text = d.title;
-    titleEl.textContent = d.title;
-    scramble(titleEl);
+    if(titleEl){
+      titleEl.dataset.text = d.title;
+      titleEl.textContent = d.title;
+      scramble(titleEl);
+    }
     renderNotes();
     renderBanners();
     updateSyncUI();
@@ -1612,7 +1588,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     try{ localStorage.setItem('rz-lang', l); }catch(e){}
   }
 
-  langBtn.addEventListener('click', function(){
+  if(langBtn) langBtn.addEventListener('click', function(){
     applyLang(CUR_LANG === 'fa' ? 'en' : 'fa');
   });
 
