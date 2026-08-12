@@ -22,16 +22,18 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--txt);font-family:'Vazirmatn',tahoma,sans-serif;line-height:1.9;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:radial-gradient(640px 320px at 88% -60px,rgba(176,124,255,.30),transparent 60%),
-             radial-gradient(540px 300px at 8% -50px,rgba(91,140,255,.28),transparent 60%);transition:opacity .6s}
+             radial-gradient(540px 300px at 8% -50px,rgba(91,140,255,.28),transparent 60%);
+  transition:opacity .6s}
 body.calm::before{opacity:.25}
 ::selection{background:var(--blue);color:#fff}
 [hidden]{display:none !important}
-h1,h2,.clock,.bigclock,.tw-handle,.room-title{font-family:'Lalezar','Vazirmatn',sans-serif;font-weight:400}
+h1,h2,.clock,.tw-handle,.room-title{font-family:'Lalezar','Vazirmatn',sans-serif;font-weight:400}
 button{font-family:inherit}
 
 .topbar{max-width:1020px;margin-inline:auto;padding:16px 16px 6px;display:flex;align-items:center;gap:8px}
 .pill{display:flex;align-items:center;gap:10px;background:#1e2238;border:1px solid #2c3352;border-radius:16px;padding:8px 14px}
-.pill .ava{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,#3550ff,#8b3dff);box-shadow:0 0 14px rgba(139,61,255,.5)}
+.pill .ava{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;
+  background:linear-gradient(135deg,#3550ff,#8b3dff);box-shadow:0 0 14px rgba(139,61,255,.5)}
 .pill .t1{font-size:.9rem;font-weight:700;color:#fff}
 .pill .t2{font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:6px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
@@ -43,44 +45,35 @@ button{font-family:inherit}
 #gearBtn:hover{transform:rotate(90deg)}
 #gearBtn.spin{transform:rotate(360deg)}
 
-#bannerStack{max-width:1020px;margin:4px auto 0;display:grid;gap:6px}
-.banner{padding:10px 16px;border:1px solid;border-radius:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.banner .txt{font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:8px}
-.banner .b-dot{width:9px;height:9px;border-radius:50%;animation:pulse 1.4s infinite;flex:none}
-.banner .left{margin-inline-start:auto;font-size:.78rem;padding:4px 12px;border-radius:99px;border:1px dashed}
-.banner.b-red{border-color:rgba(255,93,108,.55);background:linear-gradient(145deg,rgba(255,60,80,.15),rgba(255,60,80,.04));box-shadow:0 0 22px rgba(255,60,80,.2)}
-.banner.b-red .txt{color:#ff7b88;text-shadow:0 0 12px rgba(255,80,90,.7)}
-.banner.b-red .b-dot{background:var(--red);box-shadow:0 0 10px var(--red)}
-.banner.b-red .left{color:#ffb3b9;background:rgba(255,60,80,.12);border-color:rgba(255,93,108,.5)}
-.banner.b-gold{border-color:rgba(255,201,77,.55);background:linear-gradient(145deg,rgba(255,201,77,.13),rgba(255,201,77,.04));box-shadow:0 0 22px rgba(255,201,77,.16)}
-.banner.b-gold .txt{color:#ffd98a;text-shadow:0 0 12px rgba(255,201,77,.6)}
-.banner.b-gold .b-dot{background:var(--gold);box-shadow:0 0 10px var(--gold)}
-.banner.b-gold .left{color:#ffe7b3;background:rgba(255,201,77,.12);border-color:rgba(255,201,77,.5)}
-.banner.b-green{border-color:rgba(52,211,153,.5);background:linear-gradient(145deg,rgba(52,211,153,.13),rgba(52,211,153,.04));box-shadow:0 0 22px rgba(52,211,153,.18)}
-.banner.b-green .txt{color:#7ff0c0;text-shadow:0 0 12px rgba(52,211,153,.6)}
-.banner.b-green .b-dot{background:var(--green);box-shadow:0 0 10px var(--green)}
-.banner.b-green .left{color:#a8e8cf;background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.45)}
-.banner.b-blue{border-color:rgba(91,140,255,.55);background:linear-gradient(145deg,rgba(91,140,255,.13),rgba(91,140,255,.04));box-shadow:0 0 22px rgba(91,140,255,.18)}
-.banner.b-blue .txt{color:#9db8ff;text-shadow:0 0 12px rgba(91,140,255,.6)}
-.banner.b-blue .b-dot{background:var(--blue);box-shadow:0 0 10px var(--blue)}
-.banner.b-blue .left{color:#c3d2ff;background:rgba(91,140,255,.12);border-color:rgba(91,140,255,.5)}
+.banner{max-width:1020px;margin:4px auto 0;padding:10px 16px;border:1px solid rgba(255,93,108,.6);border-radius:16px;
+  background:linear-gradient(145deg,rgba(255,60,80,.16),rgba(255,60,80,.05));
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  box-shadow:0 0 22px rgba(255,60,80,.25),inset 0 0 18px rgba(255,60,80,.08);animation:bannerPulse 2.4s infinite}
+@keyframes bannerPulse{0%,100%{box-shadow:0 0 22px rgba(255,60,80,.25),inset 0 0 18px rgba(255,60,80,.08)}50%{box-shadow:0 0 36px rgba(255,60,80,.5),inset 0 0 18px rgba(255,60,80,.08)}}
+.banner .txt{color:#ff7b88;font-weight:700;font-size:.95rem;text-shadow:0 0 12px rgba(255,80,90,.7);display:flex;align-items:center;gap:8px}
+.red-dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:pulse 1.4s infinite}
+.banner .left{margin-inline-start:auto;color:#ffb3b9;font-size:.78rem;background:rgba(255,60,80,.12);border:1px dashed rgba(255,93,108,.5);padding:4px 12px;border-radius:99px}
 
-.sheet{max-width:1020px;margin:10px auto 0;background:linear-gradient(180deg,var(--sheet1),var(--sheet2));border:1px solid #232a48;border-bottom:none;border-radius:30px 30px 0 0;padding:6px 20px 10px}
+.sheet{max-width:1020px;margin:10px auto 0;background:linear-gradient(180deg,var(--sheet1),var(--sheet2));
+  border:1px solid #232a48;border-bottom:none;border-radius:30px 30px 0 0;padding:6px 20px 10px}
 .handle{width:46px;height:5px;border-radius:99px;background:#0b0d19;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.05);margin:12px auto 20px}
 .sheet-head{text-align:center;margin-bottom:26px}
 h1{font-size:clamp(1.9rem,5vw,2.7rem);color:#fff;min-height:1.3em}
 .sheet-head p{color:var(--muted);font-size:.92rem}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:14px;margin-bottom:34px}
-.card{position:relative;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;background:linear-gradient(145deg,var(--card1),var(--card2));border:1px solid var(--line);border-radius:22px;padding:24px 12px 18px;cursor:pointer;text-decoration:none;color:var(--txt);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:transform .25s,border-color .25s,box-shadow .25s}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin-bottom:34px}
+.card{position:relative;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;
+  background:linear-gradient(145deg,var(--card1),var(--card2));border:1px solid var(--line);border-radius:22px;
+  padding:26px 14px 20px;cursor:pointer;text-decoration:none;color:var(--txt);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:transform .25s,border-color .25s,box-shadow .25s}
 .card:hover{transform:translateY(-4px);border-color:#4a5382}
 .icon{color:#fff;line-height:1;filter:drop-shadow(0 0 10px var(--glow)) drop-shadow(0 0 24px var(--glow));animation:float 4.5s ease-in-out infinite}
-.icon svg{width:42px;height:42px;fill:currentColor;display:block}
-.icon.emo{font-size:42px}
-.card:nth-child(2) .icon{animation-delay:.5s}.card:nth-child(3) .icon{animation-delay:1s}.card:nth-child(4) .icon{animation-delay:1.5s}.card:nth-child(5) .icon{animation-delay:2s}
+.icon svg{width:44px;height:44px;fill:currentColor;display:block}
+.icon.emo{font-size:44px}
+.card:nth-child(2) .icon{animation-delay:.6s}.card:nth-child(3) .icon{animation-delay:1.2s}.card:nth-child(4) .icon{animation-delay:1.8s}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.c-title{font-size:1.05rem;font-weight:700;color:#fff}
-.c-sub{font-size:.74rem;color:var(--muted)}
+.c-title{font-size:1.15rem;font-weight:700;color:#fff}
+.c-sub{font-size:.78rem;color:var(--muted)}
 .badge{position:absolute;top:11px;right:11px;width:23px;height:23px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;display:grid;place-items:center;box-shadow:0 0 12px rgba(91,140,255,.8);opacity:0;transform:scale(.4);transition:.3s}
 .card.active{border-color:var(--blue);box-shadow:0 0 0 1.5px var(--blue),0 0 28px rgba(91,140,255,.45),inset 0 0 20px rgba(91,140,255,.12)}
 .card.active .badge{opacity:1;transform:scale(1)}
@@ -91,27 +84,6 @@ section{padding:14px 4px 30px;scroll-margin-top:24px}
 .about-txt{color:var(--muted);max-width:44rem;font-size:.98rem}
 .about-txt b{color:#fff;font-weight:500}
 
-/* ---------- dashboard ---------- */
-.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
-.bigclock-card{grid-column:span 2;background:linear-gradient(145deg,#232a4a,#1a1e36);border:1px solid var(--purple);border-radius:22px;padding:20px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 0 26px rgba(176,124,255,.15)}
-.bigclock{font-size:clamp(2.4rem,7vw,4rem);color:#e2ccff;text-shadow:0 0 20px rgba(176,124,255,.7);line-height:1.2;direction:ltr;text-align:center}
-.bigclock-sub{text-align:center;color:var(--muted);font-size:.8rem;margin-top:4px}
-.price-card{background:linear-gradient(145deg,var(--card1),var(--card2));border:1px solid var(--line);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:6px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:transform .25s,border-color .25s}
-.price-card:hover{transform:translateY(-3px);border-color:#4a5382}
-.pc-head{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.85rem}
-.pc-icon{font-size:20px}
-.pc-val{font-size:1.5rem;font-weight:700;color:#fff;direction:ltr;text-align:right}
-.pc-change{font-size:.8rem;font-weight:700;direction:ltr;text-align:right}
-.pc-change.up{color:var(--green)}
-.pc-change.down{color:var(--red)}
-.pc-change.flat{color:var(--dim)}
-.music-card{background:linear-gradient(145deg,#2a2440,#1c1a2c);border:1px solid var(--purple);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 20px rgba(176,124,255,.12)}
-.music-card .mc-title{color:#e2ccff;font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:8px}
-.eq{display:flex;gap:3px;align-items:flex-end;height:26px}
-.eq span{width:4px;background:var(--purple);border-radius:2px;animation:eq 1s ease-in-out infinite;box-shadow:0 0 8px rgba(176,124,255,.6)}
-.eq span:nth-child(2){animation-delay:.2s}.eq span:nth-child(3){animation-delay:.4s}.eq span:nth-child(4){animation-delay:.6s}.eq span:nth-child(5){animation-delay:.8s}
-@keyframes eq{0%,100%{height:6px}50%{height:24px}}
-.eq.off span{animation:none;height:6px;opacity:.35;box-shadow:none}
 .timer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
 .t-box{background:linear-gradient(145deg,var(--card1),var(--card2));border:1px solid var(--line);border-radius:20px;padding:18px 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
 .t-label{font-size:.8rem;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:8px}
@@ -119,49 +91,6 @@ section{padding:14px 4px 30px;scroll-margin-top:24px}
 .elapsed{color:#e2ccff;text-shadow:0 0 14px rgba(176,124,255,.6);font-weight:700;font-size:1.02rem;line-height:2.1;min-height:3.2em}
 .t-date{font-size:.72rem;color:var(--dim);margin-top:6px}
 
-/* ---------- admin panel ---------- */
-.admin-card{background:linear-gradient(145deg,#2a2438,#1c1a2c);border:1px solid #4a4560;border-radius:22px;padding:20px}
-.admin-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.admin-tag{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;color:#ffd98a;border:1px dashed rgba(255,201,77,.5);background:rgba(255,201,77,.08);padding:4px 10px;border-radius:99px}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.tab{background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:12px;padding:8px 16px;font-size:.85rem;font-weight:700;cursor:pointer;transition:.25s}
-.tab:hover{transform:translateY(-2px)}
-.tab.sel{background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;border-color:rgba(255,255,255,.18);box-shadow:0 4px 16px rgba(90,110,255,.4)}
-.tabpane{animation:fadeUp .3s both}
-.admin-hint{font-size:.78rem;color:var(--muted);margin-bottom:14px;line-height:1.9}
-.bform{display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
-.bform input[type=text],.bform textarea,.inj-area textarea{width:100%;background:#12142a;border:1px solid #343b5e;border-radius:12px;color:#fff;font-family:inherit;font-size:.95rem;padding:10px 12px;transition:border-color .3s,box-shadow .3s}
-.bform input:focus,.bform textarea:focus,.inj-area textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 12px rgba(255,201,77,.3)}
-.bform-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-#bDate{background:#12142a;border:1px solid #343b5e;border-radius:10px;color:#fff;padding:8px 10px;font-family:inherit}
-#bDate::-webkit-calendar-picker-indicator{filter:invert(.8);cursor:pointer}
-.bitem{display:flex;align-items:center;gap:10px;background:#1a1d33;border:1px solid #343b5e;border-radius:12px;padding:10px 12px;margin-bottom:8px}
-.bitem .b-text{flex:1;font-size:.88rem;color:#fff}
-.bitem .b-date{font-size:.72rem;color:var(--dim);direction:ltr}
-.bempty{font-size:.8rem;color:var(--dim);text-align:center;padding:12px}
-.bdot{width:10px;height:10px;border-radius:50%;flex:none}
-.bdot-red{background:var(--red);box-shadow:0 0 8px var(--red)}
-.bdot-gold{background:var(--gold);box-shadow:0 0 8px var(--gold)}
-.bdot-green{background:var(--green);box-shadow:0 0 8px var(--green)}
-.bdot-blue{background:var(--blue);box-shadow:0 0 8px var(--blue)}
-.bdel{width:30px;height:30px;flex:none;border-radius:50%;border:1px solid #343b5e;background:#181c30;color:#cdd3ea;font-size:13px;cursor:pointer;display:grid;place-items:center;transition:.25s}
-.bdel:hover{border-color:var(--red);color:#ff8088;box-shadow:0 0 10px rgba(255,93,108,.5)}
-.pick-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.pick-label{font-size:.75rem;color:var(--muted)}
-.pick{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:#cdd3ea;background:#181c30;border:1px solid #343b5e;border-radius:99px;padding:4px 12px;cursor:pointer;transition:.25s}
-.pick:hover{transform:translateY(-2px)}
-.pick.sel{color:#fff}
-.pk-red.sel{border-color:var(--red);box-shadow:0 0 12px rgba(255,93,108,.55)}
-.pk-yellow.sel,.pk-gold.sel{border-color:var(--gold);box-shadow:0 0 12px rgba(255,201,77,.5)}
-.pk-green.sel{border-color:var(--green);box-shadow:0 0 12px rgba(52,211,153,.5)}
-.pk-blue.sel{border-color:var(--blue);box-shadow:0 0 12px rgba(91,140,255,.55)}
-/* injector */
-.inj-area textarea{min-height:110px;resize:vertical;direction:ltr;text-align:left;font-size:.85rem;line-height:1.7}
-.radio-row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
-.radio-row label{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;color:#cdd3ea;background:#181c30;border:1px solid #343b5e;border-radius:10px;padding:6px 12px;cursor:pointer;transition:.2s}
-.radio-row label:hover{border-color:var(--cyan)}
-.radio-row input{accent-color:var(--cyan)}
-.inj-preview{background:#0f1222;border:1px dashed #343b5e;border-radius:12px;padding:12px;font-size:.75rem;color:var(--dim);direction:ltr;text-align:left;max-height:140px;overflow:auto;margin-top:10px;white-space:pre-wrap;word-break:break-all}
 .note{background:linear-gradient(145deg,var(--card1),var(--card2));border:1px solid var(--line);border-inline-start:3px solid var(--glow);border-radius:18px;padding:16px 18px;margin-bottom:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:transform .3s,box-shadow .3s,border-color .3s;cursor:pointer}
 .note:hover{transform:translateX(-6px);border-color:#4a5382;box-shadow:0 0 20px rgba(255,255,255,.08)}
 .note time{display:block;font-size:.74rem;color:var(--dim);margin-bottom:4px}
@@ -173,7 +102,9 @@ section{padding:14px 4px 30px;scroll-margin-top:24px}
 .tag-red{color:#ff8088;border:1px solid rgba(255,93,108,.6);background:rgba(255,60,80,.14);animation:pulse 2s infinite}
 .tag-yellow{color:#ffd98a;border:1px solid rgba(255,201,77,.55);background:rgba(255,201,77,.12)}
 .tag-blue{color:#8fb6ff;border:1px solid rgba(91,140,255,.55);background:rgba(91,140,255,.12)}
-.room{position:fixed;inset:0;z-index:60;background:radial-gradient(700px 400px at 50% -100px,rgba(176,124,255,.20),transparent 60%),#0d0f1e;visibility:hidden;opacity:0;transition:opacity .35s,visibility .35s;overflow-y:auto;padding:16px 16px 70px}
+
+.room{position:fixed;inset:0;z-index:60;background:radial-gradient(700px 400px at 50% -100px,rgba(176,124,255,.20),transparent 60%),#0d0f1e;
+  visibility:hidden;opacity:0;transition:opacity .35s,visibility .35s;overflow-y:auto;padding:16px 16px 70px}
 .room.open{visibility:visible;opacity:1}
 .room-inner{max-width:760px;margin:0 auto;transform:translateY(26px);transition:transform .4s}
 .room.open .room-inner{transform:none}
@@ -196,24 +127,37 @@ section{padding:14px 4px 30px;scroll-margin-top:24px}
 .del:hover{border-color:var(--red);color:#ff8088;box-shadow:0 0 10px rgba(255,93,108,.5);transform:scale(1.1)}
 .del.arm{width:auto;padding:0 10px;border-radius:99px;background:rgba(255,60,80,.16);border-color:var(--red);color:#ff8088;font-size:.66rem;font-weight:700}
 .rnote.gone{opacity:0;transform:translateX(30px) scale(.96)}
+
 .composer{background:linear-gradient(145deg,#20243c,#171a2c);border:1px dashed #4a5382;border-radius:18px;padding:16px;margin-bottom:20px}
 .comp-label{font-size:.85rem;color:var(--cyan);font-weight:700;display:block;margin-bottom:8px}
 #noteInput{width:100%;background:#12142a;border:1px solid #343b5e;border-radius:12px;color:var(--txt);font-family:inherit;font-size:.95rem;padding:10px 12px;resize:vertical;min-height:84px;line-height:1.8;transition:border-color .3s,box-shadow .3s}
 #noteInput:focus{outline:none;border-color:var(--blue);box-shadow:0 0 14px rgba(91,140,255,.35)}
 #noteInput.err{border-color:var(--red);box-shadow:0 0 14px rgba(255,93,108,.45);animation:shake .4s}
 @keyframes shake{0%,100%{transform:none}25%{transform:translateX(6px)}75%{transform:translateX(-6px)}}
+.pick-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pick-label{font-size:.75rem;color:var(--muted)}
+.pick{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:#cdd3ea;background:#181c30;border:1px solid #343b5e;border-radius:99px;padding:4px 12px;cursor:pointer;transition:.25s}
+.pick:hover{transform:translateY(-2px)}
+.pick.sel{color:#fff}
+.pk-red.sel{border-color:var(--red);box-shadow:0 0 12px rgba(255,93,108,.55)}
+.pk-yellow.sel{border-color:var(--gold);box-shadow:0 0 12px rgba(255,201,77,.5)}
+.pk-blue.sel{border-color:var(--blue);box-shadow:0 0 12px rgba(91,140,255,.55)}
 .comp-row{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
 .comp-date{font-size:.72rem;color:var(--dim)}
 .comp-actions{margin-inline-start:auto;display:flex;gap:8px;flex-wrap:wrap}
 .comp-hint{font-size:.7rem;color:var(--dim);margin-top:8px}
-.sync-row{display:flex;align-items:center;gap:10px;margin:10px 0;padding:12px 14px;background:linear-gradient(145deg,#1a1d33,#14172b);border:1px solid #343b5e;border-radius:14px;flex-wrap:wrap}
+
+.sync-row{display:flex;align-items:center;gap:10px;margin:10px 0 18px;padding:12px 14px;background:linear-gradient(145deg,#1a1d33,#14172b);border:1px solid #343b5e;border-radius:14px;flex-wrap:wrap}
 .sync-status{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:8px}
 .sync-actions{margin-inline-start:auto;display:flex;gap:8px;flex-wrap:wrap}
 .dot-ok{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
 .dot-off{width:8px;height:8px;border-radius:50%;background:#6b6f8a}
+
 .pop{animation:fadeUp .5s both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.tw-card{background:linear-gradient(145deg,#232a4a,#1a1e36);border:1px solid var(--blue);border-radius:24px;padding:28px 22px;text-align:center;box-shadow:0 0 30px rgba(91,140,255,.3),inset 0 0 24px rgba(91,140,255,.1)}
+
+.tw-card{background:linear-gradient(145deg,#232a4a,#1a1e36);border:1px solid var(--blue);border-radius:24px;padding:28px 22px;text-align:center;
+  box-shadow:0 0 30px rgba(91,140,255,.3),inset 0 0 24px rgba(91,140,255,.1)}
 .tw-card .icon{display:inline-block}
 .tw-card .icon svg{width:52px;height:52px}
 .tw-handle{direction:ltr;font-size:clamp(1.8rem,6vw,2.6rem);color:#fff;margin:8px 0 4px;letter-spacing:.02em}
@@ -226,19 +170,25 @@ section{padding:14px 4px 30px;scroll-margin-top:24px}
 .cta.ok{background:linear-gradient(135deg,#1f7a4a,#2ea86e);box-shadow:0 6px 22px rgba(46,168,110,.35)}
 .cta.danger{background:#2a1a22;color:#ff9aa2;border:1px dashed rgba(255,93,108,.5);box-shadow:none}
 .cta[disabled]{opacity:.45;cursor:not-allowed;transform:none!important}
+
 footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
+
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;transition-delay:var(--d,0s)}
 .reveal.in{opacity:1;transform:none}
-.modal{position:fixed;inset:0;z-index:80;background:rgba(6,8,18,.78);backdrop-filter:blur(6px);visibility:hidden;opacity:0;transition:opacity .3s,visibility .3s;display:grid;place-items:center;padding:16px;overflow-y:auto}
+
+.admin-tag{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;color:#ffd98a;border:1px dashed rgba(255,201,77,.5);background:rgba(255,201,77,.08);padding:4px 10px;border-radius:99px;margin-inline-start:8px}
+
+.modal{position:fixed;inset:0;z-index:80;background:rgba(6,8,18,.75);backdrop-filter:blur(6px);visibility:hidden;opacity:0;transition:opacity .3s,visibility .3s;display:grid;place-items:center;padding:16px;overflow-y:auto}
 .modal.open{visibility:visible;opacity:1}
 .mbox{max-width:560px;width:100%;background:linear-gradient(145deg,#1a1d33,#14172b);border:1px solid #343b5e;border-radius:22px;padding:22px;transform:translateY(20px) scale(.98);transition:transform .3s;box-shadow:0 30px 60px rgba(0,0,0,.55);margin:auto}
 .modal.open .mbox{transform:none}
 .mbox h3{font-size:1.3rem;color:#fff;margin-bottom:6px;display:flex;align-items:center;gap:10px}
-.mbox .msub{color:var(--muted);font-size:.85rem;margin-bottom:16px;line-height:1.8}
+.mbox .msub{color:var(--muted);font-size:.85rem;margin-bottom:16px}
 .guide{background:#12142a;border:1px solid #343b5e;border-radius:14px;padding:12px 14px;margin-bottom:14px}
 .guide summary{cursor:pointer;font-size:.85rem;font-weight:700;color:var(--cyan)}
 .guide ol{margin:10px 18px 4px;font-size:.8rem;color:#cdd3ea;line-height:2.1}
 .guide a{color:var(--cyan);text-decoration:none;border-bottom:1px dashed rgba(77,214,255,.5)}
+.guide a:hover{color:#fff}
 .guide code{background:#1e2238;border:1px solid #343b5e;border-radius:6px;padding:0 6px;font-size:.75rem;direction:ltr;display:inline-block}
 .mfield{margin-bottom:14px}
 .mfield label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:6px}
@@ -247,22 +197,25 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
 .mwarn{font-size:.72rem;color:#9fe8c3;background:rgba(52,211,153,.07);border:1px dashed rgba(52,211,153,.45);padding:10px 12px;border-radius:10px;margin-bottom:14px;line-height:1.9}
 .mactions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+
 .toast{position:fixed;bottom:22px;inset-inline-start:50%;transform:translateX(-50%) translateY(100px);z-index:90;background:#1a1d33;border:1px solid #343b5e;border-radius:14px;padding:10px 16px;font-size:.85rem;color:#fff;box-shadow:0 14px 36px rgba(0,0,0,.5);opacity:0;transition:opacity .3s,transform .3s;max-width:90vw}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.ok{border-color:var(--green);box-shadow:0 14px 36px rgba(46,168,110,.35)}
 .toast.err{border-color:var(--red);box-shadow:0 14px 36px rgba(255,93,108,.35)}
 .toast.warn{border-color:var(--gold);box-shadow:0 14px 36px rgba(255,201,77,.3)}
+
 .spin-sm{animation:spinSm .8s linear infinite;display:inline-block}
 @keyframes spinSm{to{transform:rotate(360deg)}}
+
 @media(max-width:560px){
   .sheet{padding-inline:14px}
   .grid{grid-template-columns:1fr 1fr;gap:11px}
-  .card{padding:18px 8px 14px}
-  .icon.emo{font-size:36px}
-  .icon svg{width:36px;height:36px}
+  .card{padding:20px 10px 16px}
+  .icon.emo{font-size:38px}
+  .icon svg{width:38px;height:38px}
   .tw-card .icon svg{width:46px;height:46px}
+  .banner .left{margin-inline-start:0;width:100%;text-align:center}
   .mgrid{grid-template-columns:1fr}
-  .bigclock-card{grid-column:span 1}
 }
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
@@ -270,287 +223,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   .reveal,.pop{opacity:1;transform:none}
 }
 </style>
-<style>
-/* مخفی کردن آنی ویجت دلار (جلوگیری از چشمک) */
-.price-card:has(#usdVal){display:none!important}
-</style>
-<script>
-/* حذف کامل ویجت قیمت دلار */
-(function(){
-  function killUsd(){
-    var el = document.getElementById('usdVal');
-    if(!el) return;
-    var card = el.closest('.price-card');
-    if(card && card.parentNode) card.parentNode.removeChild(card);
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', killUsd);
-  else killUsd();
-})();
-</script>
-<style>
-/* مخفی کردن آنی همهٔ کارت‌های قیمت */
-.price-card{display:none!important}
-</style>
-<script>
-/* حذف کامل همهٔ ویجت‌های قیمت */
-(function(){
-  function kill(){
-    document.querySelectorAll('.price-card').forEach(function(c){
-      if(c.parentNode) c.parentNode.removeChild(c);
-    });
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', kill);
-  else kill();
-})();
-</script>
-<style>
-/* دستیار هوش مصنوعی */
-.ai-wrap{display:flex;flex-direction:column;gap:12px}
-.ai-msgs{background:#0f1222;border:1px solid #343b5e;border-radius:16px;padding:14px;min-height:220px;max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
-.ai-msg{display:flex;flex-direction:column;gap:4px;max-width:85%}
-.ai-user{align-self:flex-start;align-items:flex-start}
-.ai-bot{align-self:flex-end;align-items:flex-end}
-.ai-bubble{padding:10px 14px;border-radius:14px;font-size:.9rem;line-height:1.8;white-space:pre-wrap;word-break:break-word}
-.ai-user .ai-bubble{background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;border-bottom-right-radius:4px}
-.ai-bot .ai-bubble{background:#1e2238;color:#e8eaf2;border:1px solid #343b5e;border-bottom-left-radius:4px}
-.ai-copy{background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:8px;padding:3px 10px;font-size:.72rem;cursor:pointer;transition:.2s;font-family:inherit}
-.ai-copy:hover{border-color:var(--cyan);color:var(--cyan)}
-.ai-typing{color:var(--dim);font-size:.8rem;font-style:italic}
-.ai-quick{display:flex;gap:8px;flex-wrap:wrap}
-.ai-chip{background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:99px;padding:6px 14px;font-size:.78rem;cursor:pointer;transition:.2s;font-family:inherit}
-.ai-chip:hover{transform:translateY(-2px);border-color:var(--purple);color:#fff;box-shadow:0 0 12px rgba(176,124,255,.4)}
-.ai-input-row{display:flex;gap:8px;align-items:flex-end}
-#aiInput{flex:1;background:#12142a;border:1px solid #343b5e;border-radius:12px;color:#fff;font-family:inherit;font-size:.92rem;padding:10px 12px;resize:vertical;min-height:48px;line-height:1.7}
-#aiInput:focus{outline:none;border-color:var(--purple);box-shadow:0 0 12px rgba(176,124,255,.35)}
-.ai-head{display:flex;align-items:center;gap:10px;margin-bottom:4px}
-.ai-head .t{color:#e2ccff;font-weight:700;font-size:.95rem}
-.ai-clear{margin-inline-start:auto}
-</style>
-<script>
-/* دستیار هوش مصنوعی رایگان - Pollinations */
-(function(){
-  if(window.__rezaAI) return; window.__rezaAI = true;
-
-  var SYSTEM = 'تو یک دستیار هوشمند و خلاق برای مدیریت یک وب‌سایت شخصی فارسی هستی. همیشه به فارسی روان و صمیمی پاسخ بده. در نوشتن نوت، متن بنر، ایده‌پردازی و کدنویسی کمک می‌کنی. پاسخ‌هایت کوتاه، مفید و کاربردی باشد.';
-  var chatHistory = [{role:'system', content:SYSTEM}];
-
-  function init(){
-    var tabs = document.querySelector('.tabs');
-    var adminCard = document.querySelector('.admin-card');
-    if(!tabs || !adminCard || document.getElementById('tab-ai')) return;
-
-    /* تب جدید */
-    var tab = document.createElement('button');
-    tab.type='button'; tab.className='tab'; tab.dataset.tab='ai';
-    tab.textContent='🤖 هوش مصنوعی';
-    tabs.appendChild(tab);
-
-    /* پنل چت */
-    var pane = document.createElement('div');
-    pane.id='tab-ai'; pane.className='tabpane'; pane.hidden=true;
-    pane.innerHTML =
-      '<div class="ai-wrap">'+
-        '<div class="ai-head"><span class="t">🤖 دستیار هوش مصنوعی (رایگان)</span>'+
-          '<button type="button" class="ai-clear cta sm ghosty" id="aiClear">پاک کردن گفتگو 🗑</button></div>'+
-        '<div class="ai-msgs" id="aiMsgs"></div>'+
-        '<div class="ai-quick" id="aiQuick"></div>'+
-        '<div class="ai-input-row">'+
-          '<textarea id="aiInput" rows="2" placeholder="سوالت رو بنویس… (Enter برای ارسال)"></textarea>'+
-          '<button type="button" id="aiSend" class="cta sm ok">ارسال ⬆</button>'+
-        '</div>'+
-      '</div>';
-    adminCard.appendChild(pane);
-
-    /* سوییچ تب (مثل بقیه) */
-    tab.addEventListener('click', function(){
-      document.querySelectorAll('.tab').forEach(function(x){ x.classList.remove('sel'); });
-      tab.classList.add('sel');
-      document.querySelectorAll('.tabpane').forEach(function(p){ p.hidden=true; });
-      pane.hidden=false;
-    });
-
-    var aiMsgs=document.getElementById('aiMsgs');
-    var aiInput=document.getElementById('aiInput');
-    var aiSend=document.getElementById('aiSend');
-    var aiClear=document.getElementById('aiClear');
-    var aiQuick=document.getElementById('aiQuick');
-
-    /* دکمه‌های آماده */
-    var quicks=[
-      ['✍️ یه نوت جدید بنویس','یه نوت کوتاه و صمیمی برای سایت شخصی من بنویس که انگار خودم نوشتم.'],
-      ['🎯 ایده برای بنر','چند ایده جذاب برای متن بنر بالای سایت شخصی بده.'],
-      ['💡 چی به سایت اضافه کنم؟','چند پیشنهاد خلاقانه بده که به یه سایت شخصی ساده اضافه کنم.'],
-      ['🔧 یه اسکریپت ساده','یه اسکریپت جاوااسکریپت ساده و کاربردی برای یه صفحه وب بنویس.']
-    ];
-    quicks.forEach(function(q){
-      var b=document.createElement('button');
-      b.type='button'; b.className='ai-chip'; b.textContent=q[0];
-      b.addEventListener('click', function(){ sendAI(q[1]); });
-      aiQuick.appendChild(b);
-    });
-
-    function copyTxt(t, done){
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(t).then(done).catch(function(){ fbCopy(t,done); });
-      } else fbCopy(t,done);
-    }
-    function fbCopy(t,done){
-      var ta=document.createElement('textarea'); ta.value=t;
-      ta.style.position='fixed'; ta.style.opacity='0';
-      document.body.appendChild(ta); ta.select();
-      try{document.execCommand('copy');}catch(e){}
-      document.body.removeChild(ta); done();
-    }
-
-    function addMsg(role, text){
-      var wrap=document.createElement('div');
-      wrap.className='ai-msg '+(role==='user'?'ai-user':'ai-bot');
-      var bub=document.createElement('div');
-      bub.className='ai-bubble'; bub.textContent=text;
-      wrap.appendChild(bub);
-      if(role==='bot'){
-        var cp=document.createElement('button');
-        cp.type='button'; cp.className='ai-copy'; cp.textContent='📋 کپی';
-        cp.addEventListener('click', function(){
-          copyTxt(text, function(){ cp.textContent='✓ کپی شد'; setTimeout(function(){ cp.textContent='📋 کپی'; },1500); });
-        });
-        wrap.appendChild(cp);
-      }
-      aiMsgs.appendChild(wrap);
-      aiMsgs.scrollTop=aiMsgs.scrollHeight;
-      return wrap;
-    }
-
-    async function askAI(messages){
-      /* تلاش اول: فرمت OpenAI */
-      try{
-        var resp=await fetch('https://text.pollinations.ai/openai',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({model:'openai', messages:messages})
-        });
-        if(resp.ok){
-          var txt=await resp.text();
-          try{
-            var j=JSON.parse(txt);
-            if(j && j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content)
-              return j.choices[0].message.content;
-          }catch(e){}
-          if(txt && txt.trim()) return txt;
-        }
-      }catch(e){}
-      /* تلاش دوم: GET ساده */
-      var lastUser='', sys='';
-      for(var i=messages.length-1;i>=0;i--){ if(messages[i].role==='user'){ lastUser=messages[i].content; break; } }
-      for(var k=0;k<messages.length;k++){ if(messages[k].role==='system'){ sys=messages[k].content; break; } }
-      var url='https://text.pollinations.ai/'+encodeURIComponent(lastUser)+(sys?('?system='+encodeURIComponent(sys)):'');
-      var r2=await fetch(url);
-      if(!r2.ok) throw new Error('خطا در ارتباط با هوش مصنوعی');
-      return await r2.text();
-    }
-
-    async function sendAI(text){
-      text=(text||'').trim();
-      if(!text) return;
-      addMsg('user', text);
-      chatHistory.push({role:'user', content:text});
-      aiInput.value='';
-      aiSend.disabled=true;
-      var typing=addMsg('bot','…');
-      typing.querySelector('.ai-bubble').classList.add('ai-typing');
-      try{
-        var msgs=[chatHistory[0]].concat(chatHistory.slice(-12)); /* سیستم + آخرین پیام‌ها */
-        var ans=await askAI(msgs);
-        chatHistory.push({role:'assistant', content:ans});
-        typing.remove();
-        addMsg('bot', ans);
-      }catch(err){
-        typing.remove();
-        addMsg('bot','⚠️ '+(err.message||'مشکلی پیش اومد. اینترنت رو چک کن و دوباره امتحان کن.'));
-      }finally{
-        aiSend.disabled=false;
-        aiInput.focus();
-      }
-    }
-
-    aiSend.addEventListener('click', function(){ sendAI(aiInput.value); });
-    aiInput.addEventListener('keydown', function(e){
-      if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendAI(aiInput.value); }
-    });
-    aiClear.addEventListener('click', function(){
-      chatHistory=[{role:'system', content:SYSTEM}];
-      aiMsgs.innerHTML='';
-    });
-
-    addMsg('bot','سلام! 👋 من دستیار هوش مصنوعیتم. هر چی می‌خوای بپرس، یا از دکمه‌های آماده بالا استفاده کن.');
-  }
-
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
-</script>
-<style>
-/* فقط ۲ نوت اول پیش‌نمایش دیده بشه */
-#notesPreview .note:nth-child(n+3){display:none}
-</style>
-<script>
-(function(){
-  if(window.__mzFix1)return;window.__mzFix1=true;
-
-  /* دکمهٔ «بقیه» زیر نوت‌ها */
-  var prev=document.getElementById('notesPreview');
-  if(prev && !document.getElementById('restBtn')){
-    var rb=document.createElement('button');
-    rb.id='restBtn';rb.type='button';rb.className='cta sm ghosty';
-    rb.style.cssText='margin-top:10px;';
-    rb.textContent='بقیهٔ نوت‌ها این‌جا ←';
-    rb.onclick=function(){var a=document.getElementById('allNotesBtn');if(a)a.click();};
-    prev.parentNode.insertBefore(rb,prev.nextSibling);
-  }
-
-  /* پاک‌سازی اضافه‌ها: شناورهای موسیقی/🤖، ☰ تکراری، قیمت‌ها */
-  document.querySelectorAll('button,div').forEach(function(el){
-    if(el.style&&el.style.position==='fixed'){
-      var t=(el.textContent||'');
-      if(t.indexOf('موسیقی')>-1||t.indexOf('🤖')>-1)el.remove();
-    }
-  });
-  var hams=document.querySelectorAll('button');
-  var seen=false;
-  hams.forEach(function(b){ if((b.textContent||'').trim()==='☰'){ if(seen)b.remove(); else seen=true; } });
-  var pT=document.querySelector('.tab[data-tab="prices"]');if(pT)pT.remove();
-  var pP=document.getElementById('tab-prices');if(pP)pP.remove();
-  document.querySelectorAll('.price-card').forEach(function(c){c.remove();});
-
-  /* برچسب داشبورد رو درست کن */
-  document.querySelectorAll('.card').forEach(function(c){
-    var t=c.querySelector('.c-title');
-    if(t&&t.textContent.indexOf('داشبورد')>-1){
-      var s=c.querySelector('.c-sub');if(s)s.textContent='ساعت و موسیقی';
-    }
-  });
-})();
-</script>
-<style>
-/* کوچک‌کردن فیلدهای انتشار */
-#safeBox input{height:30px;font-size:.72rem;padding:4px 8px;border-radius:8px}
-#safeBox button{padding:6px 10px;font-size:.72rem;border-radius:10px}
-#safeBox{font-size:.75rem}
-</style>
-<script>
-(function(){
-  if(window.__mzQuick)return;window.__mzQuick=true;
-
-  /* ===== لوگوها (تلگرام و…) ===== */
-  if(!document.getElementById('socRowFinal')){
-    var SOCIALS=[{net:'x',url:'https://x.com/Reza_ZeroOnee'},{net:'telegram',url:'https://t.me/'},{net:'instagram',url:'https://instagram.com/'},{net:'youtube',url:'https://youtube.com/'},{net:'github',url:'https://github.com/'}];
-    var ICONS={
-      x:{c:'#fff',p:'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z'},
-      telegram:{c:'#26a5e4',p:'M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'},
-      instagram:{c:'#e1306c',p:'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z'},
-      youtube:{c:'#f00',p:'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z'},
-      github:{c:'#fff',p:'M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'},
-      link:{c:'#4dd6ff',p:'M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0
 </head>
 <body>
 
@@ -561,26 +233,41 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     <span class="t2"><span class="dot"></span> <span data-i18n="status">آنلاین</span></span>
   </div>
   <button id="gearBtn" class="tb-btn" type="button" title="حالت آروم">⚙️</button>
-  <button id="syncBtn" class="tb-btn owner-only" type="button" title="انتشار سریع" hidden>☁</button>
-  <button id="musicBtn" class="tb-btn" type="button" title="موسیقی">🎵</button>
+  <button id="syncBtn" class="tb-btn owner-only" type="button" title="اتصال به سایت" hidden>☁</button>
   <button id="langBtn" class="tb-btn" type="button" title="زبان / Language">EN</button>
 </div>
 
-<div id="bannerStack"></div>
+<div id="banner" class="banner" style="display:none">
+  <span class="txt"><span class="red-dot"></span><span data-i18n="bannerTxt">به زودی آیپی اسکنر میدیم بیرون</span> 🚨</span>
+  <span class="left" id="bannerLeft"></span>
+</div>
 
 <div class="sheet">
   <div class="handle" aria-hidden="true"></div>
+
   <div class="sheet-head">
     <h1 id="scrambleTitle" data-text="گوشهٔ من">گوشهٔ من</h1>
     <p data-i18n="subtitle">یه صفحهٔ شخصی؛ ساده، بی‌سروصدا، بدونِ اضافه.</p>
   </div>
 
   <div class="grid">
-    <button class="card active" type="button" data-target="#about" style="--glow:#5b8cff"><span class="badge">✓</span><span class="icon emo">💻</span><span class="c-title" data-i18n="cAbout">درباره</span><span class="c-sub" data-i18n="cAboutSub">ماجرا چیه؟</span></button>
-    <button class="card" type="button" data-target="#notes" style="--glow:#ffc94d"><span class="badge">✓</span><span class="icon emo">⌨️</span><span class="c-title" data-i18n="cNotes">نوت‌ها</span><span class="c-sub" data-i18n="cNotesSub">یادداشت‌ها</span></button>
-    <button class="card" type="button" data-target="#dashboard" style="--glow:#b07cff"><span class="badge">✓</span><span class="icon emo">📊</span><span class="c-title" data-i18n="cDash">داشبورد</span><span class="c-sub" data-i18n="cDashSub">قیمت و ساعت</span></button>
-    <button class="card" type="button" data-target="#timer" style="--glow:#4dd6ff"><span class="badge">✓</span><span class="icon emo">🖥️</span><span class="c-title" data-i18n="cTimer">عمر سایت</span><span class="c-sub" data-i18n="cTimerSub">هر ثانیه</span></button>
-    <a class="card" href="https://x.com/Reza_ZeroOnee" target="_blank" rel="noopener" style="--glow:#38bdf8"><span class="badge">✓</span><span class="icon"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></span><span class="c-title" data-i18n="cTw">توییتر</span><span class="c-sub" dir="ltr">@Reza_ZeroOnee</span></a>
+    <button class="card active" type="button" data-target="#about" style="--glow:#5b8cff">
+      <span class="badge">✓</span><span class="icon emo">💻</span>
+      <span class="c-title" data-i18n="cAbout">درباره</span><span class="c-sub" data-i18n="cAboutSub">ماجرا چیه؟</span>
+    </button>
+    <button class="card" type="button" data-target="#notes" style="--glow:#ffc94d">
+      <span class="badge">✓</span><span class="icon emo">⌨️</span>
+      <span class="c-title" data-i18n="cNotes">نوت‌ها</span><span class="c-sub" data-i18n="cNotesSub">یادداشت‌های گاه‌به‌گاه</span>
+    </button>
+    <button class="card" type="button" data-target="#timer" style="--glow:#b07cff">
+      <span class="badge">✓</span><span class="icon emo">🖥️</span>
+      <span class="c-title" data-i18n="cTimer">ساعت و عمر سایت</span><span class="c-sub" data-i18n="cTimerSub">هر ثانیه می‌شماره</span>
+    </button>
+    <a class="card" href="https://x.com/Reza_ZeroOnee" target="_blank" rel="noopener" style="--glow:#4dd6ff">
+      <span class="badge">✓</span>
+      <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></span>
+      <span class="c-title" data-i18n="cTw">توییتر</span><span class="c-sub" dir="ltr">@Reza_ZeroOnee</span>
+    </a>
   </div>
 
   <section id="about">
@@ -588,40 +275,14 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     <p class="about-txt" data-i18n-html="aboutTxt">این‌جا یه صفحهٔ شخصیِ ساده‌ست؛ نه رزومه‌ست، نه فروشگاه، نه هیچ چیز دیگه. هر از گاهی یه نوت می‌ذارم، هر از گاهی هم فقط سکوت. <b>همون‌قدر که لازمه، نه یه کلمه بیشتر.</b> اگه حرفی هم بود، توییتر پیدام می‌کنی.</p>
   </section>
 
-  <section id="dashboard">
-    <h2 class="sec-title" style="--sg:#b07cff"><span data-i18n="sDash">داشبورد زنده</span></h2>
-    <div class="dash-grid">
-      <div class="bigclock-card reveal">
-        <div class="bigclock" id="bigClock">--:--:--</div>
-        <div class="bigclock-sub" id="bigDate"></div>
-      </div>
-      <div class="price-card reveal" style="--d:.05s">
-        <div class="pc-head"><span class="pc-icon">💵</span><span data-i18n="pUsd">دلار (ریال)</span></div>
-        <div class="pc-val" id="usdVal">—</div>
-        <div class="pc-change flat" id="usdChange"></div>
-      </div>
-      <div class="price-card reveal" style="--d:.1s">
-        <div class="pc-head"><span class="pc-icon">💶</span><span data-i18n="pEur">یورو (ریال)</span></div>
-        <div class="pc-val" id="eurVal">—</div>
-        <div class="pc-change flat" id="eurChange"></div>
-      </div>
-      <div class="price-card reveal" style="--d:.15s">
-        <div class="pc-head"><span class="pc-icon">₿</span><span data-i18n="pBtc">بیت‌کوین (دلار)</span></div>
-        <div class="pc-val" id="btcVal">—</div>
-        <div class="pc-change flat" id="btcChange"></div>
-      </div>
-      <div class="music-card reveal" style="--d:.2s">
-        <div class="mc-title">🎵 <span data-i18n="musicTitle">موسیقی ملایم</span></div>
-        <div class="eq off" id="eq"><span></span><span></span><span></span><span></span><span></span></div>
-        <button id="musicToggle" class="cta sm ghosty" type="button" data-i18n="musicOff">پخش کن ▶</button>
-      </div>
-    </div>
-  </section>
-
   <section id="timer">
-    <h2 class="sec-title" style="--sg:#4dd6ff"><span data-i18n="sTimer">عمر سایت</span></h2>
+    <h2 class="sec-title" style="--sg:#b07cff"><span data-i18n="sTimer">ساعت و عمر سایت</span></h2>
     <div class="timer-grid">
       <div class="t-box reveal">
+        <div class="t-label"><span class="dot"></span> <span data-i18n="lblClock">ساعت الان</span></div>
+        <div class="clock" id="clock">--:--:--</div>
+      </div>
+      <div class="t-box reveal" style="--d:.12s">
         <div class="t-label">⏳ <span data-i18n="lblElapsed">از ساخته شدن این سایت گذشته</span></div>
         <div class="elapsed" id="elapsed">…</div>
         <div class="t-date" data-i18n="startDate">شروع: ۱۹ مرداد ۱۴۰۵</div>
@@ -630,97 +291,33 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   </section>
 
   <section id="notes">
-    <h2 class="sec-title" style="--sg:#ffc94d"><span data-i18n="sNotes">نوت‌ها</span></h2>
+    <h2 class="sec-title" style="--sg:#ffc94d">
+      <span data-i18n="sNotes">نوت‌ها</span>
+      <span class="admin-tag owner-only" hidden>🔓 حالت مدیریت</span>
+    </h2>
     <div id="notesPreview"></div>
+
+    <div class="sync-row owner-only" hidden>
+      <span class="sync-status" id="syncStatus"></span>
+      <span class="sync-actions">
+        <button id="openSettingsBtn" class="cta sm ghosty" type="button" data-i18n="openSettings">اتصال به GitHub ⚙</button>
+        <button id="syncNowBtn" class="cta sm ok" type="button" disabled data-i18n="syncNow">انتشار نوت‌ها ☁</button>
+        <button id="discBtn" class="cta sm danger" type="button" style="display:none" data-i18n="disconnect">قطع اتصال</button>
+      </span>
+    </div>
+
     <div class="cta-row" style="margin-top:6px">
       <button id="allNotesBtn" class="cta ghosty" type="button" data-i18n="allNotes">همهٔ نوت‌ها ←</button>
       <button id="writeBtn" class="cta ghosty owner-only" type="button" hidden data-i18n="writeBtn">نوشتن نوت جدید +</button>
-    </div>
-  </section>
-
-  <!-- پنل مدیریت -->
-  <section id="adminPanel" class="owner-only" hidden>
-    <h2 class="sec-title" style="--sg:#ffd98a">🛠️ <span data-i18n="adminTitle">پنل مدیریت</span></h2>
-    <div class="admin-card">
-      <div class="admin-head">
-        <span class="admin-tag">🔓 <span data-i18n="adminMode">حالت مدیریت فعال</span></span>
-        <span style="margin-inline-start:auto"><button id="lockBtn" class="cta sm danger" type="button" data-i18n="lockBtn">🔒 قفل کردن</button></span>
-      </div>
-
-      <div class="tabs">
-        <button class="tab sel" type="button" data-tab="banners" data-i18n="tabBanners">بنرها</button>
-        <button class="tab" type="button" data-tab="inject" data-i18n="tabInject">تزریق کد</button>
-        <button class="tab" type="button" data-tab="prices" data-i18n="tabPrices">قیمت‌ها</button>
-        <button class="tab" type="button" data-tab="sync" data-i18n="tabSync">همگام‌سازی</button>
-      </div>
-
-      <!-- بنرها -->
-      <div id="tab-banners" class="tabpane">
-        <p class="admin-hint" data-i18n="bannerHint">بنر بساز، رنگ و تاریخ انقضا بده، بعد «انتشار» رو بزن تا برای همه نمایش داده بشه. بعد از انقضا خودش محو می‌شه.</p>
-        <div class="bform">
-          <input id="bText" type="text" data-i18n-ph="bTextPh" placeholder="متن بنر…">
-          <div class="pick-row">
-            <span class="pick-label" data-i18n="bColorLbl">رنگ:</span>
-            <button type="button" class="pick bcolor pk-red" data-bcolor="red">🔴</button>
-            <button type="button" class="pick bcolor pk-gold" data-bcolor="gold">🟡</button>
-            <button type="button" class="pick bcolor pk-green sel" data-bcolor="green">🟢</button>
-            <button type="button" class="pick bcolor pk-blue" data-bcolor="blue">🔵</button>
-          </div>
-          <div class="bform-row">
-            <span class="pick-label" data-i18n="bDateLbl">تاریخ انقضا (اختیاری):</span>
-            <input id="bDate" type="date">
-          </div>
-          <button id="bAdd" class="cta sm ok" type="button" data-i18n="bAdd">افزودن بنر +</button>
-        </div>
-        <div id="bList"></div>
-      </div>
-
-      <!-- تزریق کد -->
-      <div id="tab-inject" class="tabpane" hidden>
-        <p class="admin-hint" data-i18n="injHint">کدت رو پیست کن (حتی دو خط). نوعش رو تشخیص می‌دم، جای مناسب رو پیشنهاد می‌دم، پیش‌نمایش می‌دم و بعد از تأیید از طریق گیت‌هاب می‌ذارمش. برای جای دقیق، توی کد سایت <code dir="ltr">&lt;!-- INJECT-HERE --&gt;</code> بذار.</p>
-        <div class="inj-area">
-          <textarea id="injCode" placeholder="&lt;script&gt; ... &lt;/script&gt;"></textarea>
-        </div>
-        <div class="radio-row">
-          <label><input type="radio" name="injplace" value="auto" checked> <span data-i18n="injAuto">خودکار</span></label>
-          <label><input type="radio" name="injplace" value="head"> <span data-i18n="injHead">&lt;/head&gt;</span></label>
-          <label><input type="radio" name="injplace" value="body-end"> <span data-i18n="injBodyEnd">&lt;/body&gt;</span></label>
-          <label><input type="radio" name="injplace" value="marker"> <span data-i18n="injMarker">نشانگر</span></label>
-        </div>
-        <div class="cta-row" style="justify-content:flex-start">
-          <button id="injPreviewBtn" class="cta sm ghosty" type="button" data-i18n="injPreview">پیش‌نمایش 👁</button>
-          <button id="injGo" class="cta sm ok" type="button" data-i18n="injGo">تزریق و انتشار ⚡</button>
-        </div>
-        <div class="inj-preview" id="injPreview" hidden></div>
-      </div>
-
-      <!-- قیمت‌ها -->
-      <div id="tab-prices" class="tabpane" hidden>
-        <p class="admin-hint" data-i18n="priceHint">قیمت‌ها از منابع عمومی خونده می‌شن. نوبیتکس مستقیم از مرورگر CORS نداره، پس اگه جواب نداد از منبع جایگزین استفاده می‌شه. می‌تونی دستی به‌روز کنی.</p>
-        <div class="cta-row" style="justify-content:flex-start">
-          <button id="priceRefresh" class="cta sm ghosty" type="button" data-i18n="priceRefresh">به‌روزرسانی قیمت‌ها 🔄</button>
-        </div>
-      </div>
-
-      <!-- همگام‌سازی -->
-      <div id="tab-sync" class="tabpane" hidden>
-        <div class="sync-row" style="margin:0 0 12px">
-          <span class="sync-status" id="syncStatus"></span>
-          <span class="sync-actions">
-            <button id="openSettingsBtn" class="cta sm ghosty" type="button" data-i18n="openSettings">اتصال به GitHub ⚙</button>
-            <button id="syncNowBtn" class="cta sm ok" type="button" disabled data-i18n="syncNow">انتشار نوت‌ها و بنرها ☁</button>
-            <button id="discBtn" class="cta sm danger" type="button" style="display:none" data-i18n="disconnect">قطع اتصال</button>
-          </span>
-        </div>
-        <p class="admin-hint" data-i18n="syncHint">انتشار فقط نوت‌ها و بنرها رو توی فایل زنده عوض می‌کنه؛ بقیهٔ کد دست نمی‌خوره.</p>
-      </div>
+      <button id="dlBtn2" class="cta ghosty owner-only" type="button" hidden data-i18n="dlBtn">دانلود کد ⬇</button>
+      <button id="copyCodeBtn2" class="cta ghosty owner-only" type="button" hidden data-i18n="copyCode">کپی کد 📋</button>
     </div>
   </section>
 
   <section id="twitter">
-    <h2 class="sec-title" style="--sg:#38bdf8"><span data-i18n="sTw">توییتر</span></h2>
+    <h2 class="sec-title" style="--sg:#4dd6ff"><span data-i18n="sTw">توییتر</span></h2>
     <div class="tw-card reveal">
-      <span class="icon"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></span>
+      <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></span>
       <div class="tw-handle">@Reza_ZeroOnee</div>
       <p class="tw-sub" data-i18n="twSub">من اینجام؛ هر خبری هم باشه، اول همون‌جا می‌گم.</p>
       <div class="cta-row">
@@ -733,7 +330,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   <footer data-i18n="foot">© ۱۴۰۵ · رضا — همین و بس.</footer>
 </div>
 
-<!-- اتاق نوت‌ها -->
 <div id="room" class="room" aria-hidden="true">
   <div class="room-inner">
     <div class="room-head">
@@ -742,60 +338,82 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       <button id="roomClose" class="room-close" type="button" aria-label="close">✕</button>
     </div>
     <p class="room-sub" data-i18n="roomSub">هر نوتی که نوشته بشه، این‌جا می‌مونه.</p>
+
     <div class="composer owner-only" hidden>
       <label class="comp-label" for="noteInput" data-i18n="compLabel">نوت جدید بنویس:</label>
       <textarea id="noteInput" rows="3" data-i18n-ph="compPh" placeholder="این‌جا بنویس…"></textarea>
-      <div class="pick-row" style="margin-top:10px">
+
+      <div class="pick-row">
         <span class="pick-label" data-i18n="pickLabel">رنگ / اولویت:</span>
         <button type="button" class="pick pk-red" data-lvl="red">🔴 <span data-i18n="lvlRed">ضروری</span></button>
         <button type="button" class="pick pk-yellow" data-lvl="yellow">🟡 <span data-i18n="lvlYellow">مهم</span></button>
         <button type="button" class="pick pk-blue sel" data-lvl="blue">🔵 <span data-i18n="lvlBlue">عادی</span></button>
       </div>
+
       <div class="comp-row">
         <span class="comp-date" id="compDate"></span>
-        <span class="comp-actions"><button id="addNoteBtn" class="cta sm" type="button" data-i18n="addBtn">ثبت نوت ✓</button></span>
+        <span class="comp-actions">
+          <button id="addNoteBtn" class="cta sm" type="button" data-i18n="addBtn">ثبت نوت ✓</button>
+          <button id="dlBtn" class="cta sm ghosty" type="button" data-i18n="dlBtn">دانلود کد ⬇</button>
+          <button id="copyCodeBtn" class="cta sm ghosty" type="button" data-i18n="copyCode">کپی کد 📋</button>
+        </span>
       </div>
+
+      <div class="sync-row" style="margin-top:14px;margin-bottom:0">
+        <span class="sync-status" id="syncStatus2"></span>
+        <span class="sync-actions">
+          <button id="openSettingsBtn2" class="cta sm ghosty" type="button" data-i18n="openSettings">اتصال به GitHub ⚙</button>
+          <button id="syncNowBtn2" class="cta sm ok" type="button" disabled data-i18n="syncNow">انتشار نوت‌ها ☁</button>
+          <button id="discBtn2" class="cta sm danger" type="button" style="display:none" data-i18n="disconnect">قطع اتصال</button>
+        </span>
+      </div>
+
+      <p class="comp-hint" data-i18n="compHint">نوت‌ها رو ثبت کن، بعد «انتشار نوت‌ها» رو بزن — فقط نوت‌ها روی سایت عوض می‌شن، بقیهٔ کد دست نمی‌خوره.</p>
     </div>
+
     <div id="roomFeed"></div>
   </div>
 </div>
 
-<!-- گیت: ورود/ساخت رمز ادمین -->
-<div id="gate" class="modal" aria-hidden="true">
-  <div class="mbox">
-    <h3>🔐 <span data-i18n="gateTitle">ورود به ادمین</span></h3>
-    <p class="msub" id="gateSub"></p>
-    <div id="gateCreate" hidden>
-      <div class="mfield"><label data-i18n="gNewPass">رمز جدید (حداقل ۶ کاراکتر)</label><input id="gNew" type="password"></div>
-      <div class="mfield"><label data-i18n="gConfirm">تکرار رمز</label><input id="gConfirmIn" type="password"></div>
-      <div class="mwarn" data-i18n-html="gPassHint"></div>
-      <div class="mactions"><button id="gCancel" class="cta sm ghosty" type="button" data-i18n="gCancel">انصراف</button><button id="gSet" class="cta sm ok" type="button" data-i18n="gSet">ذخیره و ورود ✓</button></div>
-    </div>
-    <div id="gateEnter" hidden>
-      <div class="mfield"><label data-i18n="gPass">رمز عبور</label><input id="gPassIn" type="password"></div>
-      <div class="mactions"><button id="gCancel2" class="cta sm ghosty" type="button" data-i18n="gCancel">انصراف</button><button id="gUnlock" class="cta sm ok" type="button" data-i18n="gUnlock">باز کردن 🔓</button></div>
-    </div>
-  </div>
-</div>
-
-<!-- گیت: اتصال گیت‌هاب -->
 <div id="modal" class="modal" aria-hidden="true">
   <div class="mbox">
     <h3>🔐 <span data-i18n="mTitle">اتصال امن به GitHub</span></h3>
-    <p class="msub" data-i18n="mSub">توکن هیچ‌جا ذخیره نمی‌شه؛ فقط توی حافظهٔ مرورگر می‌مونه و با بستن صفحه می‌پره.</p>
+    <p class="msub" data-i18n="mSub">توکن هیچ‌جا ذخیره نمی‌شه؛ فقط توی حافظهٔ مرورگر می‌مونه و با بستن صفحه از بین می‌ره.</p>
+
     <details class="guide">
-      <summary data-i18n="guideSum">📖 راهنمای ساخت توکن امن</summary>
+      <summary data-i18n="guideSum">📖 راهنمای ساخت توکن امن (۲ دقیقه)</summary>
       <ol data-i18n-html="guideSteps"></ol>
     </details>
+
     <div class="mwarn" data-i18n-html="mWarn"></div>
+
     <div class="mgrid">
-      <div class="mfield"><label data-i18n="fUser">نام کاربری</label><input id="fUser" type="text" autocomplete="off"></div>
-      <div class="mfield"><label data-i18n="fRepo">نام مخزن</label><input id="fRepo" type="text" autocomplete="off"></div>
-      <div class="mfield"><label data-i18n="fBranch">شاخه</label><input id="fBranch" type="text" value="main" autocomplete="off"></div>
-      <div class="mfield"><label data-i18n="fPath">مسیر فایل</label><input id="fPath" type="text" value="index.html" autocomplete="off"></div>
+      <div class="mfield">
+        <label data-i18n="fUser">نام کاربری GitHub</label>
+        <input id="fUser" type="text" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="mfield">
+        <label data-i18n="fRepo">نام مخزن (repo)</label>
+        <input id="fRepo" type="text" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="mfield">
+        <label data-i18n="fBranch">شاخه (branch)</label>
+        <input id="fBranch" type="text" value="main" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="mfield">
+        <label data-i18n="fPath">مسیر فایل</label>
+        <input id="fPath" type="text" value="index.html" autocomplete="off" spellcheck="false">
+      </div>
     </div>
-    <div class="mfield"><label data-i18n="fToken">توکن امن (Fine-grained)</label><input id="fToken" type="password" autocomplete="off" placeholder="github_pat_…"></div>
-    <div class="mactions"><button id="mCancel" class="cta sm ghosty" type="button" data-i18n="mCancel">انصراف</button><button id="mConnect" class="cta sm ok" type="button" data-i18n="mConnect">اتصال و آزمایش ✓</button></div>
+    <div class="mfield">
+      <label data-i18n="fToken">توکن امن (Fine-grained)</label>
+      <input id="fToken" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+    </div>
+
+    <div class="mactions">
+      <button id="mCancel" class="cta sm ghosty" type="button" data-i18n="mCancel">انصراف</button>
+      <button id="mConnect" class="cta sm ok" type="button" data-i18n="mConnect">اتصال و آزمایش ✓</button>
+    </div>
   </div>
 </div>
 
@@ -806,10 +424,11 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var CUR_LANG = 'fa';
   var clockFmt = null;
-  var SAVED_NOTES = [{"glow":"#5b8cff","lvl":"blue","hot":false,"d":{"fa":"۲۰ مرداد ۱۴۰۵","en":"11 August 2026"},"p":{"fa":"توییتر من با 0 فالوور ولی پست میزارم😂","en":"توییتر من با 0 فالوور ولی پست میزارم😂"}},{"glow":"#ffc94d","lvl":"yellow","hot":false,"d":{"fa":"۱۹ مرداد ۱۴۰۵","en":"10 August 2026"},"p":{"fa":"به هوش مصنوعی ام کوئن رو اضافه کردم منتظر باشید🔥","en":"به هوش مصنوعی ام کوئن رو اضافه کردم منتظر باشید🔥"}},{"glow":"#ff5d6c","hot":true,"d":{"fa":"۱۹ مرداد ۱۴۰۵","en":"August 10, 2026"},"p":{"fa":"به زودی یه آیپی اسکنر میدیم بیرون؛ خبرش همین‌جا میاد.","en":"An IP scanner is coming soon; the news drops right here."}},{"glow":"#5b8cff","hot":false,"d":{"fa":"۱۹ مرداد ۱۴۰۵","en":"August 10, 2026"},"p":{"fa":"بالاخره سایت رو راه انداختم. ساده و بی‌سروصدا، همون‌جوری که خودم دوست دارم.","en":"Finally launched the site. Simple and quiet, just the way I like it."}},{"glow":"#ffc94d","hot":false,"d":{"fa":"۳ مرداد ۱۴۰۵","en":"July 25, 2026"},"p":{"fa":"یه پروژهٔ کوچیک دستمه. وقتی به یه سروشکل رسید، همین‌جا ازش می‌گم.","en":"I'm working on a small project. Once it takes shape, I'll talk about it here."}},{"glow":"#3ee6a0","hot":false,"d":{"fa":"۲۱ تیر ۱۴۰۵","en":"July 12, 2026"},"p":{"fa":"تصمیم گرفتم بیشتر توییتر باشم. اگه حرفی، نظری، چیزی: \u003cbdi dir=\"ltr\">@Reza_ZeroOnee\u003c/bdi>","en":"Decided to be more on X. If you have anything to say: \u003cbdi dir=\"ltr\">@Reza_ZeroOnee\u003c/bdi>"}}]; /*SAVED_NOTES*/
-  var SAVED_BANNERS = [{"id":1786435634769,"text":"سلام این سایت منه چیز خاصی هم نداره","color":"green","date":""}]; /*SAVED_BANNERS*/
+  var SAVED_NOTES = [{"glow":"#ffc94d","lvl":"yellow","hot":false,"d":{"fa":"۱۹ مرداد ۱۴۰۵","en":"10 August 2026"},"p":{"fa":"آیپی اسکنر خوبی دارم میسازم با لوکیشن از همه جا یعنی هرجا کلودفلر هست","en":"آیپی اسکنر خوبی دارم میسازم با لوکیشن از همه جا یعنی هرجا کلودفلر هست"}},{"glow":"#ff5d6c","hot":true,"d":{"fa":"۱۹ مرداد ۱۴۰۵","en":"August 10, 2026"},"p":{"fa":"به زودی یه آیپی اسکنر میدیم بیرون؛ خبرش همین‌جا میاد.","en":"An IP scanner is coming soon; the news drops right here."}},{"glow":"#5b8cff","hot":false,"d":{"fa":"۱۹ مرداد ۱۴۰۵","en":"August 10, 2026"},"p":{"fa":"بالاخره سایت رو راه انداختم. ساده و بی‌سروصدا، همون‌جوری که خودم دوست دارم.","en":"Finally launched the site. Simple and quiet, just the way I like it."}},{"glow":"#ffc94d","hot":false,"d":{"fa":"۳ مرداد ۱۴۰۵","en":"July 25, 2026"},"p":{"fa":"یه پروژهٔ کوچیک دستمه. وقتی به یه سروشکل رسید، همین‌جا ازش می‌گم.","en":"I'm working on a small project. Once it takes shape, I'll talk about it here."}},{"glow":"#3ee6a0","hot":false,"d":{"fa":"۲۱ تیر ۱۴۰۵","en":"July 12, 2026"},"p":{"fa":"تصمیم گرفتم بیشتر توییتر باشم. اگه حرفی، نظری، چیزی: \u003cbdi dir=\"ltr\">@Reza_ZeroOnee\u003c/bdi>","en":"Decided to be more on X. If you have anything to say: \u003cbdi dir=\"ltr\">@Reza_ZeroOnee\u003c/bdi>"}}]; /*SAVED_NOTES*/
 
-  var ADMIN_ACTIVE = false;
+  /* حالت مدیریت فقط وقتی #admin توی آدرس باشه */
+  var ADMIN = (location.hash || '').toLowerCase().indexOf('admin') !== -1;
+
   var TOKEN_URL = 'https://github.com/settings/personal-access-tokens/new';
 
   var I18N = {
@@ -817,1271 +436,821 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       docTitle:'رضا — گوشهٔ من', pillName:'رضا', status:'آنلاین',
       title:'گوشهٔ من', subtitle:'یه صفحهٔ شخصی؛ ساده، بی‌سروصدا، بدونِ اضافه.',
       cAbout:'درباره', cAboutSub:'ماجرا چیه؟',
-      cNotes:'نوت‌ها', cNotesSub:'یادداشت‌ها',
-      cDash:'داشبورد', cDashSub:'قیمت و ساعت',
-      cTimer:'عمر سایت', cTimerSub:'هر ثانیه',
+      cNotes:'نوت‌ها', cNotesSub:'یادداشت‌های گاه‌به‌گاه',
+      cTimer:'ساعت و عمر سایت', cTimerSub:'هر ثانیه می‌شماره',
       cTw:'توییتر',
       sAbout:'ماجرا چیه؟',
       aboutTxt:'این‌جا یه صفحهٔ شخصیِ ساده‌ست؛ نه رزومه‌ست، نه فروشگاه، نه هیچ چیز دیگه. هر از گاهی یه نوت می‌ذارم، هر از گاهی هم فقط سکوت. <b>همون‌قدر که لازمه، نه یه کلمه بیشتر.</b> اگه حرفی هم بود، توییتر پیدام می‌کنی.',
-      sDash:'داشبورد زنده', pUsd:'دلار (ریال)', pEur:'یورو (ریال)', pBtc:'بیت‌کوین (دلار)',
-      musicTitle:'موسیقی ملایم', musicOff:'پخش کن ▶', musicOn:'قطع کن ⏸',
-      sTimer:'عمر سایت', lblElapsed:'از ساخته شدن این سایت گذشته', startDate:'شروع: ۱۹ مرداد ۱۴۰۵',
+      sTimer:'ساعت و عمر سایت', lblClock:'ساعت الان', lblElapsed:'از ساخته شدن این سایت گذشته',
+      startDate:'شروع: ۱۹ مرداد ۱۴۰۵',
       sNotes:'نوت‌ها', allNotes:'همهٔ نوت‌ها ←', writeBtn:'نوشتن نوت جدید +',
       roomTitle:'اتاق نوت‌ها', roomSub:'هر نوتی که نوشته بشه، این‌جا می‌مونه.',
       compLabel:'نوت جدید بنویس:', compPh:'این‌جا بنویس…',
+      compHint:'نوت‌ها رو ثبت کن، بعد «انتشار نوت‌ها» رو بزن — فقط نوت‌ها روی سایت عوض می‌شن، بقیهٔ کد دست نمی‌خوره.',
       pickLabel:'رنگ / اولویت:', lvlRed:'ضروری', lvlYellow:'مهم', lvlBlue:'عادی',
       addBtn:'ثبت نوت ✓', added:'ثبت شد ✓',
+      dlBtn:'دانلود کد ⬇', dlDone:'دانلود شروع شد ✓',
+      copyCode:'کپی کد 📋', codeCopied:'کد کپی شد ✓',
       delTitle:'حذف نوت', sure:'مطمئنی؟',
-      adminTitle:'پنل مدیریت', adminMode:'حالت مدیریت فعال', lockBtn:'🔒 قفل کردن',
-      tabBanners:'بنرها', tabInject:'تزریق کد', tabPrices:'قیمت‌ها', tabSync:'همگام‌سازی',
-      bannerHint:'بنر بساز، رنگ و تاریخ انقضا بده، بعد «انتشار» رو بزن تا برای همه نمایش داده بشه. بعد از انقضا خودش محو می‌شه.',
-      bTextPh:'متن بنر…', bColorLbl:'رنگ:', bDateLbl:'تاریخ انقضا (اختیاری):', bAdd:'افزودن بنر +',
-      bEmpty:'هنوز بنری نداری؛ یکی اضافه کن.', bAdded:'بنر اضافه شد ✓', bDeleted:'بنر پاک شد', dLeft:'روز مونده',
-      injHint:'کدت رو پیست کن (حتی دو خط). نوعش رو تشخیص می‌دم، جای مناسب رو پیشنهاد می‌دم، پیش‌نمایش می‌دم و بعد از تأیید از طریق گیت‌هاب می‌ذارمش. برای جای دقیق، توی کد سایت <code dir="ltr">&lt;!-- INJECT-HERE --&gt;</code> بذار.',
-      injAuto:'خودکار', injHead:'head', injBodyEnd:'body', injMarker:'نشانگر',
-      injPreview:'پیش‌نمایش 👁', injGo:'تزریق و انتشار ⚡',
-      injEmpty:'اول کد رو پیست کن', injNoMarker:'نشانگر پیدا نشد', injNoAnchor:'جای مورد نظر پیدا نشد',
-      injDone:'کد تزریق و منتشر شد ✓', injWillAdd:'قرار می‌گیره قبل از', injWillMarker:'جایگزین نشانگر می‌شه',
-      priceHint:'قیمت‌ها از منابع عمومی خونده می‌شن. نوبیتکس مستقیم از مرورگر CORS نداره، پس اگه جواب نداد از منبع جایگزین استفاده می‌شه. می‌تونی دستی به‌روز کنی.',
-      priceRefresh:'به‌روزرسانی قیمت‌ها 🔄',
-      syncHint:'انتشار فقط نوت‌ها و بنرها رو توی فایل زنده عوض می‌کنه؛ بقیهٔ کد دست نمی‌خوره.',
       syncOff:'به GitHub وصل نیست', syncOn:'متصل به GitHub', syncing:'در حال انتشار…',
-      syncNow:'انتشار نوت‌ها و بنرها ☁', openSettings:'اتصال به GitHub ⚙', disconnect:'قطع اتصال',
-      mTitle:'اتصال امن به GitHub', mSub:'توکن هیچ‌جا ذخیره نمی‌شه؛ فقط توی حافظهٔ مرورگر می‌مونه و با بستن صفحه می‌پره.',
-      guideSum:'📖 راهنمای ساخت توکن امن',
-      guideSteps:'<li><a href="'+TOKEN_URL+'" target="_blank" rel="noopener">این صفحه</a> رو باز کن.</li><li>اسم بذار و انقضا انتخاب کن (۷ تا ۳۰ روز).</li><li>Repository access رو بذار روی <code>Only select repositories</code> و فقط مخزن خودت رو انتخاب کن.</li><li>از Permissions گزینهٔ <code>Contents</code> رو <code>Read and write</code> کن.</li><li><code>Generate token</code> بزن و کپی کن.</li>',
-      mWarn:'🔒 دسترسی توکن فقط به ویرایش همین یک مخزن محدوده و هیچ‌جا ذخیره نمی‌شه.',
-      fUser:'نام کاربری', fRepo:'نام مخزن', fBranch:'شاخه', fPath:'مسیر فایل', fToken:'توکن امن',
+      syncNow:'انتشار نوت‌ها ☁', openSettings:'اتصال به GitHub ⚙', disconnect:'قطع اتصال',
+      mTitle:'اتصال امن به GitHub',
+      mSub:'توکن هیچ‌جا ذخیره نمی‌شه؛ فقط توی حافظهٔ مرورگر می‌مونه و با بستن صفحه از بین می‌ره.',
+      guideSum:'📖 راهنمای ساخت توکن امن (۲ دقیقه)',
+      guideSteps:'<li><a href="'+TOKEN_URL+'" target="_blank" rel="noopener">این صفحه</a> رو باز کن (ساخت Fine-grained token).</li><li>یه اسم بذار، مثلاً <code>reza-site</code> و یه انقضا انتخاب کن (مثلاً ۳۰ روز).</li><li>بخش Repository access رو بذار روی <code>Only select repositories</code> و فقط مخزن <code>Myreza.</code> رو انتخاب کن.</li><li>از Permissions → Repository permissions، گزینهٔ <code>Contents</code> رو بذار روی <code>Read and write</code>. (همین، چیز دیگه‌ای لازم نیست.)</li><li>بزن <code>Generate token</code> و توکن رو کپی کن.</li><li>توی فیلد پایین پیست کن و «اتصال و آزمایش» رو بزن.</li>',
+      mWarn:'🔒 <b>امنیت کامل:</b> دسترسی توکن فقط به ویرایش همین یک مخزن محدوده، هیچ‌جا ذخیره نمی‌شه، و هر لحظه می‌تونی از تنظیمات GitHub باطلش کنی.',
+      fUser:'نام کاربری GitHub', fRepo:'نام مخزن (repo)', fBranch:'شاخه (branch)', fPath:'مسیر فایل',
+      fToken:'توکن امن (Fine-grained)',
       mCancel:'انصراف', mConnect:'اتصال و آزمایش ✓', testing:'در حال آزمایش…',
-      connOk:'اتصال برقرار شد ✓', connFail:'اتصال برقرار نشد', badToken:'توکن نامعتبره یا دسترسی نداره', fillFields:'فیلدها رو پر کن',
-      syncOk:'منتشر شد ✓ (۱ تا ۲ دقیقه دیگه)', syncFail:'خطا در انتشار',
-      disconnected:'اتصال قطع شد', needReconnect:'توکن توی حافظه نیست؛ دوباره وصل شو', commitMsg:'update: notes/banners',
-      gateTitle:'ورود به ادمین', gSubCreate:'اول یه رمز برای ادمین بساز.', gSubEnter:'رمز ادمین رو وارد کن.',
-      gNewPass:'رمز جدید', gConfirm:'تکرار رمز', gPass:'رمز عبور',
-      gPassHint:'🔒 رمز فقط به صورت هش روی همین مرورگر ذخیره می‌شه. بعد از ۵ بار اشتباه، ۵ دقیقه قفل می‌شه.',
-      gSet:'ذخیره و ورود ✓', gUnlock:'باز کردن 🔓', gCancel:'انصراف',
-      wrongPass:'رمز اشتباهه', passMismatch:'رمزها یکی نیستن', passShort:'رمز حداقل ۶ کاراکتر',
-      unlocked:'ادمین باز شد ✓', locked:'ادمین قفل شد', autoLocked:'به خاطر بی‌فعالیتی قفل شد',
-      lockoutMsg:'خیلی تلاش کردی؛ چند دقیقه صبر کن', attemptsLeft:'مونده',
+      connOk:'اتصال برقرار شد ✓', connFail:'اتصال برقرار نشد',
+      badToken:'توکن نامعتبره یا به این مخزن دسترسی نداره',
+      fillFields:'فیلدها رو پر کن',
+      syncOk:'نوت‌ها منتشر شدن ✓ (۱ تا ۲ دقیقه دیگه روی سایت میاد)', syncFail:'خطا در انتشار',
+      markerMissing:'نشانهٔ نوت‌ها توی فایل سایت پیدا نشد؛ فایل دستی تغییر کرده',
+      disconnected:'اتصال قطع شد', needReconnect:'توکن توی حافظه نیست؛ دوباره وصل شو',
+      commitMsg:'notes: update',
       todayLbl:'امروز:', noteWord:'نوت', hotTag:'به زودی',
+      bannerTxt:'به زودی آیپی اسکنر میدیم بیرون', bannerLbl:'مانده:',
       sTw:'توییتر', twSub:'من اینجام؛ هر خبری هم باشه، اول همون‌جا می‌گم.',
       btnOpen:'باز کردن توییتر', btnCopy:'کپی آیدی', copied:'کپی شد ✓',
-      foot:'© ۱۴۰۵ · رضا — همین و بس.', gearTitle:'حالت آروم',
-      locale:'fa-IR', and:' و ', units:{y:'سال', d:'روز', h:'ساعت', m:'دقیقه', s:'ثانیه'}
+      foot:'© ۱۴۰۵ · رضا — همین و بس.', gearTitle:'حالت آروم', syncTitle:'اتصال به سایت',
+      locale:'fa-IR', and:' و ',
+      units:{y:'سال', d:'روز', h:'ساعت', m:'دقیقه', s:'ثانیه'}
     },
     en: {
       docTitle:'Reza — My Corner', pillName:'Reza', status:'online',
       title:'My Corner', subtitle:'A simple personal page; quiet, no extra.',
       cAbout:'About', cAboutSub:"What's the story?",
-      cNotes:'Notes', cNotesSub:'My notes',
-      cDash:'Dashboard', cDashSub:'Prices & clock',
-      cTimer:'Site age', cTimerSub:'Every second',
+      cNotes:'Notes', cNotesSub:'Occasional notes',
+      cTimer:'Clock & site age', cTimerSub:'Counting every second',
       cTw:'X',
       sAbout:"What's the story?",
-      aboutTxt:"This is a simple personal page; not a résumé, not a store. I drop a note now and then. <b>Only as much as needed, not a word more.</b>",
-      sDash:'Live Dashboard', pUsd:'USD (IRR)', pEur:'EUR (IRR)', pBtc:'Bitcoin (USD)',
-      musicTitle:'Ambient music', musicOff:'Play ▶', musicOn:'Pause ⏸',
-      sTimer:'Site age', lblElapsed:'Time since this site was born', startDate:'Start: August 10, 2026',
+      aboutTxt:"This is a simple personal page; not a résumé, not a store, nothing else. I drop a note now and then, and sometimes just silence. <b>Only as much as needed, not a word more.</b> If you want to talk, find me on X.",
+      sTimer:'Clock & site age', lblClock:'Current time', lblElapsed:'Time since this site was born',
+      startDate:'Start: August 10, 2026',
       sNotes:'Notes', allNotes:'All notes →', writeBtn:'Write a new note +',
       roomTitle:'Notes Room', roomSub:'Every note stays here.',
       compLabel:'Write a new note:', compPh:'Write here…',
+      compHint:'Add your notes, then hit “Publish notes” — only the notes change on the site, the rest of the code stays untouched.',
       pickLabel:'Color / priority:', lvlRed:'urgent', lvlYellow:'important', lvlBlue:'normal',
       addBtn:'Add note ✓', added:'Added ✓',
+      dlBtn:'Download code ⬇', dlDone:'Download started ✓',
+      copyCode:'Copy code 📋', codeCopied:'Code copied ✓',
       delTitle:'Delete note', sure:'Sure?',
-      adminTitle:'Admin Panel', adminMode:'Admin mode active', lockBtn:'🔒 Lock',
-      tabBanners:'Banners', tabInject:'Inject code', tabPrices:'Prices', tabSync:'Sync',
-      bannerHint:'Create banners with color and expiry, then hit “Publish”. Expired ones hide automatically.',
-      bTextPh:'Banner text…', bColorLbl:'Color:', bDateLbl:'Expiry date (optional):', bAdd:'Add banner +',
-      bEmpty:'No banners yet; add one.', bAdded:'Banner added ✓', bDeleted:'Banner deleted', dLeft:'days left',
-      injHint:'Paste your code (even two lines). I detect its type, suggest a spot, preview it, then inject via GitHub on confirm. For an exact spot, put <code dir="ltr">&lt;!-- INJECT-HERE --&gt;</code> in your code.',
-      injAuto:'Auto', injHead:'head', injBodyEnd:'body', injMarker:'Marker',
-      injPreview:'Preview 👁', injGo:'Inject & publish ⚡',
-      injEmpty:'Paste some code first', injNoMarker:'Marker not found', injNoAnchor:'Target spot not found',
-      injDone:'Code injected & published ✓', injWillAdd:'Will be inserted before', injWillMarker:'Will replace the marker',
-      priceHint:'Prices come from public sources. Nobitex has no browser CORS, so a fallback source is used if it fails. You can refresh manually.',
-      priceRefresh:'Refresh prices 🔄',
-      syncHint:'Publishing only swaps notes & banners in the live file; the rest stays untouched.',
       syncOff:'Not connected to GitHub', syncOn:'Connected to GitHub', syncing:'Publishing…',
-      syncNow:'Publish notes & banners ☁', openSettings:'Connect GitHub ⚙', disconnect:'Disconnect',
-      mTitle:'Secure GitHub connection', mSub:'The token is never stored; it lives only in browser memory.',
-      guideSum:'📖 How to create a secure token',
-      guideSteps:'<li>Open <a href="'+TOKEN_URL+'" target="_blank" rel="noopener">this page</a>.</li><li>Name it, set an expiration (7–30 days).</li><li>Set access to <code>Only select repositories</code> and pick your repo.</li><li>Under Permissions set <code>Contents</code> to <code>Read and write</code>.</li><li>Hit <code>Generate token</code> and copy it.</li>',
-      mWarn:'🔒 The token is scoped to this one repo only and is never persisted.',
-      fUser:'Username', fRepo:'Repo name', fBranch:'Branch', fPath:'File path', fToken:'Secure token',
+      syncNow:'Publish notes ☁', openSettings:'Connect GitHub ⚙', disconnect:'Disconnect',
+      mTitle:'Secure GitHub connection',
+      mSub:'The token is never stored; it lives only in browser memory and dies when the tab closes.',
+      guideSum:'📖 How to create a secure token (2 minutes)',
+      guideSteps:'<li>Open <a href="'+TOKEN_URL+'" target="_blank" rel="noopener">this page</a> (fine-grained token).</li><li>Give it a name like <code>reza-site</code> and set an expiration (e.g. 30 days).</li><li>Set Repository access to <code>Only select repositories</code> and pick <code>Myreza.</code> only.</li><li>Under Permissions → Repository permissions, set <code>Contents</code> to <code>Read and write</code>. (That\u2019s all it needs.)</li><li>Hit <code>Generate token</code> and copy it.</li><li>Paste it below and hit “Connect & test”.</li>',
+      mWarn:'🔒 <b>Full security:</b> the token is scoped to editing this one repo only, is never persisted anywhere, and you can revoke it anytime from GitHub settings.',
+      fUser:'GitHub username', fRepo:'Repository name', fBranch:'Branch', fPath:'File path',
+      fToken:'Secure token (Fine-grained)',
       mCancel:'Cancel', mConnect:'Connect & test ✓', testing:'Testing…',
-      connOk:'Connected ✓', connFail:'Connection failed', badToken:'Invalid token or no access', fillFields:'Fill in the fields',
-      syncOk:'Published ✓ (live in 1–2 min)', syncFail:'Publish failed',
-      disconnected:'Disconnected', needReconnect:'Token not in memory; reconnect', commitMsg:'update: notes/banners',
-      gateTitle:'Admin access', gSubCreate:'First, create an admin passphrase.', gSubEnter:'Enter the admin passphrase.',
-      gNewPass:'New passphrase', gConfirm:'Confirm passphrase', gPass:'Passphrase',
-      gPassHint:'🔒 The passphrase is stored only as a hash on this browser. After 5 wrong attempts it locks for 5 minutes.',
-      gSet:'Save & enter ✓', gUnlock:'Unlock 🔓', gCancel:'Cancel',
-      wrongPass:'Wrong passphrase', passMismatch:'Passphrases don\u2019t match', passShort:'Min 6 characters',
-      unlocked:'Admin unlocked ✓', locked:'Admin locked', autoLocked:'Locked due to inactivity',
-      lockoutMsg:'Too many attempts; wait a few minutes', attemptsLeft:'left',
+      connOk:'Connected ✓', connFail:'Connection failed',
+      badToken:'Invalid token or no access to this repo',
+      fillFields:'Fill in the fields',
+      syncOk:'Notes published ✓ (live in 1–2 minutes)', syncFail:'Publish failed',
+      markerMissing:'Notes marker not found in site file; the file was edited manually',
+      disconnected:'Disconnected', needReconnect:'Token not in memory; reconnect',
+      commitMsg:'notes: update',
       todayLbl:'Today:', noteWord:'note', hotTag:'soon',
+      bannerTxt:'Coming soon: IP Scanner', bannerLbl:'Left:',
       sTw:'X', twSub:"Find me here; whatever news there is, I say it there first.",
       btnOpen:'Open X', btnCopy:'Copy handle', copied:'Copied ✓',
-      foot:'© 2026 · Reza — that\u2019s it.', gearTitle:'Calm mode',
-      locale:'en-GB', and:', ', units:{y:'years', d:'days', h:'hours', m:'mins', s:'secs'}
+      foot:'© 2026 · Reza — that\u2019s it.', gearTitle:'Calm mode', syncTitle:'Connect to site',
+      locale:'en-GB', and:', ',
+      units:{y:'years', d:'days', h:'hours', m:'mins', s:'secs'}
     }
   };
 
   var DEFAULT_NOTES = [
-    { glow:'#5b8cff', hot:false, d:{fa:'۱۹ مرداد ۱۴۰۵',en:'August 10, 2026'}, p:{fa:'بالاخره سایت رو راه انداختم. ساده و بی‌سروصدا.', en:'Finally launched the site. Simple and quiet.'} }
+    { glow:'#ff5d6c', hot:true,
+      d:{fa:'۱۹ مرداد ۱۴۰۵', en:'August 10, 2026'},
+      p:{fa:'به زودی یه آیپی اسکنر میدیم بیرون؛ خبرش همین‌جا میاد.',
+         en:'An IP scanner is coming soon; the news drops right here.'} },
+    { glow:'#5b8cff', hot:false,
+      d:{fa:'۱۹ مرداد ۱۴۰۵', en:'August 10, 2026'},
+      p:{fa:'بالاخره سایت رو راه انداختم. ساده و بی‌سروصدا، همون‌جوری که خودم دوست دارم.',
+         en:'Finally launched the site. Simple and quiet, just the way I like it.'} },
+    { glow:'#ffc94d', hot:false,
+      d:{fa:'۳ مرداد ۱۴۰۵', en:'July 25, 2026'},
+      p:{fa:'یه پروژهٔ کوچیک دستمه. وقتی به یه سروشکل رسید، همین‌جا ازش می‌گم.',
+         en:"I'm working on a small project. Once it takes shape, I'll talk about it here."} },
+    { glow:'#3ee6a0', hot:false,
+      d:{fa:'۲۱ تیر ۱۴۰۵', en:'July 12, 2026'},
+      p:{fa:'تصمیم گرفتم بیشتر توییتر باشم. اگه حرفی، نظری، چیزی: <bdi dir="ltr">@Reza_ZeroOnee</bdi>',
+         en:'Decided to be more on X. If you have anything to say: <bdi dir="ltr">@Reza_ZeroOnee</bdi>'} }
   ];
+
   var LVL_GLOW = {red:'#ff5d6c', yellow:'#ffc94d', blue:'#5b8cff'};
 
   function toFa(s){ return String(s).replace(/\d/g, function(d){ return '۰۱۲۳۴۵۶۷۸۹'[d]; }); }
   function num(n){ return CUR_LANG === 'fa' ? toFa(n) : String(n); }
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
-  function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
-  function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
-  function ssGet(k){ try{ return sessionStorage.getItem(k); }catch(e){ return null; } }
-  function ssSet(k,v){ try{ sessionStorage.setItem(k,v); }catch(e){} }
-  function ssDel(k){ try{ sessionStorage.removeItem(k); }catch(e){} }
+  function saveStore(){ try{ localStorage.setItem('rz-notes', JSON.stringify(NOTES)); }catch(e){} }
+  function loadStore(){
+    try{
+      var s = localStorage.getItem('rz-notes');
+      if(s){ var a = JSON.parse(s); if(Array.isArray(a) && a.length) return a; }
+    }catch(e){}
+    return null;
+  }
 
-  function saveNotes(){ lsSet('rz-notes', JSON.stringify(NOTES)); }
-  function loadNotesStore(){ try{ var s=lsGet('rz-notes'); if(s){ var a=JSON.parse(s); if(Array.isArray(a)&&a.length) return a; } }catch(e){} return null; }
-  function saveBanners(){ lsSet('rz-banners', JSON.stringify(BANNERS)); }
-  function loadBannersStore(){ try{ var s=lsGet('rz-banners'); if(s){ var a=JSON.parse(s); if(Array.isArray(a)) return a; } }catch(e){} return null; }
-
-  var NOTES = loadNotesStore() || (SAVED_NOTES && SAVED_NOTES.length ? SAVED_NOTES.slice() : DEFAULT_NOTES.slice());
-  var BANNERS = loadBannersStore() || (SAVED_BANNERS && SAVED_BANNERS.length ? SAVED_BANNERS.slice() : []);
-
-  function loadCfg(){ try{ var s=lsGet('rz-gh-cfg'); if(s) return JSON.parse(s); }catch(e){} return null; }
-  function saveCfg(cfg){ lsSet('rz-gh-cfg', JSON.stringify(cfg)); }
+  function loadCfg(){
+    try{ var s = localStorage.getItem('rz-gh-cfg'); if(s) return JSON.parse(s); }catch(e){}
+    return null;
+  }
+  function saveCfg(cfg){ try{ localStorage.setItem('rz-gh-cfg', JSON.stringify(cfg)); }catch(e){} }
   var GH_CFG = loadCfg() || null;
   var GH_TOKEN = null;
 
-  var gear=document.getElementById('gearBtn'), langBtn=document.getElementById('langBtn'), syncBtnTop=document.getElementById('syncBtn'),
-      musicBtnTop=document.getElementById('musicBtn'), elapsedEl=document.getElementById('elapsed'),
-      copyBtn=document.getElementById('copyBtn'), titleEl=document.getElementById('scrambleTitle'),
-      bannerStack=document.getElementById('bannerStack'), notesPreview=document.getElementById('notesPreview'),
-      room=document.getElementById('room'), roomFeed=document.getElementById('roomFeed'), roomCount=document.getElementById('roomCount'),
-      roomClose=document.getElementById('roomClose'), allNotesBtn=document.getElementById('allNotesBtn'), writeBtn=document.getElementById('writeBtn'),
-      noteInput=document.getElementById('noteInput'), addNoteBtn=document.getElementById('addNoteBtn'), compDate=document.getElementById('compDate'),
-      bigClock=document.getElementById('bigClock'), bigDate=document.getElementById('bigDate'),
-      adminPanel=document.getElementById('adminPanel'), lockBtn=document.getElementById('lockBtn'),
-      bText=document.getElementById('bText'), bDate=document.getElementById('bDate'), bAdd=document.getElementById('bAdd'), bList=document.getElementById('bList'),
-      injCode=document.getElementById('injCode'), injPreviewBtn=document.getElementById('injPreviewBtn'), injGo=document.getElementById('injGo'), injPreview=document.getElementById('injPreview'),
-      priceRefresh=document.getElementById('priceRefresh'),
-      syncStatus=document.getElementById('syncStatus'), openSettingsBtn=document.getElementById('openSettingsBtn'),
-      syncNowBtn=document.getElementById('syncNowBtn'), discBtn=document.getElementById('discBtn'),
-      gate=document.getElementById('gate'), gateSub=document.getElementById('gateSub'), gateCreate=document.getElementById('gateCreate'), gateEnter=document.getElementById('gateEnter'),
-      gNew=document.getElementById('gNew'), gConfirmIn=document.getElementById('gConfirmIn'), gPassIn=document.getElementById('gPassIn'),
-      gCancel=document.getElementById('gCancel'), gCancel2=document.getElementById('gCancel2'), gSet=document.getElementById('gSet'), gUnlock=document.getElementById('gUnlock'),
-      modal=document.getElementById('modal'), fUser=document.getElementById('fUser'), fRepo=document.getElementById('fRepo'),
-      fBranch=document.getElementById('fBranch'), fPath=document.getElementById('fPath'), fToken=document.getElementById('fToken'),
-      mCancel=document.getElementById('mCancel'), mConnect=document.getElementById('mConnect'),
-      toast=document.getElementById('toast'), eq=document.getElementById('eq'), musicToggle=document.getElementById('musicToggle');
+  var NOTES = loadStore() || (SAVED_NOTES && SAVED_NOTES.length ? SAVED_NOTES.slice() : DEFAULT_NOTES.slice());
 
-  var toastTimer=null;
-  function showToast(msg, kind){ toast.textContent=msg; toast.className='toast show '+(kind||''); clearTimeout(toastTimer); toastTimer=setTimeout(function(){ toast.className='toast'; }, 3200); }
+  var gear = document.getElementById('gearBtn');
+  var langBtn = document.getElementById('langBtn');
+  var syncBtnTop = document.getElementById('syncBtn');
+  var clockEl = document.getElementById('clock');
+  var elapsedEl = document.getElementById('elapsed');
+  var copyBtn = document.getElementById('copyBtn');
+  var titleEl = document.getElementById('scrambleTitle');
+  var banner = document.getElementById('banner');
+  var bannerLeft = document.getElementById('bannerLeft');
+  var notesPreview = document.getElementById('notesPreview');
+  var room = document.getElementById('room');
+  var roomFeed = document.getElementById('roomFeed');
+  var roomCount = document.getElementById('roomCount');
+  var roomClose = document.getElementById('roomClose');
+  var allNotesBtn = document.getElementById('allNotesBtn');
+  var writeBtn = document.getElementById('writeBtn');
+  var noteInput = document.getElementById('noteInput');
+  var addNoteBtn = document.getElementById('addNoteBtn');
+  var compDate = document.getElementById('compDate');
+  var dlBtn = document.getElementById('dlBtn');
+  var dlBtn2 = document.getElementById('dlBtn2');
+  var copyCodeBtn = document.getElementById('copyCodeBtn');
+  var copyCodeBtn2 = document.getElementById('copyCodeBtn2');
+  var picks = document.querySelectorAll('.pick');
+  var curLvl = 'blue';
 
-  /* ---------- hashing ---------- */
-  function fallbackHash(str){
-    var h1=0xdeadbeef, h2=0x41c6ce57;
-    for(var i=0;i<str.length;i++){ var ch=str.charCodeAt(i); h1=Math.imul(h1^ch,2654435761); h2=Math.imul(h2^ch,1597334677); }
-    h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);
-    h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);
-    return (h2>>>0).toString(16).padStart(8,'0')+(h1>>>0).toString(16).padStart(8,'0');
-  }
-  function sha256(str){
-    if(window.crypto && window.crypto.subtle){
-      return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function(buf){
-        return Array.prototype.map.call(new Uint8Array(buf), function(b){ return ('0'+b.toString(16)).slice(-2); }).join('');
-      });
-    }
-    return Promise.resolve(fallbackHash(str));
-  }
+  var syncStatus  = document.getElementById('syncStatus');
+  var syncStatus2 = document.getElementById('syncStatus2');
+  var openSettingsBtn  = document.getElementById('openSettingsBtn');
+  var openSettingsBtn2 = document.getElementById('openSettingsBtn2');
+  var syncNowBtn  = document.getElementById('syncNowBtn');
+  var syncNowBtn2 = document.getElementById('syncNowBtn2');
+  var discBtn  = document.getElementById('discBtn');
+  var discBtn2 = document.getElementById('discBtn2');
 
-  /* ---------- admin gate + lockout + auto-lock ---------- */
-  var inactivityTimer=null;
-  function adminUnlocked(){ return ssGet('rz-admin-unlocked')==='1'; }
-  function lockAdmin(msg){
-    ssDel('rz-admin-unlocked');
-    clearTimeout(inactivityTimer);
-    applyAdmin();
-    if(msg) showToast(msg,'warn');
-  }
-  function bumpActivity(){
-    if(!ADMIN_ACTIVE) return;
-    clearTimeout(inactivityTimer);
-    inactivityTimer=setTimeout(function(){ lockAdmin(I18N[CUR_LANG].autoLocked); }, 10*60*1000);
-  }
-  document.addEventListener('click', bumpActivity);
-  document.addEventListener('keydown', bumpActivity);
+  var modal = document.getElementById('modal');
+  var fUser = document.getElementById('fUser');
+  var fRepo = document.getElementById('fRepo');
+  var fBranch = document.getElementById('fBranch');
+  var fPath = document.getElementById('fPath');
+  var fToken = document.getElementById('fToken');
+  var mCancel = document.getElementById('mCancel');
+  var mConnect = document.getElementById('mConnect');
 
-  function lockoutRemaining(){
-    var t=parseInt(lsGet('rz-lockout')||'0',10);
-    if(!t) return 0;
-    var diff=t-Date.now();
-    return diff>0 ? diff : 0;
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
+  function showToast(msg, kind){
+    toast.textContent = msg;
+    toast.className = 'toast show ' + (kind || '');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.className = 'toast'; }, 3200);
   }
 
-  function openGate(){
-    var d=I18N[CUR_LANG];
-    var rem=lockoutRemaining();
-    if(rem>0){
-      gateSub.textContent=d.lockoutMsg+' ('+Math.ceil(rem/60000)+' min)';
-      gateCreate.hidden=true; gateEnter.hidden=true;
-      gate.classList.add('open');
-      return;
-    }
-    var hasHash=!!lsGet('rz-admin-hash');
-    gateSub.textContent= hasHash ? d.gSubEnter : d.gSubCreate;
-    gateCreate.hidden= hasHash;
-    gateEnter.hidden= !hasHash;
-    gate.classList.add('open');
-  }
-  function closeGate(){ gate.classList.remove('open'); gNew.value=''; gConfirmIn.value=''; gPassIn.value=''; }
-  function unlockAdmin(){ ssSet('rz-admin-unlocked','1'); closeGate(); applyAdmin(); showToast(I18N[CUR_LANG].unlocked,'ok'); }
-
-  gSet.addEventListener('click', function(){
-    var d=I18N[CUR_LANG], p=gNew.value, c=gConfirmIn.value;
-    if(p.length<6){ showToast(d.passShort,'err'); return; }
-    if(p!==c){ showToast(d.passMismatch,'err'); return; }
-    sha256(p).then(function(h){ lsSet('rz-admin-hash',h); unlockAdmin(); });
-  });
-  gUnlock.addEventListener('click', function(){
-    var d=I18N[CUR_LANG], p=gPassIn.value;
-    sha256(p).then(function(h){
-      if(h===lsGet('rz-admin-hash')){ lsSet('rz-fails','0'); unlockAdmin(); }
-      else{
-        var fails=parseInt(lsGet('rz-fails')||'0',10)+1;
-        lsSet('rz-fails', String(fails));
-        if(fails>=5){ lsSet('rz-lockout', String(Date.now()+5*60*1000)); lsSet('rz-fails','0'); showToast(d.lockoutMsg,'err'); closeGate(); }
-        else showToast(d.wrongPass+' ('+(5-fails)+' '+d.attemptsLeft+')','err');
-      }
-    });
-  });
-  function exitAdminHash(){ history.replaceState(null,'',location.pathname+location.search); applyAdmin(); }
-  gCancel.addEventListener('click', function(){ closeGate(); exitAdminHash(); });
-  gCancel2.addEventListener('click', function(){ closeGate(); exitAdminHash(); });
-  lockBtn.addEventListener('click', function(){ lockAdmin(I18N[CUR_LANG].locked); exitAdminHash(); });
-
+  /* حالت مدیریت: نمایش/مخفی کردن ابزارهای مخصوص صاحب سایت */
   function applyAdmin(){
-    var wantAdmin=(location.hash||'').toLowerCase().indexOf('admin')!==-1;
-    var unlocked=adminUnlocked();
-    ADMIN_ACTIVE = wantAdmin && unlocked;
-    document.body.classList.toggle('admin', ADMIN_ACTIVE);
+    ADMIN = (location.hash || '').toLowerCase().indexOf('admin') !== -1;
+    document.body.classList.toggle('admin', ADMIN);
     document.querySelectorAll('.owner-only').forEach(function(el){
-      if(ADMIN_ACTIVE) el.removeAttribute('hidden'); else el.setAttribute('hidden','');
+      if(ADMIN) el.removeAttribute('hidden'); else el.setAttribute('hidden','');
     });
-    if(wantAdmin && !unlocked){ openGate(); } else { closeGate(); }
-    if(ADMIN_ACTIVE) bumpActivity();
     renderNotes();
   }
   window.addEventListener('hashchange', applyAdmin);
 
-  /* ---------- tabs ---------- */
-  document.querySelectorAll('.tab').forEach(function(t){
-    t.addEventListener('click', function(){
-      document.querySelectorAll('.tab').forEach(function(x){ x.classList.remove('sel'); });
-      t.classList.add('sel');
-      document.querySelectorAll('.tabpane').forEach(function(p){ p.hidden=true; });
-      document.getElementById('tab-'+t.dataset.tab).hidden=false;
+  function autoDetect(){
+    try{
+      var host = location.hostname || '';
+      var path = location.pathname || '';
+      if(host.indexOf('github.io') !== -1){
+        var user = host.split('.')[0];
+        var repo = path.replace(/^\//, '').split('/')[0] || '';
+        if(user && repo && repo !== 'index.html'){
+          return {user:user, repo:repo, branch:'main', path:'index.html'};
+        }
+      }
+    }catch(e){}
+    return null;
+  }
+
+  function connected(){ return !!(GH_TOKEN && GH_CFG && GH_CFG.user && GH_CFG.repo); }
+
+  function updateSyncUI(){
+    var d = I18N[CUR_LANG];
+    var on = connected();
+    var html = on
+      ? '<span class="dot-ok"></span> <span>' + d.syncOn + '</span>'
+      : '<span class="dot-off"></span> <span>' + d.syncOff + '</span>';
+    syncStatus.innerHTML = html;
+    syncStatus2.innerHTML = html;
+    syncNowBtn.disabled = !on;
+    syncNowBtn2.disabled = !on;
+    discBtn.style.display = on ? '' : 'none';
+    discBtn2.style.display = on ? '' : 'none';
+    syncBtnTop.classList.toggle('linked', on);
+  }
+
+  gear.addEventListener('click', function(){
+    document.body.classList.toggle('calm');
+    gear.classList.add('spin');
+    setTimeout(function(){ gear.classList.remove('spin'); }, 500);
+  });
+
+  var cards = document.querySelectorAll('.card');
+  cards.forEach(function(c){
+    c.addEventListener('click', function(){
+      cards.forEach(function(x){ x.classList.remove('active'); });
+      c.classList.add('active');
+      var t = c.getAttribute('data-target');
+      if(t){
+        var el = document.querySelector(t);
+        if(el) el.scrollIntoView({behavior: RM ? 'auto' : 'smooth', block:'start'});
+      }
     });
   });
 
-  /* ---------- banners ---------- */
-  var bColor='green';
-  document.querySelectorAll('.bcolor').forEach(function(btn){
+  picks.forEach(function(btn){
     btn.addEventListener('click', function(){
-      bColor=btn.dataset.bcolor;
-      document.querySelectorAll('.bcolor').forEach(function(x){ x.classList.remove('sel'); });
+      curLvl = btn.getAttribute('data-lvl');
+      picks.forEach(function(x){ x.classList.remove('sel'); });
       btn.classList.add('sel');
     });
   });
-  function renderBanners(){
-    bannerStack.innerHTML='';
-    var today=new Date(); today.setHours(0,0,0,0);
-    BANNERS.forEach(function(b){
-      var exp=null;
-      if(b.date){ var p=b.date.split('-'); exp=new Date(+p[0],+p[1]-1,+p[2],23,59,59); if(exp<today) return; }
-      var el=document.createElement('div');
-      el.className='banner b-'+(b.color||'blue')+' pop';
-      var leftChip='';
-      if(exp){ var days=Math.max(1,Math.ceil((exp-today)/864e5)); leftChip='<span class="left">'+num(days)+' '+I18N[CUR_LANG].dLeft+'</span>'; }
-      el.innerHTML='<span class="txt"><span class="b-dot"></span><span>'+esc(b.text)+'</span></span>'+leftChip;
-      bannerStack.appendChild(el);
-    });
+
+  function openModal(){
+    var base = GH_CFG || autoDetect() || {};
+    fUser.value   = base.user   || 'nukesamp-crypto';
+    fRepo.value   = base.repo   || 'Myreza.';
+    fBranch.value = base.branch || 'main';
+    fPath.value   = base.path   || 'index.html';
+    fToken.value  = '';
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    setTimeout(function(){ fToken.focus(); }, 220);
   }
-  function renderBannerList(){
-    bList.innerHTML='';
-    if(!BANNERS.length){ bList.innerHTML='<div class="bempty">'+I18N[CUR_LANG].bEmpty+'</div>'; return; }
-    BANNERS.forEach(function(b,i){
-      var el=document.createElement('div');
-      el.className='bitem';
-      el.innerHTML='<span class="bdot bdot-'+(b.color||'blue')+'"></span><span class="b-text">'+esc(b.text)+'</span><span class="b-date">'+(b.date||'—')+'</span>';
-      var del=document.createElement('button'); del.type='button'; del.className='bdel'; del.textContent='🗑';
-      del.addEventListener('click', function(){ BANNERS.splice(i,1); saveBanners(); renderBanners(); renderBannerList(); showToast(I18N[CUR_LANG].bDeleted,'warn'); });
-      el.appendChild(del);
-      bList.appendChild(el);
-    });
+  function closeModal(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    fToken.value = '';
   }
-  bAdd.addEventListener('click', function(){
-    var text=bText.value.trim();
-    if(!text){ showToast(I18N[CUR_LANG].fillFields,'err'); return; }
-    BANNERS.unshift({id:Date.now(), text:text, color:bColor, date:bDate.value||''});
-    saveBanners(); renderBanners(); renderBannerList();
-    bText.value=''; bDate.value='';
-    showToast(I18N[CUR_LANG].bAdded,'ok');
+  openSettingsBtn.addEventListener('click', openModal);
+  openSettingsBtn2.addEventListener('click', openModal);
+  syncBtnTop.addEventListener('click', function(){
+    if(!connected()) openModal();
+    else doSync(syncBtnTop);
+  });
+  mCancel.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(modal.classList.contains('open')) closeModal();
+      else if(room.classList.contains('open')) closeRoom();
+    }
   });
 
-  /* ---------- notes ---------- */
-  function todayDates(){
-    var now=new Date();
-    var fa=new Intl.DateTimeFormat('fa-IR',{year:'numeric',month:'long',day:'numeric'}).format(now);
-    var en=new Intl.DateTimeFormat('en-GB',{year:'numeric',month:'long',day:'numeric'}).format(now);
-    return {fa:fa,en:en};
+  function ghHeaders(token){
+    return {
+      'Accept': 'application/vnd.github+json',
+      'Authorization': 'Bearer ' + token,
+      'X-GitHub-Api-Version': '2022-11-28'
+    };
   }
-  function tagHtml(n,d){
-    if(n.hot) return ' <span class="hot-tag">'+d.hotTag+'</span>';
-    if(n.lvl){ var key=n.lvl==='red'?'lvlRed':(n.lvl==='yellow'?'lvlYellow':'lvlBlue'); return ' <span class="tag tag-'+n.lvl+'">'+d[key]+'</span>'; }
+
+  mConnect.addEventListener('click', async function(){
+    var d = I18N[CUR_LANG];
+    var u = fUser.value.trim();
+    var r = fRepo.value.trim();
+    var b = fBranch.value.trim() || 'main';
+    var p = fPath.value.trim() || 'index.html';
+    var t = fToken.value.trim();
+    if(!u || !r || !t){ showToast(d.fillFields, 'err'); return; }
+
+    mConnect.disabled = true;
+    mConnect.innerHTML = '<span class="spin-sm">⟳</span> ' + d.testing;
+
+    try{
+      var resp = await fetch('https://api.github.com/repos/' + encodeURIComponent(u) + '/' + encodeURIComponent(r), {
+        method: 'GET', headers: ghHeaders(t)
+      });
+      if(resp.status === 200){
+        var permsOk = true;
+        try{
+          var j = await resp.json();
+          if(j && j.permissions) permsOk = !!(j.permissions.push || j.permissions.admin);
+        }catch(e){}
+        if(!permsOk){ throw new Error('no-push'); }
+        GH_CFG = {user:u, repo:r, branch:b, path:p};
+        GH_TOKEN = t;
+        saveCfg(GH_CFG);
+        updateSyncUI();
+        closeModal();
+        showToast(d.connOk, 'ok');
+      } else if(resp.status === 401 || resp.status === 403 || resp.status === 404){
+        showToast(d.badToken, 'err');
+      } else {
+        showToast(d.connFail + ' (' + resp.status + ')', 'err');
+      }
+    } catch(err){
+      showToast(err.message === 'no-push' ? d.badToken : (d.connFail + ' — ' + (err.message || '')), 'err');
+    } finally {
+      mConnect.disabled = false;
+      mConnect.textContent = I18N[CUR_LANG].mConnect;
+    }
+  });
+
+  function disconnect(){
+    var d = I18N[CUR_LANG];
+    GH_TOKEN = null;
+    updateSyncUI();
+    showToast(d.disconnected, 'warn');
+  }
+  discBtn.addEventListener('click', disconnect);
+  discBtn2.addEventListener('click', disconnect);
+
+  var BORN = new Date('2026-08-10T00:00:00+03:30');
+  var DEADLINE = BORN.getTime() + 7 * 864e5;
+
+  function elapsedStr(now){
+    var d = I18N[CUR_LANG];
+    var years = now.getFullYear() - BORN.getFullYear();
+    var anchor = new Date(BORN); anchor.setFullYear(BORN.getFullYear() + years);
+    if(anchor > now){ years--; anchor = new Date(BORN); anchor.setFullYear(BORN.getFullYear() + years); }
+    var ms = Math.max(0, now - anchor);
+    var days = Math.floor(ms / 864e5); ms -= days * 864e5;
+    var hours = Math.floor(ms / 36e5); ms -= hours * 36e5;
+    var mins = Math.floor(ms / 6e4);  ms -= mins * 6e4;
+    var secs = Math.floor(ms / 1e3);
+    var parts = [];
+    if(years > 0) parts.push(num(years) + ' ' + d.units.y);
+    if(days > 0)  parts.push(num(days) + ' ' + d.units.d);
+    if(hours > 0) parts.push(num(hours) + ' ' + d.units.h);
+    if(mins > 0)  parts.push(num(mins) + ' ' + d.units.m);
+    parts.push(num(secs) + ' ' + d.units.s);
+    return parts.join(d.and);
+  }
+
+  function bannerTick(now){
+    var diff = DEADLINE - now.getTime();
+    if(diff <= 0){ banner.style.display = 'none'; return; }
+    banner.style.display = 'flex';
+    var d = I18N[CUR_LANG];
+    var days = Math.floor(diff / 864e5); diff -= days * 864e5;
+    var hours = Math.floor(diff / 36e5); diff -= hours * 36e5;
+    var mins = Math.floor(diff / 6e4); diff -= mins * 6e4;
+    var secs = Math.floor(diff / 1e3);
+    bannerLeft.textContent = d.bannerLbl + ' ' + num(days) + ' ' + d.units.d + d.and +
+      num(hours) + ' ' + d.units.h + d.and + num(mins) + ' ' + d.units.m + d.and +
+      num(secs) + ' ' + d.units.s;
+  }
+
+  function tick(){
+    var now = new Date();
+    clockEl.textContent = clockFmt ? clockFmt.format(now) : '--:--:--';
+    elapsedEl.textContent = elapsedStr(now);
+    bannerTick(now);
+  }
+  setInterval(tick, 1000);
+
+  copyBtn.addEventListener('click', function(){
+    var id = '@Reza_ZeroOnee';
+    function done(){
+      copyBtn.textContent = I18N[CUR_LANG].copied;
+      setTimeout(function(){ copyBtn.textContent = I18N[CUR_LANG].btnCopy; }, 1600);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(id).then(done).catch(done);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = id; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta); done();
+    }
+  });
+
+  function todayDates(){
+    var now = new Date();
+    var fa = new Intl.DateTimeFormat('fa-IR', {year:'numeric', month:'long', day:'numeric'}).format(now);
+    var en = new Intl.DateTimeFormat('en-GB', {year:'numeric', month:'long', day:'numeric'}).format(now);
+    return {fa:fa, en:en};
+  }
+
+  function tagHtml(n, d){
+    if(n.hot) return ' <span class="hot-tag">' + d.hotTag + '</span>';
+    if(n.lvl){
+      var key = n.lvl === 'red' ? 'lvlRed' : (n.lvl === 'yellow' ? 'lvlYellow' : 'lvlBlue');
+      return ' <span class="tag tag-' + n.lvl + '">' + d[key] + '</span>';
+    }
     return '';
   }
+
   function deleteNote(idx, noteDom){
     noteDom.classList.add('gone');
-    setTimeout(function(){ NOTES.splice(idx,1); saveNotes(); renderNotes(); }, RM?0:280);
+    setTimeout(function(){
+      NOTES.splice(idx, 1);
+      saveStore();
+      renderNotes();
+    }, RM ? 0 : 280);
   }
-  function noteEl(n,i,preview){
-    var d=I18N[CUR_LANG];
-    var el=document.createElement('article');
-    el.className=(preview?'note':'rnote')+(n.hot?' hot':'')+' pop';
+
+  function noteEl(n, i, preview){
+    var d = I18N[CUR_LANG];
+    var el = document.createElement('article');
+    el.className = (preview ? 'note' : 'rnote') + (n.hot ? ' hot' : '') + ' pop';
     el.style.setProperty('--glow', n.glow);
-    el.style.animationDelay=(i*0.07)+'s';
-    var tag=tagHtml(n,d);
+    el.style.animationDelay = (i * 0.07) + 's';
+    var tag = tagHtml(n, d);
     if(preview){
-      el.innerHTML='<time>'+n.d[CUR_LANG]+'</time><p>'+n.p[CUR_LANG]+tag+'</p>';
+      el.innerHTML = '<time>' + n.d[CUR_LANG] + '</time><p>' + n.p[CUR_LANG] + tag + '</p>';
       el.addEventListener('click', function(){ openRoom(i); });
     } else {
-      var no=NOTES.length-i;
-      var noTxt=CUR_LANG==='fa'? d.noteWord+' '+num(no) : d.noteWord+' #'+no;
-      el.innerHTML='<span class="no">'+noTxt+'</span><time>'+n.d[CUR_LANG]+'</time><p>'+n.p[CUR_LANG]+tag+'</p>';
-      if(ADMIN_ACTIVE){
-        var del=document.createElement('button'); del.type='button'; del.className='del'; del.textContent='🗑'; del.title=d.delTitle;
+      var no = NOTES.length - i;
+      var noTxt = CUR_LANG === 'fa' ? d.noteWord + ' ' + num(no) : d.noteWord + ' #' + no;
+      el.innerHTML = '<span class="no">' + noTxt + '</span><time>' + n.d[CUR_LANG] + '</time><p>' + n.p[CUR_LANG] + tag + '</p>';
+      if(ADMIN){
+        var del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'del';
+        del.textContent = '🗑';
+        del.title = d.delTitle;
         del.addEventListener('click', function(ev){
           ev.stopPropagation();
-          if(!del.classList.contains('arm')){ del.classList.add('arm'); del.textContent=d.sure; setTimeout(function(){ if(document.body.contains(del)&&del.classList.contains('arm')){ del.classList.remove('arm'); del.textContent='🗑'; } },2600); }
-          else deleteNote(i,el);
+          if(!del.classList.contains('arm')){
+            del.classList.add('arm');
+            del.textContent = d.sure;
+            setTimeout(function(){
+              if(document.body.contains(del) && del.classList.contains('arm')){
+                del.classList.remove('arm');
+                del.textContent = '🗑';
+              }
+            }, 2600);
+          } else {
+            deleteNote(i, el);
+          }
         });
         el.appendChild(del);
       }
     }
     return el;
   }
+
   function renderNotes(){
-    notesPreview.innerHTML=''; roomFeed.innerHTML='';
-    NOTES.forEach(function(n,i){ notesPreview.appendChild(noteEl(n,i,true)); roomFeed.appendChild(noteEl(n,i,false)); });
-    var d=I18N[CUR_LANG];
-    roomCount.textContent= CUR_LANG==='fa' ? num(NOTES.length)+' '+d.noteWord : NOTES.length+' '+(NOTES.length===1?'note':'notes');
-    compDate.textContent=d.todayLbl+' '+todayDates()[CUR_LANG];
-    if(ADMIN_ACTIVE) renderBannerList();
+    notesPreview.innerHTML = '';
+    roomFeed.innerHTML = '';
+    NOTES.forEach(function(n, i){
+      notesPreview.appendChild(noteEl(n, i, true));
+      roomFeed.appendChild(noteEl(n, i, false));
+    });
+    var d = I18N[CUR_LANG];
+    roomCount.textContent = CUR_LANG === 'fa'
+      ? num(NOTES.length) + ' ' + d.noteWord
+      : NOTES.length + ' ' + (NOTES.length === 1 ? 'note' : 'notes');
+    compDate.textContent = d.todayLbl + ' ' + todayDates()[CUR_LANG];
   }
-  function flashEl(el){ el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
-  function openRoom(idx,focusComposer){
+
+  function flashEl(el){
+    el.classList.remove('flash');
+    void el.offsetWidth;
+    el.classList.add('flash');
+  }
+
+  function openRoom(idx, focusComposer){
     renderNotes();
-    room.classList.add('open'); room.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
-    if(focusComposer&&ADMIN_ACTIVE){ setTimeout(function(){ noteInput.focus(); },250); return; }
-    if(typeof idx==='number' && roomFeed.children[idx]){
-      var target=roomFeed.children[idx];
-      setTimeout(function(){ target.scrollIntoView({behavior:RM?'auto':'smooth',block:'center'}); flashEl(target); },90);
+    room.classList.add('open');
+    room.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if(focusComposer && ADMIN){
+      setTimeout(function(){ noteInput.focus(); }, 250);
+      return;
+    }
+    if(typeof idx === 'number' && roomFeed.children[idx]){
+      var target = roomFeed.children[idx];
+      setTimeout(function(){
+        target.scrollIntoView({behavior: RM ? 'auto' : 'smooth', block: 'center'});
+        flashEl(target);
+      }, 90);
     }
   }
-  function closeRoom(){ room.classList.remove('open'); room.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+  function closeRoom(){
+    room.classList.remove('open');
+    room.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
   allNotesBtn.addEventListener('click', function(){ openRoom(0); });
-  writeBtn.addEventListener('click', function(){ openRoom(null,true); });
+  writeBtn.addEventListener('click', function(){ openRoom(null, true); });
   roomClose.addEventListener('click', closeRoom);
-  room.addEventListener('click', function(e){ if(e.target===room) closeRoom(); });
-  var curLvl='blue';
-  document.querySelectorAll('.pick[data-lvl]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      curLvl=btn.dataset.lvl;
-      document.querySelectorAll('.pick[data-lvl]').forEach(function(x){ x.classList.remove('sel'); });
-      btn.classList.add('sel');
-    });
-  });
+  room.addEventListener('click', function(e){ if(e.target === room) closeRoom(); });
+
   addNoteBtn.addEventListener('click', function(){
-    var txt=noteInput.value.trim();
-    if(!txt){ noteInput.classList.add('err'); setTimeout(function(){ noteInput.classList.remove('err'); },900); return; }
-    var dd=todayDates(), safe=esc(txt);
-    NOTES.unshift({glow:LVL_GLOW[curLvl]||'#5b8cff', lvl:curLvl, hot:false, d:{fa:dd.fa,en:dd.en}, p:{fa:safe,en:safe}});
-    saveNotes(); renderNotes(); noteInput.value=''; noteInput.focus();
-    var d=I18N[CUR_LANG]; addNoteBtn.textContent=d.added; setTimeout(function(){ addNoteBtn.textContent=I18N[CUR_LANG].addBtn; },1400);
+    var txt = noteInput.value.trim();
+    if(!txt){
+      noteInput.classList.add('err');
+      setTimeout(function(){ noteInput.classList.remove('err'); }, 900);
+      return;
+    }
+    var dd = todayDates();
+    var safe = esc(txt);
+    NOTES.unshift({
+      glow: LVL_GLOW[curLvl] || '#5b8cff',
+      lvl: curLvl,
+      hot: false,
+      d: {fa: dd.fa, en: dd.en},
+      p: {fa: safe, en: safe}
+    });
+    saveStore();
+    renderNotes();
+    noteInput.value = '';
+    noteInput.focus();
+    var d = I18N[CUR_LANG];
+    addNoteBtn.textContent = d.added;
+    setTimeout(function(){ addNoteBtn.textContent = I18N[CUR_LANG].addBtn; }, 1400);
     if(roomFeed.children[0]) flashEl(roomFeed.children[0]);
   });
 
-  /* ---------- GitHub: fetch/push live file ---------- */
-  function ghHeaders(token){ return { 'Accept':'application/vnd.github+json', 'Authorization':'Bearer '+token, 'X-GitHub-Api-Version':'2022-11-28' }; }
-  function contentsUrl(){
-    return 'https://api.github.com/repos/'+encodeURIComponent(GH_CFG.user)+'/'+encodeURIComponent(GH_CFG.repo)+'/contents/'+
-      GH_CFG.path.replace(/^\//,'').split('/').map(encodeURIComponent).join('/');
+  /* ساخت کل کد (فقط برای دانلود/کپی دستی) */
+  function buildCode(){
+    var wasOpen = room.classList.contains('open');
+    room.classList.remove('open');
+    room.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    document.body.classList.remove('calm');
+    notesPreview.innerHTML = '';
+    roomFeed.innerHTML = '';
+    var draft = noteInput.value;
+    noteInput.value = '';
+    bannerLeft.textContent = '';
+    clockEl.textContent = '--:--:--';
+    elapsedEl.textContent = '…';
+    copyBtn.textContent = I18N[CUR_LANG].btnCopy;
+    addNoteBtn.textContent = I18N[CUR_LANG].addBtn;
+    titleEl.textContent = I18N[CUR_LANG].title;
+    var activeIdx = 0;
+    cards.forEach(function(x, i){ if(x.classList.contains('active')) activeIdx = i; });
+    cards.forEach(function(x){ x.classList.remove('active'); });
+    if(cards[0]) cards[0].classList.add('active');
+
+    var html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+    var MARK = '/*SAVED_NOTES*/';
+    var VAR = 'var SAVED_NOTES = ';
+    var start = html.indexOf(VAR);
+    var markIdx = html.indexOf(MARK, start);
+    if(start !== -1 && markIdx !== -1){
+      var json = JSON.stringify(NOTES).replace(/</g, '\\u003c');
+      html = html.slice(0, start) + VAR + json + '; ' + MARK + html.slice(markIdx + MARK.length);
+    }
+
+    noteInput.value = draft;
+    cards.forEach(function(x, i){ x.classList.toggle('active', i === activeIdx); });
+    renderNotes();
+    tick();
+    if(wasOpen){ room.classList.add('open'); room.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden'; }
+    return html;
   }
+
+  function downloadCode(btn){
+    var html = buildCode();
+    var ok = false;
+    try{
+      var blob = new Blob([html], {type:'text/html;charset=utf-8'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'reza-site.html';
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 3000);
+      ok = true;
+    }catch(e){ ok = false; }
+    if(!ok){
+      try{
+        var w = window.open('', '_blank');
+        if(w){ w.document.write(html); w.document.close(); ok = true; }
+      }catch(e2){}
+    }
+    if(!ok){
+      copyText(html, function(){
+        if(btn) flashBtn(btn, I18N[CUR_LANG].codeCopied, I18N[CUR_LANG].dlBtn);
+      });
+      return;
+    }
+    if(btn) flashBtn(btn, I18N[CUR_LANG].dlDone, I18N[CUR_LANG].dlBtn);
+  }
+
+  function copyText(text, done){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+  function fallbackCopy(text, done){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    done();
+  }
+  function copyCode(btn){
+    var html = buildCode();
+    copyText(html, function(){
+      flashBtn(btn, I18N[CUR_LANG].codeCopied, I18N[CUR_LANG].copyCode);
+    });
+  }
+  function flashBtn(btn, msg, back){
+    btn.textContent = msg;
+    setTimeout(function(){ btn.textContent = back; }, 1800);
+  }
+
+  dlBtn.addEventListener('click', function(){ downloadCode(dlBtn); });
+  dlBtn2.addEventListener('click', function(){ downloadCode(dlBtn2); });
+  copyCodeBtn.addEventListener('click', function(){ copyCode(copyCodeBtn); });
+  copyCodeBtn2.addEventListener('click', function(){ copyCode(copyCodeBtn2); });
+
+  /* تبدیل base64 به متن UTF-8 و برعکس */
   function base64ToUtf8(b64){
-    var bin=atob(String(b64).replace(/\s/g,''));
-    var bytes=new Uint8Array(bin.length);
-    for(var i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+    var bin = atob(String(b64).replace(/\s/g,''));
+    var bytes = new Uint8Array(bin.length);
+    for(var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
     return new TextDecoder('utf-8').decode(bytes);
   }
   function utf8ToBase64(str){
-    var bytes=new TextEncoder().encode(str); var bin='';
-    for(var i=0;i<bytes.length;i++) bin+=String.fromCharCode(bytes[i]);
+    var bytes = new TextEncoder().encode(str);
+    var bin = '';
+    for(var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
     return btoa(bin);
   }
-  async function fetchLive(){
-    var resp=await fetch(contentsUrl()+'?ref='+encodeURIComponent(GH_CFG.branch),{method:'GET',headers:ghHeaders(GH_TOKEN),cache:'no-store'});
-    if(!resp.ok){ var et=''; try{ var ej=await resp.json(); et=ej&&ej.message?ej.message:''; }catch(e){} throw new Error('GET '+resp.status+(et?' — '+et:'')); }
-    var data=await resp.json();
-    return {sha:data.sha, content:base64ToUtf8(data.content||'')};
-  }
-  async function pushLive(content, sha, message){
-    var body={message:message, content:utf8ToBase64(content), branch:GH_CFG.branch, sha:sha};
-    var resp=await fetch(contentsUrl(),{method:'PUT',headers:Object.assign({'Content-Type':'application/json'},ghHeaders(GH_TOKEN)),body:JSON.stringify(body)});
-    if(!resp.ok){ if(resp.status===401){ GH_TOKEN=null; updateSyncUI(); } var et2=''; try{ var ej2=await resp.json(); et2=ej2&&ej2.message?ej2.message:''; }catch(e){} throw new Error('PUT '+resp.status+(et2?' — '+et2:'')); }
-  }
-  function swapData(content,VAR,MARK,json){
-    var s=content.indexOf(VAR); if(s===-1) return content;
-    var m=content.indexOf(MARK,s); if(m===-1) return content;
-    return content.slice(0,s)+VAR+json+'; '+MARK+content.slice(m+MARK.length);
-  }
-  function injectData(content){
-    var jn=JSON.stringify(NOTES).replace(/</g,'\\u003c');
-    content=swapData(content,'var SAVED_NOTES = ','/*SAVED_NOTES*/',jn);
-    var jb=JSON.stringify(BANNERS).replace(/</g,'\\u003c');
-    content=swapData(content,'var SAVED_BANNERS = ','/*SAVED_BANNERS*/',jb);
-    return content;
-  }
 
-  function connected(){ return !!(GH_TOKEN && GH_CFG && GH_CFG.user && GH_CFG.repo); }
-  function updateSyncUI(){
-    var d=I18N[CUR_LANG], on=connected();
-    syncStatus.innerHTML= on ? '<span class="dot-ok"></span> <span>'+d.syncOn+'</span>' : '<span class="dot-off"></span> <span>'+d.syncOff+'</span>';
-    syncNowBtn.disabled=!on;
-    discBtn.style.display= on?'':'none';
-    syncBtnTop.classList.toggle('linked', on);
-  }
-  function setBtnLoading(btn,on){
+  function setBtnLoading(btn, on){
     if(!btn) return;
-    if(on){ btn.dataset.prevText=btn.textContent; btn.innerHTML='<span class="spin-sm">⟳</span> '+I18N[CUR_LANG].syncing; btn.disabled=true; }
-    else{ btn.textContent=btn.dataset.prevText||I18N[CUR_LANG].syncNow; btn.disabled=false; }
+    if(on){
+      btn.dataset.prevText = btn.textContent;
+      btn.innerHTML = '<span class="spin-sm">⟳</span> ' + I18N[CUR_LANG].syncing;
+      btn.disabled = true;
+    } else {
+      btn.textContent = btn.dataset.prevText || I18N[CUR_LANG].syncNow;
+      btn.disabled = false;
+    }
   }
-  async function doSync(){
-    var d=I18N[CUR_LANG];
-    if(!connected()){ showToast(d.needReconnect,'warn'); openGHModal(); return; }
-    setBtnLoading(syncNowBtn,true);
-    try{
-      var live=await fetchLive();
-      var updated=injectData(live.content);
-      await pushLive(updated, live.sha, d.commitMsg);
-      setBtnLoading(syncNowBtn,false);
-      showToast(d.syncOk,'ok');
-    }catch(err){ setBtnLoading(syncNowBtn,false); updateSyncUI(); showToast(d.syncFail+' — '+(err.message||''),'err'); }
-  }
-  syncNowBtn.addEventListener('click', doSync);
-  syncBtnTop.addEventListener('click', function(){ if(!connected()) openGHModal(); else doSync(); });
-  discBtn.addEventListener('click', function(){ GH_TOKEN=null; updateSyncUI(); showToast(I18N[CUR_LANG].disconnected,'warn'); });
 
-  function autoDetect(){
-    try{
-      var host=location.hostname||'', path=location.pathname||'';
-      if(host.indexOf('github.io')!==-1){ var user=host.split('.')[0]; var repo=path.replace(/^\//,'').split('/')[0]||''; if(user&&repo&&repo!=='index.html') return {user:user,repo:repo,branch:'main',path:'index.html'}; }
-    }catch(e){}
-    return null;
-  }
-  function openGHModal(){
-    var base=GH_CFG||autoDetect()||{};
-    fUser.value=base.user||'nukesamp-crypto'; fRepo.value=base.repo||'Myreza.';
-    fBranch.value=base.branch||'main'; fPath.value=base.path||'index.html'; fToken.value='';
-    modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
-    setTimeout(function(){ fToken.focus(); },220);
-  }
-  function closeGHModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); fToken.value=''; }
-  openSettingsBtn.addEventListener('click', openGHModal);
-  mCancel.addEventListener('click', closeGHModal);
-  modal.addEventListener('click', function(e){ if(e.target===modal) closeGHModal(); });
-  mConnect.addEventListener('click', async function(){
-    var d=I18N[CUR_LANG];
-    var u=fUser.value.trim(), r=fRepo.value.trim(), b=fBranch.value.trim()||'main', p=fPath.value.trim()||'index.html', t=fToken.value.trim();
-    if(!u||!r||!t){ showToast(d.fillFields,'err'); return; }
-    mConnect.disabled=true; mConnect.innerHTML='<span class="spin-sm">⟳</span> '+d.testing;
-    try{
-      var resp=await fetch('https://api.github.com/repos/'+encodeURIComponent(u)+'/'+encodeURIComponent(r),{method:'GET',headers:ghHeaders(t)});
-      if(resp.status===200){
-        var permsOk=true; try{ var j=await resp.json(); if(j&&j.permissions) permsOk=!!(j.permissions.push||j.permissions.admin); }catch(e){}
-        if(!permsOk) throw new Error('no-push');
-        GH_CFG={user:u,repo:r,branch:b,path:p}; GH_TOKEN=t; saveCfg(GH_CFG);
-        updateSyncUI(); closeGHModal(); showToast(d.connOk,'ok');
-      } else if(resp.status===401||resp.status===403||resp.status===404){ showToast(d.badToken,'err'); }
-      else showToast(d.connFail+' ('+resp.status+')','err');
-    }catch(err){ showToast(err.message==='no-push'?d.badToken:(d.connFail+' — '+(err.message||'')),'err'); }
-    finally{ mConnect.disabled=false; mConnect.textContent=I18N[CUR_LANG].mConnect; }
-  });
+  /* انتشار: فایل زنده رو می‌خونه، فقط نوت‌ها رو عوض می‌کنه، بقیه دست نمی‌خوره */
+  async function doSync(btn){
+    var d = I18N[CUR_LANG];
+    if(!connected()){
+      showToast(d.needReconnect, 'warn');
+      openModal();
+      return;
+    }
+    setBtnLoading(btn, true);
+    var other = (btn === syncNowBtn) ? syncNowBtn2 : syncNowBtn;
+    setBtnLoading(other, true);
 
-  /* ---------- code injector ---------- */
-  function getInjPlace(){
-    var r=document.querySelector('input[name=injplace]:checked');
-    return r? r.value : 'auto';
-  }
-  function suggestPlacement(snippet){
-    if(/<style[\s>]/i.test(snippet)) return 'head';
-    return 'body-end';
-  }
-  function injectAt(code,snippet,place){
-    if(place==='auto') place=suggestPlacement(snippet);
-    if(place==='marker'){
-      var m='<!-- INJECT-HERE -->';
-      if(code.indexOf(m)===-1) return {err:'marker'};
-      return {code:code.replace(m, snippet+'\n'), desc:'marker'};
-    }
-    if(place==='head'){
-      var i=code.indexOf('</head>'); if(i===-1) return {err:'anchor'};
-      return {code:code.slice(0,i)+snippet+'\n'+code.slice(i), desc:'</head>'};
-    }
-    if(place==='body-end'){
-      var j=code.lastIndexOf('</body>'); if(j===-1) return {err:'anchor'};
-      return {code:code.slice(0,j)+snippet+'\n'+code.slice(j), desc:'</body>'};
-    }
-    return {err:'anchor'};
-  }
-  injPreviewBtn.addEventListener('click', async function(){
-    var d=I18N[CUR_LANG];
-    var snippet=injCode.value.trim();
-    if(!snippet){ showToast(d.injEmpty,'err'); return; }
-    if(!connected()){ showToast(d.needReconnect,'warn'); openGHModal(); return; }
-    injPreview.hidden=false; injPreview.textContent='…';
-    try{
-      var live=await fetchLive();
-      var res=injectAt(live.content, snippet, getInjPlace());
-      if(res.err){ injPreview.textContent= res.err==='marker'? d.injNoMarker : d.injNoAnchor; return; }
-      injPreview.textContent= (res.desc==='marker'? d.injWillMarker : d.injWillAdd+' '+res.desc) + '\n\n' + snippet;
-    }catch(err){ injPreview.textContent=err.message||'error'; }
-  });
-  injGo.addEventListener('click', async function(){
-    var d=I18N[CUR_LANG];
-    var snippet=injCode.value.trim();
-    if(!snippet){ showToast(d.injEmpty,'err'); return; }
-    if(!connected()){ showToast(d.needReconnect,'warn'); openGHModal(); return; }
-    setBtnLoading(injGo,true);
-    try{
-      var live=await fetchLive();
-      var withData=injectData(live.content);
-      var res=injectAt(withData, snippet, getInjPlace());
-      if(res.err){ setBtnLoading(injGo,false); showToast(res.err==='marker'?d.injNoMarker:d.injNoAnchor,'err'); return; }
-      await pushLive(res.code, live.sha, 'inject code');
-      setBtnLoading(injGo,false);
-      injCode.value=''; injPreview.hidden=true;
-      showToast(d.injDone,'ok');
-    }catch(err){ setBtnLoading(injGo,false); updateSyncUI(); showToast(d.syncFail+' — '+(err.message||''),'err'); }
-  });
+    var apiBase = 'https://api.github.com/repos/' + encodeURIComponent(GH_CFG.user) + '/' +
+                  encodeURIComponent(GH_CFG.repo) + '/contents/' +
+                  GH_CFG.path.replace(/^\//,'').split('/').map(encodeURIComponent).join('/');
 
-  /* ---------- prices ---------- */
-  function formatPrice(v){
-    if(v==null||isNaN(v)) return '—';
-    try{ return Math.round(v).toLocaleString(CUR_LANG==='fa'?'fa-IR':'en-US'); }catch(e){ return String(Math.round(v)); }
-  }
-  function setPrice(key,val){
-    var elVal=document.getElementById(key+'Val'), elCh=document.getElementById(key+'Change');
-    if(!elVal) return;
-    var prevKey='rz-price-'+key;
-    var prev=parseFloat(lsGet(prevKey));
-    lsSet(prevKey, String(val));
-    elVal.textContent=formatPrice(val);
-    if(prev && !isNaN(prev) && prev>0){
-      var diff=val-prev, pct=(diff/prev)*100;
-      if(diff>0){ elCh.className='pc-change up'; elCh.textContent='▲ '+Math.abs(pct).toFixed(2)+'%'; }
-      else if(diff<0){ elCh.className='pc-change down'; elCh.textContent='▼ '+Math.abs(pct).toFixed(2)+'%'; }
-      else{ elCh.className='pc-change flat'; elCh.textContent='—'; }
-    }
-  }
-  async function loadPrices(){
     try{
-      var r=await fetch('https://open.er-api.com/v6/latest/USD');
-      var j=await r.json();
-      if(j&&j.rates){
-        var irr=j.rates.IRR, eur=j.rates.EUR;
-        if(irr) setPrice('usd', irr);
-        if(irr&&eur) setPrice('eur', irr/eur);
+      var gResp = await fetch(apiBase + '?ref=' + encodeURIComponent(GH_CFG.branch), {
+        method:'GET', headers: ghHeaders(GH_TOKEN), cache:'no-store'
+      });
+      if(!gResp.ok){
+        var et=''; try{ var ej=await gResp.json(); et=ej&&ej.message?ej.message:''; }catch(e){}
+        throw new Error('GET ' + gResp.status + (et ? ' — ' + et : ''));
       }
-    }catch(e){}
-    try{
-      var r2=await fetch('https://api.nobitex.ir/market/stats?srcCurrency=usdt&dstCurrency=irt');
-      var j2=await r2.json();
-      if(j2&&j2.latestPrice){ var v=parseFloat(j2.latestPrice); if(v>0) setPrice('usd', v); }
-    }catch(e){}
-    try{
-      var r3=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
-      var j3=await r3.json();
-      if(j3&&j3.bitcoin&&j3.bitcoin.usd) setPrice('btc', j3.bitcoin.usd);
-    }catch(e){}
-  }
-  priceRefresh.addEventListener('click', loadPrices);
+      var gData = await gResp.json();
+      var sha = gData.sha;
+      var live = base64ToUtf8(gData.content || '');
 
-  /* ---------- clocks & elapsed ---------- */
-  var BORN=new Date('2026-08-10T00:00:00+03:30');
-  function elapsedStr(now){
-    var d=I18N[CUR_LANG];
-    var years=now.getFullYear()-BORN.getFullYear();
-    var anchor=new Date(BORN); anchor.setFullYear(BORN.getFullYear()+years);
-    if(anchor>now){ years--; anchor=new Date(BORN); anchor.setFullYear(BORN.getFullYear()+years); }
-    var ms=Math.max(0,now-anchor);
-    var days=Math.floor(ms/864e5); ms-=days*864e5;
-    var hours=Math.floor(ms/36e5); ms-=hours*36e5;
-    var mins=Math.floor(ms/6e4); ms-=mins*6e4;
-    var secs=Math.floor(ms/1e3);
-    var parts=[];
-    if(years>0) parts.push(num(years)+' '+d.units.y);
-    if(days>0) parts.push(num(days)+' '+d.units.d);
-    if(hours>0) parts.push(num(hours)+' '+d.units.h);
-    if(mins>0) parts.push(num(mins)+' '+d.units.m);
-    parts.push(num(secs)+' '+d.units.s);
-    return parts.join(d.and);
-  }
-  function tick(){
-    var now=new Date();
-    var t=clockFmt? clockFmt.format(now):'--:--:--';
-    bigClock.textContent=t;
-    try{ bigDate.textContent=new Intl.DateTimeFormat(CUR_LANG==='fa'?'fa-IR':'en-GB',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(now); }catch(e){}
-    elapsedEl.textContent=elapsedStr(now);
-  }
-  setInterval(tick,1000);
+      var MARK = '/*SAVED_NOTES*/';
+      var VAR = 'var SAVED_NOTES = ';
+      var sIdx = live.indexOf(VAR);
+      var mIdx = live.indexOf(MARK, sIdx);
+      if(sIdx === -1 || mIdx === -1){
+        throw new Error('marker-missing');
+      }
+      var json = JSON.stringify(NOTES).replace(/</g, '\\u003c');
+      var newContent = live.slice(0, sIdx) + VAR + json + '; ' + MARK + live.slice(mIdx + MARK.length);
 
-  /* ---------- ambient music (Web Audio) ---------- */
-  var AC=null, musicOn=false, musicNodes=[];
-  function startMusic(){
-    var Ctx=window.AudioContext||window.webkitAudioContext;
-    if(!Ctx) return;
-    AC=AC||new Ctx();
-    if(AC.state==='suspended') AC.resume();
-    var master=AC.createGain(); master.gain.value=0.045; master.connect(AC.destination);
-    var freqs=[110,164.81,220,246.94];
-    freqs.forEach(function(f,idx){
-      var o=AC.createOscillator(); o.type='sine'; o.frequency.value=f;
-      var g=AC.createGain(); g.gain.value=0.12;
-      var lfo=AC.createOscillator(); lfo.frequency.value=0.05+idx*0.02;
-      var lfoGain=AC.createGain(); lfoGain.gain.value=0.08;
-      lfo.connect(lfoGain); lfoGain.connect(g.gain);
-      o.connect(g); g.connect(master);
-      o.start(); lfo.start();
-      musicNodes.push(o,lfo,g);
-    });
-    musicNodes.push(master);
-    musicOn=true;
-    eq.classList.remove('off');
-    musicToggle.textContent=I18N[CUR_LANG].musicOn;
-  }
-  function stopMusic(){
-    musicNodes.forEach(function(n){ try{ if(n.stop) n.stop(); }catch(e){} try{ n.disconnect(); }catch(e){} });
-    musicNodes=[]; musicOn=false;
-    eq.classList.add('off');
-    musicToggle.textContent=I18N[CUR_LANG].musicOff;
-  }
-  function toggleMusic(){ if(musicOn) stopMusic(); else startMusic(); }
-  musicToggle.addEventListener('click', toggleMusic);
-  musicBtnTop.addEventListener('click', toggleMusic);
+      var putBody = {
+        message: d.commitMsg,
+        content: utf8ToBase64(newContent),
+        branch: GH_CFG.branch,
+        sha: sha
+      };
+      var pResp = await fetch(apiBase, {
+        method:'PUT',
+        headers: Object.assign({'Content-Type':'application/json'}, ghHeaders(GH_TOKEN)),
+        body: JSON.stringify(putBody)
+      });
+      if(!pResp.ok){
+        if(pResp.status === 401){ GH_TOKEN = null; updateSyncUI(); throw new Error(d.needReconnect); }
+        var et2=''; try{ var ej2=await pResp.json(); et2=ej2&&ej2.message?ej2.message:''; }catch(e){}
+        throw new Error('PUT ' + pResp.status + (et2 ? ' — ' + et2 : ''));
+      }
 
-  /* ---------- copy id ---------- */
-  copyBtn.addEventListener('click', function(){
-    var id='@Reza_ZeroOnee';
-    function done(){ copyBtn.textContent=I18N[CUR_LANG].copied; setTimeout(function(){ copyBtn.textContent=I18N[CUR_LANG].btnCopy; },1600); }
-    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(id).then(done).catch(done); }
-    else{ var ta=document.createElement('textarea'); ta.value=id; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); done(); }
-  });
-
-  /* ---------- cards / gear / room ---------- */
-  var cards=document.querySelectorAll('.card');
-  cards.forEach(function(c){
-    c.addEventListener('click', function(){
-      cards.forEach(function(x){ x.classList.remove('active'); });
-      c.classList.add('active');
-      var t=c.getAttribute('data-target');
-      if(t){ var el=document.querySelector(t); if(el) el.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'}); }
-    });
-  });
-  gear.addEventListener('click', function(){ document.body.classList.toggle('calm'); gear.classList.add('spin'); setTimeout(function(){ gear.classList.remove('spin'); },500); });
-  document.addEventListener('keydown', function(e){
-    if(e.key==='Escape'){
-      if(modal.classList.contains('open')) closeGHModal();
-      else if(gate.classList.contains('open')){ closeGate(); exitAdminHash(); }
-      else if(room.classList.contains('open')) closeRoom();
+      setBtnLoading(btn, false);
+      setBtnLoading(other, false);
+      showToast(d.syncOk, 'ok');
+    } catch(err){
+      setBtnLoading(btn, false);
+      setBtnLoading(other, false);
+      updateSyncUI();
+      var msg = err.message === 'marker-missing'
+        ? d.markerMissing
+        : (d.syncFail + ' — ' + (err.message || ''));
+      showToast(msg, 'err');
     }
-  });
+  }
 
-  /* ---------- scramble + language ---------- */
+  syncNowBtn.addEventListener('click', function(){ doSync(syncNowBtn); });
+  syncNowBtn2.addEventListener('click', function(){ doSync(syncNowBtn2); });
+
   function scramble(el){
-    var target=el.dataset.text||el.textContent;
-    if(RM){ el.textContent=target; return; }
-    var pool=CUR_LANG==='fa' ? 'ابپتثجچحخدذرزسشصطعفقکگلمنوهی' : 'abcdefghijklmnopqrstuvwxyz';
-    var step=0;
-    var iv=setInterval(function(){
+    var target = el.dataset.text || el.textContent;
+    if(RM){ el.textContent = target; return; }
+    var pool = CUR_LANG === 'fa' ? 'ابپتثجچحخدذرزسشصطعفقکگلمنوهی' : 'abcdefghijklmnopqrstuvwxyz';
+    var step = 0;
+    var iv = setInterval(function(){
       step++;
-      var shown=Math.floor(step/2), out='';
-      for(var j=0;j<target.length;j++){
-        var c=target[j];
-        var inPool=pool.indexOf(c)!==-1||pool.indexOf((c||'').toLowerCase())!==-1;
-        if(!inPool) out+=c;
-        else if(j<shown) out+=c;
-        else out+=pool[(Math.random()*pool.length)|0];
+      var shown = Math.floor(step / 2), out = '';
+      for(var j = 0; j < target.length; j++){
+        var c = target[j];
+        var inPool = pool.indexOf(c) !== -1 || pool.indexOf((c || '').toLowerCase()) !== -1;
+        if(!inPool){ out += c; }
+        else if(j < shown){ out += c; }
+        else { out += pool[(Math.random() * pool.length) | 0]; }
       }
-      el.textContent=out;
-      if(shown>=target.length){ clearInterval(iv); el.textContent=target; }
-    },45);
+      el.textContent = out;
+      if(shown >= target.length){ clearInterval(iv); el.textContent = target; }
+    }, 45);
   }
-  function applyLang(l){
-    CUR_LANG=l;
-    var d=I18N[l];
-    document.documentElement.lang=l;
-    document.documentElement.dir= l==='fa'?'rtl':'ltr';
-    document.title=d.docTitle;
-    document.querySelectorAll('[data-i18n]').forEach(function(el){ var k=el.getAttribute('data-i18n'); if(d[k]!=null) el.textContent=d[k]; });
-    document.querySelectorAll('[data-i18n-html]').forEach(function(el){ var k=el.getAttribute('data-i18n-html'); if(d[k]!=null) el.innerHTML=d[k]; });
-    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){ var k=el.getAttribute('data-i18n-ph'); if(d[k]!=null) el.setAttribute('placeholder',d[k]); });
-    gear.title=d.gearTitle;
-    langBtn.textContent= l==='fa'?'EN':'فا';
-    clockFmt=new Intl.DateTimeFormat(d.locale,{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-    musicToggle.textContent= musicOn? d.musicOn : d.musicOff;
-    titleEl.dataset.text=d.title; titleEl.textContent=d.title; scramble(titleEl);
-    renderNotes(); renderBanners(); updateSyncUI(); tick();
-    lsSet('rz-lang',l);
-  }
-  langBtn.addEventListener('click', function(){ applyLang(CUR_LANG==='fa'?'en':'fa'); });
 
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
-  },{threshold:.15});
+  function applyLang(l){
+    CUR_LANG = l;
+    var d = I18N[l];
+    document.documentElement.lang = l;
+    document.documentElement.dir = l === 'fa' ? 'rtl' : 'ltr';
+    document.title = d.docTitle;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var k = el.getAttribute('data-i18n');
+      if(d[k] != null) el.textContent = d[k];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+      var k = el.getAttribute('data-i18n-html');
+      if(d[k] != null) el.innerHTML = d[k];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var k = el.getAttribute('data-i18n-ph');
+      if(d[k] != null) el.setAttribute('placeholder', d[k]);
+    });
+    gear.title = d.gearTitle;
+    langBtn.textContent = l === 'fa' ? 'EN' : 'فا';
+    clockFmt = new Intl.DateTimeFormat(d.locale, {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+    titleEl.dataset.text = d.title;
+    titleEl.textContent = d.title;
+    scramble(titleEl);
+    renderNotes();
+    updateSyncUI();
+    tick();
+    try{ localStorage.setItem('rz-lang', l); }catch(e){}
+  }
+
+  langBtn.addEventListener('click', function(){
+    applyLang(CUR_LANG === 'fa' ? 'en' : 'fa');
+  });
+
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, {threshold:.15});
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 
-  /* init */
-  var savedLang=lsGet('rz-lang');
-  var pageLang=document.documentElement.lang==='en'?'en':'fa';
-  applyLang(savedLang==='en'?'en':(savedLang==='fa'?'fa':pageLang));
+  var saved = null;
+  try{ saved = localStorage.getItem('rz-lang'); }catch(e){}
+  var pageLang = document.documentElement.lang === 'en' ? 'en' : 'fa';
+  applyLang(saved === 'en' ? 'en' : (saved === 'fa' ? 'fa' : pageLang));
   applyAdmin();
-  loadPrices();
-  setInterval(loadPrices, 5*60*1000);
-})();
-</script>
-<script>
-/* موسیقی ملایم - نسخه مستقل */
-(function(){
-  if(window.__rezaMusic) return; window.__rezaMusic = true;
-
-  var AC=null, playing=false, timer=null, nodes=[];
-  var MASTER=null, SEND=null;
-
-  /* ملودی آرام (پنتاتونیک دو ماژور) */
-  var melody=[523.25,659.25,783.99,659.25, 880.00,783.99,659.25,587.33,
-              523.25,587.33,659.25,783.99, 880.00,783.99,659.25,523.25];
-  var SPACING=0.45, step=0;
-
-  function ctx(){ AC=AC||new (window.AudioContext||window.webkitAudioContext)(); return AC; }
-
-  function buildBus(){
-    var ac=ctx();
-    MASTER=ac.createGain(); MASTER.gain.value=0.0001; MASTER.connect(ac.destination);
-    MASTER.gain.linearRampToValueAtTime(0.2, ac.currentTime+1.2); /* فید این */
-
-    /* اکو برای فضاسازی */
-    var delay=ac.createDelay(1.0); delay.delayTime.value=0.38;
-    var fb=ac.createGain(); fb.gain.value=0.32;
-    var wet=ac.createGain(); wet.gain.value=0.25;
-    delay.connect(fb); fb.connect(delay); delay.connect(wet); wet.connect(ac.destination);
-    SEND=ac.createGain(); SEND.gain.value=1; SEND.connect(delay);
-
-    /* پد نرم زیر صدا */
-    [130.81,164.81,196.00,246.94].forEach(function(f){
-      var o=ac.createOscillator(); o.type='sine'; o.frequency.value=f;
-      var g=ac.createGain(); g.gain.value=0.018;
-      var lfo=ac.createOscillator(); lfo.frequency.value=0.07+Math.random()*0.05;
-      var lg=ac.createGain(); lg.gain.value=0.011;
-      lfo.connect(lg); lg.connect(g.gain);
-      o.connect(g); g.connect(MASTER);
-      o.start(); lfo.start();
-      nodes.push(o,lfo,g);
-    });
-    nodes.push(MASTER,delay,fb,wet,SEND);
-  }
-
-  function note(freq,time,dur,vol){
-    var o=AC.createOscillator(); o.type='sine'; o.frequency.value=freq;
-    var g=AC.createGain();
-    g.gain.setValueAtTime(0.0001,time);
-    g.gain.exponentialRampToValueAtTime(vol,time+0.04);
-    g.gain.exponentialRampToValueAtTime(0.0001,time+dur);
-    o.connect(g); g.connect(MASTER); g.connect(SEND);
-    o.start(time); o.stop(time+dur+0.15);
-  }
-
-  function bar(){
-    if(!playing) return;
-    var t=ctx().currentTime+0.06;
-    for(var i=0;i<16;i++){ note(melody[(step+i)%16], t+i*SPACING, 1.1, 0.09); }
-    step=(step+16)%16;
-  }
-
-  function start(){
-    var ac=ctx(); if(ac.state==='suspended') ac.resume();
-    if(!MASTER) buildBus();
-    playing=true; bar();
-    timer=setInterval(bar, 16*SPACING*1000);
-    setBtn(true);
-  }
-  function stop(){
-    playing=false; if(timer){clearInterval(timer);timer=null;}
-    if(MASTER){
-      try{ MASTER.gain.cancelScheduledValues(0); MASTER.gain.linearRampToValueAtTime(0.0001, ctx().currentTime+0.4); }catch(e){}
-      var keep=nodes.slice(); setTimeout(function(){ keep.forEach(function(n){try{n.disconnect();}catch(e){}}); },500);
-      nodes.forEach(function(n){try{if(n.stop)n.stop();}catch(e){}});
-      nodes=[]; MASTER=null; SEND=null;
-    }
-    setBtn(false);
-  }
-  function toggle(){ playing? stop():start(); }
-
-  /* دکمه شناور */
-  var btn=document.createElement('button');
-  btn.type='button';
-  btn.style.cssText='position:fixed;bottom:20px;left:20px;z-index:9999;background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;border:none;border-radius:99px;padding:12px 22px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(90,110,255,.5);font-family:inherit;transition:transform .2s;';
-  btn.onmouseenter=function(){btn.style.transform='translateY(-2px)';};
-  btn.onmouseleave=function(){btn.style.transform='none';};
-  function setBtn(on){ btn.textContent= on? '⏸ قطع موسیقی':'🎵 پخش موسیقی ملایم'; }
-  setBtn(false);
-  btn.addEventListener('click', toggle);
-  document.body.appendChild(btn);
-})();
-</script>
-<script>
-(function(){
-  if(window.__mzMusic)return;window.__mzMusic=true;
-  var AC=null,on=false,nodes=[],timer=null,master=null,send=null,step=0;
-  var mel=[523.25,659.25,783.99,659.25,880,783.99,659.25,587.33,523.25,587.33,659.25,783.99,880,783.99,659.25,523.25];
-  var SP=0.45;
-  function ctx(){AC=AC||new (window.AudioContext||window.webkitAudioContext)();return AC;}
-  function build(){
-    var ac=ctx();
-    master=ac.createGain();master.gain.value=0.0001;master.connect(ac.destination);
-    master.gain.linearRampToValueAtTime(0.22,ac.currentTime+1.2);
-    var d=ac.createDelay(1);d.delayTime.value=0.38;
-    var fb=ac.createGain();fb.gain.value=0.32;
-    var wet=ac.createGain();wet.gain.value=0.25;
-    d.connect(fb);fb.connect(d);d.connect(wet);wet.connect(ac.destination);
-    send=ac.createGain();send.gain.value=1;send.connect(d);
-    [130.81,164.81,196,246.94].forEach(function(f){
-      var o=ac.createOscillator();o.type='sine';o.frequency.value=f;
-      var g=ac.createGain();g.gain.value=0.018;
-      var l=ac.createOscillator();l.frequency.value=0.07+Math.random()*0.05;
-      var lg=ac.createGain();lg.gain.value=0.011;
-      l.connect(lg);lg.connect(g.gain);
-      o.connect(g);g.connect(master);o.start();l.start();
-      nodes.push(o,l,g);
-    });
-    nodes.push(master,d,fb,wet,send);
-  }
-  function note(f,t,dur,v){
-    var o=AC.createOscillator();o.type='sine';o.frequency.value=f;
-    var g=AC.createGain();
-    g.gain.setValueAtTime(0.0001,t);
-    g.gain.exponentialRampToValueAtTime(v,t+0.04);
-    g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
-    o.connect(g);g.connect(master);g.connect(send);
-    o.start(t);o.stop(t+dur+0.15);
-  }
-  function bar(){
-    if(!on)return;
-    var t=ctx().currentTime+0.06;
-    for(var i=0;i<16;i++)note(mel[(step+i)%16],t+i*SP,1.1,0.1);
-    step=(step+16)%16;
-  }
-  function start(){
-    var ac=ctx();if(ac.state==='suspended')ac.resume();
-    if(!master)build();
-    on=true;bar();timer=setInterval(bar,16*SP*1000);setLbl();
-  }
-  function stop(){
-    on=false;if(timer){clearInterval(timer);timer=null;}
-    if(master){
-      try{master.gain.cancelScheduledValues(0);master.gain.linearRampToValueAtTime(0.0001,ctx().currentTime+0.4);}catch(e){}
-      var keep=nodes.slice();setTimeout(function(){keep.forEach(function(n){try{n.disconnect();}catch(e){}});},500);
-      nodes.forEach(function(n){try{if(n.stop)n.stop();}catch(e){}});
-      nodes=[];master=null;send=null;
-    }
-    setLbl();
-  }
-  var eqEl=document.getElementById('eq');
-  var card=document.querySelector('.music-card');
-  var btn;
-  if(card){
-    card.querySelectorAll('button').forEach(function(b){b.style.display='none';});
-    btn=document.createElement('button');btn.type='button';btn.className='cta sm ghosty';
-    card.appendChild(btn);
-  } else {
-    btn=document.createElement('button');btn.type='button';
-    btn.style.cssText='position:fixed;bottom:20px;left:20px;z-index:9999;background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;border:none;border-radius:99px;padding:12px 22px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(90,110,255,.5);font-family:inherit;';
-    document.body.appendChild(btn);
-  }
-  function setLbl(){
-    btn.textContent=on?'قطع کن ⏸':'پخش کن ▶';
-    if(eqEl)eqEl.classList.toggle('off',!on);
-  }
-  setLbl();
-  btn.addEventListener('click',function(){on?stop():start();});
-})();
-</script>
-<script>
-(function(){
-  if(window.__mzNav)return;window.__mzNav=true;
-  var btn=document.createElement('button');
-  btn.type='button';btn.textContent='☰';
-  btn.style.cssText='width:44px;height:44px;border-radius:50%;border:1px solid #2c3352;background:#1e2238;color:#4dd6ff;font-size:17px;font-weight:700;cursor:pointer;flex:none;';
-  var menu=document.createElement('div');
-  menu.style.cssText='position:fixed;top:70px;right:16px;z-index:70;background:#1e2238;border:1px solid #2c3352;border-radius:16px;padding:8px;display:none;flex-direction:column;gap:2px;box-shadow:0 14px 36px rgba(0,0,0,.5);min-width:210px;';
-  var secs=document.querySelectorAll('section[id]');
-  secs.forEach(function(s){
-    var t=s.querySelector('.sec-title');
-    var a=document.createElement('a');
-    a.href='#'+s.id;
-    a.textContent=t?t.textContent.trim():s.id;
-    a.style.cssText='color:#cdd3ea;text-decoration:none;padding:10px 14px;border-radius:10px;font-size:.9rem;';
-    a.addEventListener('mouseenter',function(){a.style.background='#2a2f4a';});
-    a.addEventListener('mouseleave',function(){a.style.background='none';});
-    a.addEventListener('click',function(){menu.style.display='none';});
-    menu.appendChild(a);
-  });
-  btn.addEventListener('click',function(e){
-    e.stopPropagation();
-    menu.style.display=menu.style.display==='none'?'flex':'none';
-  });
-  document.addEventListener('click',function(e){
-    if(menu.style.display!=='none'&&!menu.contains(e.target)&&e.target!==btn)menu.style.display='none';
-  });
-  var topbar=document.querySelector('.topbar');
-  if(topbar){topbar.insertBefore(btn,topbar.firstChild);}
-  else{btn.style.position='fixed';btn.style.top='16px';btn.style.right='16px';btn.style.zIndex='75';document.body.appendChild(btn);}
-  document.body.appendChild(menu);
-})();
-</script>
-<script>
-(function(){
-  if(window.__mzAI)return;window.__mzAI=true;
-  var SYSTEM='تو یک دستیار هوشمند برای مدیریت یک وب‌سایت شخصی فارسی هستی. به فارسی روان و صمیمی پاسخ بده. در نوشتن نوت، بنر، ایده و کدنویسی کمک کن. پاسخ کوتاه و کاربردی باشد.';
-  var chatHist=[{role:'system',content:SYSTEM}];
-  var fab=document.createElement('button');
-  fab.type='button';fab.textContent='🤖';
-  fab.style.cssText='position:fixed;bottom:20px;right:20px;z-index:9999;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 8px 24px rgba(90,110,255,.5);display:none;place-items:center;';
-  document.body.appendChild(fab);
-  var ov=document.createElement('div');
-  ov.style.cssText='position:fixed;inset:0;z-index:10000;background:rgba(6,8,18,.8);backdrop-filter:blur(6px);display:none;place-items:center;padding:16px;';
-  ov.innerHTML='<div style="max-width:600px;width:100%;background:linear-gradient(145deg,#1a1d33,#14172b);border:1px solid #343b5e;border-radius:22px;padding:20px;max-height:85vh;overflow-y:auto;">'
-    +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">'
-    +'<span style="color:#e2ccff;font-weight:700;">🤖 دستیار هوش مصنوعی</span>'
-    +'<button type="button" id="aiX" style="margin-inline-start:auto;width:36px;height:36px;border-radius:50%;border:1px solid #343b5e;background:#181c30;color:#fff;cursor:pointer;">✕</button></div>'
-    +'<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">'
-    +'<input id="aiKeyIn" type="password" placeholder="کلید Gemini (اختیاری) — AIza..." style="flex:1;min-width:180px;background:#0f1222;border:1px solid #343b5e;border-radius:10px;color:#fff;padding:9px 12px;font-family:inherit;direction:ltr;">'
-    +'<button type="button" id="aiSaveK" style="background:#232948;color:#cdd3ea;border:1px dashed #4a5382;border-radius:10px;padding:9px 14px;cursor:pointer;font-family:inherit;">ذخیره 🔑</button>'
-    +'<button type="button" id="aiRev" style="background:linear-gradient(135deg,#1f7a4a,#2ea86e);color:#fff;border:none;border-radius:10px;padding:9px 14px;cursor:pointer;font-family:inherit;font-weight:700;">🔍 بررسی کد سایت</button></div>'
-    +'<div id="aiMsgs" style="background:#0f1222;border:1px solid #343b5e;border-radius:14px;padding:12px;min-height:180px;max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;"></div>'
-    +'<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">'
-    +'<button type="button" class="aiq" data-q="یه نوت کوتاه و صمیمی برای سایت شخصی من بنویس." style="background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:99px;padding:6px 12px;font-size:.78rem;cursor:pointer;font-family:inherit;">✍️ نوشتن نوت</button>'
-    +'<button type="button" class="aiq" data-q="چند ایده جذاب برای متن بنر سایت بده." style="background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:99px;padding:6px 12px;font-size:.78rem;cursor:pointer;font-family:inherit;">🎯 ایده بنر</button>'
-    +'<button type="button" class="aiq" data-q="چند پیشنهاد خلاقانه برای سایت شخصی بده." style="background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:99px;padding:6px 12px;font-size:.78rem;cursor:pointer;font-family:inherit;">💡 ایده سایت</button></div>'
-    +'<div style="display:flex;gap:8px;">'
-    +'<textarea id="aiIn" rows="2" placeholder="سوالت رو بنویس…" style="flex:1;background:#12142a;border:1px solid #343b5e;border-radius:12px;color:#fff;padding:10px 12px;font-family:inherit;resize:vertical;"></textarea>'
-    +'<button type="button" id="aiSendB" style="background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;border:none;border-radius:12px;padding:10px 18px;cursor:pointer;font-family:inherit;font-weight:700;">ارسال ⬆</button></div></div>';
-  document.body.appendChild(ov);
-  function $(id){return document.getElementById(id);}
-  var msgs=$('aiMsgs');
-  $('aiKeyIn').value=localStorage.getItem('rz-ai-key')||'';
-  fab.addEventListener('click',function(){ov.style.display='grid';});
-  $('aiX').addEventListener('click',function(){ov.style.display='none';});
-  ov.addEventListener('click',function(e){if(e.target===ov)ov.style.display='none';});
-  $('aiSaveK').addEventListener('click',function(){localStorage.setItem('rz-ai-key',$('aiKeyIn').value.trim());toastMsg('کلید ذخیره شد ✓');});
-  function key(){return ($('aiKeyIn').value.trim()||localStorage.getItem('rz-ai-key')||'').trim();}
-  function toastMsg(m){var t=document.createElement('div');t.textContent=m;t.style.cssText='position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:10001;background:#1a1d33;border:1px solid #34d399;border-radius:14px;padding:10px 16px;color:#fff;font-size:.85rem;';document.body.appendChild(t);setTimeout(function(){t.remove();},2500);}
-  function addMsg(role,text){
-    var w=document.createElement('div');
-    w.style.cssText='display:flex;flex-direction:column;gap:4px;max-width:88%;'+(role==='user'?'align-self:flex-start;':'align-self:flex-end;align-items:flex-end;');
-    var b=document.createElement('div');b.textContent=text;
-    b.style.cssText='padding:10px 14px;border-radius:14px;font-size:.9rem;line-height:1.8;white-space:pre-wrap;word-break:break-word;'+(role==='user'?'background:linear-gradient(135deg,#3550ff,#8b3dff);color:#fff;':'background:#1e2238;color:#e8eaf2;border:1px solid #343b5e;');
-    w.appendChild(b);
-    if(role==='bot'){
-      var cp=document.createElement('button');cp.type='button';cp.textContent='📋 کپی';
-      cp.style.cssText='background:#181c30;border:1px solid #343b5e;color:#cdd3ea;border-radius:8px;padding:3px 10px;font-size:.72rem;cursor:pointer;font-family:inherit;';
-      cp.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(text);cp.textContent='✓ کپی شد';setTimeout(function(){cp.textContent='📋 کپی';},1500);});
-      w.appendChild(cp);
-    }
-    msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;return w;
-  }
-  async function gemini(k,messages){
-    var url='https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='+encodeURIComponent(k);
-    var contents=[],sys='';
-    messages.forEach(function(m){if(m.role==='system')sys=m.content;else contents.push({role:m.role==='assistant'?'model':'user',parts:[{text:m.content}]});});
-    var body={contents:contents};if(sys)body.systemInstruction={parts:[{text:sys}]};
-    var r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-    if(!r.ok)throw new Error('Gemini '+r.status);
-    var j=await r.json();
-    if(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts)return j.candidates[0].content.parts.map(function(p){return p.text||'';}).join('');
-    throw new Error('پاسخی نبود');
-  }
-  async function polli(messages){
-    try{
-      var r=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',messages:messages})});
-      if(r.ok){var t=await r.text();try{var j=JSON.parse(t);if(j&&j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)return j.choices[0].message.content;}catch(e){}if(t&&t.trim())return t;}
-    }catch(e){}
-    var last='';for(var i=messages.length-1;i>=0;i--){if(messages[i].role==='user'){last=messages[i].content;break;}}
-    var r2=await fetch('https://text.pollinations.ai/'+encodeURIComponent(last));
-    return await r2.text();
-  }
-  async function ask(messages){
-    var k=key();
-    if(k){try{return await gemini(k,messages);}catch(e){}}
-    return await polli(messages);
-  }
-  async function send(text){
-    text=(text||'').trim();if(!text)return;
-    addMsg('user',text);chatHist.push({role:'user',content:text});
-    $('aiIn').value='';$('aiSendB').disabled=true;
-    var ty=addMsg('bot','…');
-    try{
-      var m=[chatHist[0]].concat(chatHist.slice(-12));
-      var ans=await ask(m);
-      chatHist.push({role:'assistant',content:ans});
-      ty.remove();addMsg('bot',ans);
-    }catch(e){ty.remove();addMsg('bot','⚠️ '+(e.message||'مشکل'));}
-    finally{$('aiSendB').disabled=false;}
-  }
-  $('aiSendB').addEventListener('click',function(){send($('aiIn').value);});
-  $('aiIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send($('aiIn').value);}});
-  document.querySelectorAll('.aiq').forEach(function(b){b.addEventListener('click',function(){send(b.dataset.q);});});
-  $('aiRev').addEventListener('click',async function(){
-    var cfg=null;try{cfg=JSON.parse(localStorage.getItem('rz-gh-cfg')||'null');}catch(e){}
-    if(!cfg){addMsg('bot','⚠️ اول توی همگام‌سازی به گیت‌هاب وصل شو.');return;}
-    $('aiRev').disabled=true;
-    var ty=addMsg('bot','دارم کد سایت رو از گیت‌هاب می‌گیرم…');
-    try{
-      var raw='https://raw.githubusercontent.com/'+encodeURIComponent(cfg.user)+'/'+encodeURIComponent(cfg.repo)+'/'+encodeURIComponent(cfg.branch||'main')+'/'+encodeURIComponent(cfg.path||'index.html');
-      var r=await fetch(raw);
-      if(!r.ok)throw new Error('فایل پیدا نشد ('+r.status+')');
-      var code=await r.text();
-      if(code.length>80000)code=code.slice(0,80000)+'\n/* ... */';
-      var prompt='این کد کامل سایت شخصی من است. بررسی کن و به فارسی بگو: ۱) نقاط قوت ۲) مشکلات/باگ‌ها ۳) چه چیزهایی می‌شود اضافه کرد ۴) نکات امنیتی/عملکردی.\n\n```html\n'+code+'\n```';
-      var m=[{role:'system',content:'تو یک توسعه‌دهنده وب حرفه‌ای هستی که کد را بررسی و به فارسی نظر می‌دهی.'},{role:'user',content:prompt}];
-      var ans=await ask(m);
-      ty.remove();addMsg('bot',ans);
-    }catch(e){ty.remove();addMsg('bot','⚠️ '+(e.message||'مشکل در بررسی'));}
-    finally{$('aiRev').disabled=false;}
-  });
-  function gate(){
-    var isAdmin=(location.hash||'').toLowerCase().indexOf('admin')!==-1;
-    fab.style.display=isAdmin?'grid':'none';
-  }
-  window.addEventListener('hashchange',gate);
-  gate();
-})();
-</script>
-<script>
-(function(){
-  if(window.__mzClean)return;window.__mzClean=true;
-
-  /* حذف دکمه‌های شناور موسیقی و 🤖 */
-  document.querySelectorAll('button,div').forEach(function(el){
-    if(el.style&&el.style.position==='fixed'){
-      var t=(el.textContent||'');
-      if(t.indexOf('موسیقی')>-1||t.indexOf('🤖')>-1)el.remove();
-    }
-  });
-
-  /* حذف بخش/تب قیمت‌ها */
-  var pT=document.querySelector('.tab[data-tab="prices"]');if(pT)pT.remove();
-  var pP=document.getElementById('tab-prices');if(pP)pP.remove();
-  document.querySelectorAll('.price-card').forEach(function(c){c.remove();});
-
-  /* بازسازی منوی سه‌خط: بدون «درباره» و بدون «پنل مدیریت»، فقط توییتر */
-  document.querySelectorAll('button').forEach(function(b){if((b.textContent||'').trim()==='☰')b.remove();});
-  document.querySelectorAll('div').forEach(function(d){
-    if(d.style&&d.style.position==='fixed'&&d.querySelectorAll('a[href^="#"]').length>2)d.remove();
-  });
-  var navBtn=document.createElement('button');navBtn.type='button';navBtn.textContent='☰';
-  navBtn.style.cssText='width:44px;height:44px;border-radius:50%;border:1px solid #2c3352;background:#1e2238;color:#4dd6ff;font-size:17px;font-weight:700;cursor:pointer;flex:none;';
-  var menu=document.createElement('div');
-  menu.style.cssText='position:fixed;top:70px;right:16px;z-index:70;background:#1e2238;border:1px solid #2c3352;border-radius:16px;padding:8px;display:none;flex-direction:column;gap:2px;box-shadow:0 14px 36px rgba(0,0,0,.5);min-width:200px;';
-  [{h:'#dashboard',l:'📊 داشبورد'},{h:'#notes',l:'⌨️ نوت‌ها'},{h:'#timer',l:'⏳ عمر سایت'},{h:'https://x.com/Reza_ZeroOnee',l:'🐦 توییتر',e:1}].forEach(function(x){
-    var a=document.createElement('a');a.href=x.h;if(x.e){a.target='_blank';a.rel='noopener';}
-    a.textContent=x.l;a.style.cssText='color:#cdd3ea;text-decoration:none;padding:10px 14px;border-radius:10px;font-size:.9rem;';
-    a.onmouseenter=function(){a.style.background='#2a2f4a';};a.onmouseleave=function(){a.style.background='none';};
-    a.onclick=function(){menu.style.display='none';};
-    menu.appendChild(a);
-  });
-  navBtn.onclick=function(e){e.stopPropagation();menu.style.display=menu.style.display==='none'?'flex':'none';};
-  document.addEventListener('click',function(e){if(menu.style.display!=='none'&&!menu.contains(e.target)&&e.target!==navBtn)menu.style.display='none';});
-  var tb=document.querySelector('.topbar');
-  if(tb)tb.insertBefore(navBtn,tb.firstChild);
-  else{navBtn.style.position='fixed';navBtn.style.top='16px';navBtn.style.right='16px';navBtn.style.zIndex='75';document.body.appendChild(navBtn);}
-  document.body.appendChild(menu);
-
-  /* موسیقی داخل کارت داشبورد */
-  (function(){
-    var AC=null,on=false,nodes=[],timer=null,master=null,send=null,step=0;
-    var mel=[523.25,659.25,783.99,659.25,880,783.99,659.25,587.33,523.25,587.33,659.25,783.99,880,783.99,659.25,523.25],SP=0.45;
-    function ctx(){AC=AC||new (window.AudioContext||window.webkitAudioContext)();return AC;}
-    function build(){var ac=ctx();master=ac.createGain();master.gain.value=0.0001;master.connect(ac.destination);master.gain.linearRampToValueAtTime(0.22,ac.currentTime+1.2);
-      var d=ac.createDelay(1);d.delayTime.value=0.38;var fb=ac.createGain();fb.gain.value=0.32;var wet=ac.createGain();wet.gain.value=0.25;
-      d.connect(fb);fb.connect(d);d.connect(wet);wet.connect(ac.destination);send=ac.createGain();send.gain.value=1;send.connect(d);
-      [130.81,164.81,196,246.94].forEach(function(f){var o=ac.createOscillator();o.type='sine';o.frequency.value=f;var g=ac.createGain();g.gain.value=0.018;var l=ac.createOscillator();l.frequency.value=0.07+Math.random()*0.05;var lg=ac.createGain();lg.gain.value=0.011;l.connect(lg);lg.connect(g.gain);o.connect(g);g.connect(master);o.start();l.start();nodes.push(o,l,g);});
-      nodes.push(master,d,fb,wet,send);}
-    function note(f,t,dur,v){var o=AC.createOscillator();o.type='sine';o.frequency.value=f;var g=AC.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(v,t+0.04);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.connect(g);g.connect(master);g.connect(send);o.start(t);o.stop(t+dur+0.15);}
-    function bar(){if(!on)return;var t=ctx().currentTime+0.06;for(var i=0;i<16;i++)note(mel[(step+i)%16],t+i*SP,1.1,0.1);step=(step+16)%16;}
-    function start(){var ac=ctx();if(ac.state==='suspended')ac.resume();if(!master)build();on=true;bar();timer=setInterval(bar,16*SP*1000);lbl();}
-    function stop(){on=false;if(timer){clearInterval(timer);timer=null;}if(master){try{master.gain.cancelScheduledValues(0);master.gain.linearRampToValueAtTime(0.0001,ctx().currentTime+0.4);}catch(e){}var k=nodes.slice();setTimeout(function(){k.forEach(function(n){try{n.disconnect();}catch(e){}});},500);nodes.forEach(function(n){try{if(n.stop)n.stop();}catch(e){}});nodes=[];master=null;send=null;}lbl();}
-    var card=document.querySelector('.music-card');
-    if(!card){var dash=document.getElementById('dashboard');if(dash){card=document.createElement('div');card.className='music-card';card.innerHTML='<div class="mc-title">🎵 موسیقی ملایم</div><div class="eq off"><span></span><span></span><span></span><span></span><span></span></div>';var g=dash.querySelector('.dash-grid');if(g)g.appendChild(card);else dash.appendChild(card);}}
-    if(card){
-      card.querySelectorAll('button').forEach(function(b){b.style.display='none';});
-      var btn=document.createElement('button');btn.type='button';btn.className='cta sm ghosty';card.appendChild(btn);
-      var eq=card.querySelector('.eq');
-      function lbl(){btn.textContent=on?'قطع کن ⏸':'پخش کن ▶';if(eq)eq.classList.toggle('off',!on);}
-      lbl();btn.onclick=function(){on?stop():start();};
-    }
-  })();
-})();
-</script>
-<script>
-(function(){
-  if(window.__mzFix2)return;window.__mzFix2=true;
-  var pane=document.getElementById('tab-sync');
-  if(!pane)return;
-  if(document.getElementById('safeBox'))return;
-
-  var box=document.createElement('div');
-  box.id='safeBox';
-  box.style.cssText='margin-top:14px;border-top:1px dashed #343b5e;padding-top:14px;';
-  box.innerHTML=
-    '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">'+
-      '<input id="safeTok" type="password" placeholder="توکن گیت‌هاب (github_pat_…)" style="flex:1;min-width:200px;background:#0f1222;border:1px solid #343b5e;border-radius:10px;color:#fff;padding:9px 12px;font-family:inherit;direction:ltr;">'+
-      '<button id="safeSave" class="cta sm ghosty" type="button">ذخیره 🔑</button>'+
-    '</div>'+
-    '<button id="safePub" class="cta sm ok" type="button">انتشار مطمئن ☁</button>'+
-    '<p style="font-size:.72rem;color:#7d84a6;margin-top:8px;">توکن فقط روی همین مرورگر ذخیره می‌شه و انتشار فقط نوت/بنر/شبکه‌ها رو عوض می‌کنه.</p>';
-  pane.appendChild(box);
-
-  var tok=box.querySelector('#safeTok');
-  tok.value=localStorage.getItem('rz-gh-token')||'';
-  box.querySelector('#safeSave').onclick=function(){
-    localStorage.setItem('rz-gh-token',tok.value.trim());
-    alert('توکن ذخیره شد ✓');
-  };
-
-  function b64d(s){var b=atob(String(s).replace(/\s/g,''));var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return new TextDecoder('utf-8').decode(u);}
-  function b64e(s){var u=new TextEncoder().encode(s);var b='';for(var i=0;i<u.length;i++)b+=String.fromCharCode(u[i]);return btoa(b);}
-  function swap(c,V,M,json){var s=c.indexOf(V);if(s===-1)return c;var m=c.indexOf(M,s);if(m===-1)return c;return c.slice(0,s)+V+json+'; '+M+c.slice(m+M.length);}
-
-  box.querySelector('#safePub').onclick=async function(){
-    var btn=this;btn.disabled=true;btn.textContent='در حال انتشار…';
-    try{
-      var cfg=JSON.parse(localStorage.getItem('rz-gh-cfg')||'null');
-      var t=tok.value.trim()||localStorage.getItem('rz-gh-token')||'';
-      if(!cfg||!t)throw new Error('اول توکن و اتصال رو تنظیم کن');
-      var base='https://api.github.com/repos/'+encodeURIComponent(cfg.user)+'/'+encodeURIComponent(cfg.repo)+'/contents/'+encodeURIComponent(cfg.path||'index.html');
-      var g=await fetch(base+'?ref='+encodeURIComponent(cfg.branch||'main'),{headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+t}});
-      if(!g.ok)throw new Error('خواندن فایل خطا '+g.status);
-      var gj=await g.json();
-      var content=b64d(gj.content);
-      var N=JSON.parse(localStorage.getItem('rz-notes')||'[]');
-      var B=JSON.parse(localStorage.getItem('rz-banners')||'[]');
-      var S=JSON.parse(localStorage.getItem('rz-socials')||'[]');
-      content=swap(content,'var SAVED_NOTES = ','/*SAVED_NOTES*/',JSON.stringify(N).replace(/</g,'\\u003c'));
-      content=swap(content,'var SAVED_BANNERS = ','/*SAVED_BANNERS*/',JSON.stringify(B).replace(/</g,'\\u003c'));
-      content=swap(content,'var SAVED_SOCIALS = []; /*SAVED_SOCIALS*/undefined; []; /*SAVED_SOCIALS*/',JSON.stringify(S).replace(/</g,'\\u003c'));
-      var p=await fetch(base,{method:'PUT',headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify({message:'update',content:b64e(content),branch:cfg.branch||'main',sha:gj.sha})});
-      if(!p.ok){var e='';try{e=(await p.json()).message||'';}catch(x){}throw new Error('انتشار خطا '+p.status+(e?' — '+e:''));}
-      btn.textContent='منتشر شد ✓';
-      setTimeout(function(){btn.textContent='انتشار مطمئن ☁';},2000);
-    }catch(err){
-      alert('⚠️ '+err.message);
-      btn.textContent='انتشار مطمئن ☁';
-    }finally{btn.disabled=false;}
-  };
-})();
-</script>
-<script>
-(function(){
-  if(window.__mzPub4)return;window.__mzPub4=true;
-  var old=document.getElementById('safeBox');if(old)old.remove();
-  var pane=document.getElementById('tab-sync')||document.querySelector('.admin-card')||document.body;
-  var inp='background:#0f1222;border:1px solid #343b5e;border-radius:10px;color:#fff;padding:9px 12px;font-family:inherit;font-size:.85rem;';
-  var box=document.createElement('div');box.id='safeBox';
-  box.style.cssText='margin-top:14px;border-top:1px dashed #343b5e;padding-top:14px;';
-  box.innerHTML=
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">'+
-      '<input id="pUser" placeholder="نام کاربری" style="'+inp+'">'+
-      '<input id="pRepo" placeholder="مخزن (Myreza.)" style="'+inp+'">'+
-      '<input id="pBranch" placeholder="شاخه" value="main" style="'+inp+'">'+
-      '<input id="pPath" placeholder="مسیر" value="index.html" style="'+inp+'">'+
-    '</div>'+
-    '<input id="pTok" type="password" placeholder="توکن github_pat_…" style="'+inp+';width:100%;direction:ltr;margin-bottom:8px;">'+
-    '<div style="display:flex;gap:8px;flex-wrap:wrap;">'+
-      '<button id="pTest" class="cta sm ghosty" type="button">آزمایش اتصال 🔌</button>'+
-      '<button id="pPub" class="cta sm ok" type="button">انتشار ☁</button>'+
-      '<button id="pSave" class="cta sm ghosty" type="button">ذخیره 💾</button>'+
-    '</div>'+
-    '<div id="pStat" style="font-size:.75rem;margin-top:10px;color:#7d84a6;line-height:1.9;"></div>';
-  pane.appendChild(box);
-
-  function $(id){return box.querySelector('#'+id);}
-  function stat(m,c){var s=$('pStat');s.textContent=m;s.style.color=(c==='ok')?'#3ee6a0':(c==='err'?'#ff8088':'#7d84a6');}
-
-  var cfg=null;try{cfg=JSON.parse(localStorage.getItem('rz-gh-cfg')||'null');}catch(e){}
-  if(cfg){$('pUser').value=cfg.user||'';$('pRepo').value=cfg.repo||'';$('pBranch').value=cfg.branch||'main';$('pPath').value=cfg.path||'index.html';}
-  $('pTok').value=localStorage.getItem('rz-gh-token')||'';
-
-  $('pSave').onclick=function(){
-    localStorage.setItem('rz-gh-token',$('pTok').value.trim());
-    localStorage.setItem('rz-gh-cfg',JSON.stringify({user:$('pUser').value.trim(),repo:$('pRepo').value.trim(),branch:$('pBranch').value.trim()||'main',path:$('pPath').value.trim()||'index.html'}));
-    stat('تنظیمات ذخیره شد ✓','ok');
-  };
-
-  function H(t){return{'Accept':'application/vnd.github+json','Authorization':'Bearer '+t};}
-  function b64d(s){var b=atob(String(s).replace(/\s/g,''));var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return new TextDecoder('utf-8').decode(u);}
-  function b64e(s){var u=new TextEncoder().encode(s);var b='';for(var i=0;i<u.length;i++)b+=String.fromCharCode(u[i]);return btoa(b);}
-  function swap(c,V,M,j){var s=c.indexOf(V);if(s===-1)return c;var m=c.indexOf(M,s);if(m===-1)return c;return c.slice(0,s)+V+j+'; '+M+c.slice(m+M.length);}
-  function vals(){return{user:$('pUser').value.trim(),repo:$('pRepo').value.trim(),branch:$('pBranch').value.trim()||'main',path:$('pPath').value.trim()||'index.html',tok:$('pTok').value.trim()};}
-  function base(v){return 'https://api.github.com/repos/'+encodeURIComponent(v.user)+'/'+encodeURIComponent(v.repo)+'/contents/'+v.path.split('/').map(encodeURIComponent).join('/');}
-
-  $('pTest').onclick=async function(){
-    var v=vals();
-    if(!v.user||!v.repo||!v.tok){stat('نام کاربری، مخزن و توکن رو پر کن','err');return;}
-    stat('در حال آزمایش…');
-    try{
-      var r=await fetch(base(v)+'?ref='+encodeURIComponent(v.branch),{headers:H(v.tok)});
-      if(r.ok)stat('✅ اتصال خوبه؛ فایل پیدا شد. می‌تونی منتشر کنی.','ok');
-      else if(r.status===401)stat('⚠️ 401: توکن اشتباه یا منقضی شده → یه توکن جدید بساز و بذار.','err');
-      else if(r.status===404)stat('⚠️ 404: نام مخزن / مسیر / شاخه اشتباهه.','err');
-      else stat('⚠️ خطا '+r.status,'err');
-    }catch(e){stat('⚠️ '+e.message,'err');}
-  };
-
-  $('pPub').onclick=async function(){
-    var v=vals();
-    if(!v.user||!v.repo||!v.tok){stat('اول تنظیمات و توکن رو پر کن و «ذخیره» بزن','err');return;}
-    var btn=this;btn.disabled=true;stat('در حال انتشار…');
-    try{
-      var g=await fetch(base(v)+'?ref='+encodeURIComponent(v.branch),{headers:H(v.tok)});
-      if(!g.ok)throw new Error('خواندن '+g.status+(g.status===401?' (توکن اشتباه)':g.status===404?' (مسیر اشتباه)':''));
-      var gj=await g.json();
-      var content=b64d(gj.content);
-      var N=JSON.parse(localStorage.getItem('rz-notes')||'[]');
-      var B=JSON.parse(localStorage.getItem('rz-banners')||'[]');
-      var S=JSON.parse(localStorage.getItem('rz-socials')||'[]');
-      content=swap(content,'var SAVED_NOTES = ','/*SAVED_NOTES*/',JSON.stringify(N).replace(/</g,'\\u003c'));
-      content=swap(content,'var SAVED_BANNERS = ','/*SAVED_BANNERS*/',JSON.stringify(B).replace(/</g,'\\u003c'));
-      content=swap(content,'var SAVED_SOCIALS = ','/*SAVED_SOCIALS*/',JSON.stringify(S).replace(/</g,'\\u003c'));
-      var p=await fetch(base(v),{method:'PUT',headers:Object.assign({'Content-Type':'application/json'},H(v.tok)),body:JSON.stringify({message:'update',content:b64e(content),branch:v.branch,sha:gj.sha})});
-      if(!p.ok){var m='';try{m=(await p.json()).message||'';}catch(e){}throw new Error('انتشار '+p.status+(m?' — '+m:''));}
-      stat('✅ منتشر شد؛ ۱-۲ دقیقه دیگه روی سایت میاد.','ok');
-    }catch(e){stat('⚠️ '+e.message,'err');}
-    finally{btn.disabled=false;}
-  };
 })();
 </script>
 </body>
