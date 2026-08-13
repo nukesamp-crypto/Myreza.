@@ -45,17 +45,12 @@ button{font-family:inherit}
 #gearBtn:hover{transform:rotate(90deg)}
 #gearBtn.spin{transform:rotate(360deg)}
 
-.banner{max-width:1020px;margin:4px auto 0;padding:10px 16px;border:1px solid rgba(255,93,108,.6);border-radius:16px;
-  background:linear-gradient(145deg,rgba(255,60,80,.16),rgba(255,60,80,.05));
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  box-shadow:0 0 22px rgba(255,60,80,.25),inset 0 0 18px rgba(255,60,80,.08);animation:bannerPulse 2.4s infinite}
-@keyframes bannerPulse{0%,100%{box-shadow:0 0 22px rgba(255,60,80,.25),inset 0 0 18px rgba(255,60,80,.08)}50%{box-shadow:0 0 36px rgba(255,60,80,.5),inset 0 0 18px rgba(255,60,80,.08)}}
-.banner .txt{color:#ff7b88;font-weight:700;font-size:.95rem;text-shadow:0 0 12px rgba(255,80,90,.7);display:flex;align-items:center;gap:8px}
-.red-dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:pulse 1.4s infinite}
-.banner .left{margin-inline-start:auto;color:#ffb3b9;font-size:.78rem;background:rgba(255,60,80,.12);border:1px dashed rgba(255,93,108,.5);padding:4px 12px;border-radius:99px}
-
 .custom-banner{max-width:1020px;margin:4px auto 0;padding:10px 16px;border-radius:16px;
   display:flex;align-items:center;gap:10px;flex-wrap:wrap;animation:bannerPulse 2.4s infinite}
+@keyframes bannerPulse{0%,100%{box-shadow:0 0 22px rgba(255,60,80,.25),inset 0 0 18px rgba(255,60,80,.08)}50%{box-shadow:0 0 36px rgba(255,60,80,.5),inset 0 0 18px rgba(255,60,80,.08)}}
+.red-dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:pulse 1.4s infinite}
+.banner .txt{color:#ff7b88;font-weight:700;font-size:.95rem;text-shadow:0 0 12px rgba(255,80,90,.7);display:flex;align-items:center;gap:8px}
+.timer-left{font-size:.78rem;background:rgba(255,60,80,.12);border:1px dashed rgba(255,93,108,.5);padding:4px 12px;border-radius:99px;color:var(--muted)}
 
 .sheet{max-width:1020px;margin:10px auto 0;background:linear-gradient(180deg,var(--sheet1),var(--sheet2));
   border:1px solid #232a48;border-bottom:none;border-radius:30px 30px 0 0;padding:6px 20px 10px}
@@ -221,6 +216,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
 .banner-item{background:#181c30;border:1px solid #343b5e;border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .banner-item input[type="text"]{flex:1;background:#12142a;border:1px solid #343b5e;border-radius:8px;color:#fff;padding:6px 10px;font-family:inherit;font-size:.85rem;min-width:200px}
 .banner-item input[type="color"]{width:40px;height:34px;border:1px solid #343b5e;border-radius:8px;background:none;cursor:pointer;padding:0}
+.banner-item label{font-size:.7rem;color:var(--muted);display:flex;align-items:center;gap:4px;cursor:pointer}
 .banner-del{width:34px;height:34px;border-radius:50%;background:rgba(255,60,80,.1);border:1px solid rgba(255,93,108,.4);color:#ff8088;cursor:pointer;font-size:14px}
 .auth-modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);display:grid;place-items:center;visibility:hidden;opacity:0;transition:.3s}
 .auth-modal.open{visibility:visible;opacity:1}
@@ -240,7 +236,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   .icon.emo{font-size:38px}
   .icon svg{width:38px;height:38px}
   .tw-card .icon svg{width:46px;height:46px}
-  .banner .left{margin-inline-start:0;width:100%;text-align:center}
   .mgrid{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion: reduce){
@@ -261,11 +256,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   <button id="gearBtn" class="tb-btn" type="button" title="حالت آروم">⚙️</button>
   <button id="syncBtn" class="tb-btn owner-only" type="button" title="اتصال به سایت" hidden>☁</button>
   <button id="langBtn" class="tb-btn" type="button" title="زبان / Language">EN</button>
-</div>
-
-<div id="banner" class="banner" style="display:none">
-  <span class="txt"><span class="red-dot"></span><span data-i18n="bannerTxt">به زودی آیپی اسکنر میدیم بیرون</span> 🚨</span>
-  <span class="left" id="bannerLeft"></span>
 </div>
 
 <div id="bannersContainer"></div>
@@ -490,7 +480,9 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   var CUR_LANG = 'fa';
   var clockFmt = null;
   var SAVED_NOTES = [{"glow":"#ffc94d","lvl":"yellow","hot":false,"d":{"fa":"۱۹ مرداد ۱۴۰۵","en":"10 August 2026"},"p":{"fa":"آیپی اسکنر خوبی دارم میسازم با لوکیشن از همه جا یعنی هرجا کلودفلر هست","en":"Building a solid IP scanner with location data — anywhere Cloudflare exists"}},{"glow":"#ff5d6c","hot":true,"d":{"fa":"۱۹ مرداد ۱۴۰۵","en":"August 10, 2026"},"p":{"fa":"به زودی یه آیپی اسکنر میدیم بیرون؛ خبرش همین‌جا میاد.","en":"An IP scanner is coming soon; the news drops right here."}},{"glow":"#5b8cff","hot":false,"d":{"fa":"۱۹ مرداد ۱۴۰۵","en":"August 10, 2026"},"p":{"fa":"بالاخره سایت رو راه انداختم. ساده و بی‌سروصدا، همون‌جوری که خودم دوست دارم.","en":"Finally launched the site. Simple and quiet, just the way I like it."}},{"glow":"#ffc94d","hot":false,"d":{"fa":"۳ مرداد ۱۴۰۵","en":"July 25, 2026"},"p":{"fa":"یه پروژهٔ کوچیک دستمه. وقتی به یه سروشکل رسید، همین‌جا ازش می‌گم.","en":"I'm working on a small project. Once it takes shape, I'll talk about it here."}},{"glow":"#3ee6a0","hot":false,"d":{"fa":"۲۱ تیر ۱۴۰۵","en":"July 12, 2026"},"p":{"fa":"تصمیم گرفتم بیشتر توییتر باشم. اگه حرفی، نظری، چیزی: \u003cbdi dir=\"ltr\">@Reza_ZeroOnee\u003c/bdi>","en":"Decided to be more on X. If you have anything to say: \u003cbdi dir=\"ltr\">@Reza_ZeroOnee\u003c/bdi>"}}]; /*SAVED_NOTES*/
-  var SAVED_BANNERS = []; /*SAVED_BANNERS*/
+  var SAVED_BANNERS = [
+    {text: "به زودی آیپی اسکنر میدیم بیرون 🚨", color: "#ff5d6c", timer: true}
+  ]; /*SAVED_BANNERS*/
   var INJECTED_CODE = ""; /*INJECTED_CODE*/
 
   var ADMIN_HASH = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9';
@@ -548,7 +540,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       disconnected:'اتصال قطع شد', needReconnect:'توکن توی حافظه نیست؛ دوباره وصل شو',
       commitMsg:'notes: update',
       todayLbl:'امروز:', noteWord:'نوت', hotTag:'به زودی',
-      bannerTxt:'به زودی آیپی اسکنر میدیم بیرون', bannerLbl:'مانده:',
+      bannerLbl:'مانده:',
       sTw:'توییتر', twSub:'من اینجام؛ هر خبری هم باشه، اول همون‌جا می‌گم.',
       btnOpen:'باز کردن توییتر', btnCopy:'کپی آیدی', copied:'کپی شد ✓',
       foot:'© ۱۴۰۵ · رضا — همین و بس.', gearTitle:'حالت آروم', syncTitle:'اتصال به سایت',
@@ -596,7 +588,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       disconnected:'Disconnected', needReconnect:'Token not in memory; reconnect',
       commitMsg:'notes: update',
       todayLbl:'Today:', noteWord:'note', hotTag:'soon',
-      bannerTxt:'Coming soon: IP Scanner', bannerLbl:'Left:',
+      bannerLbl:'Left:',
       sTw:'X', twSub:"Find me here; whatever news there is, I say it there first.",
       btnOpen:'Open X', btnCopy:'Copy handle', copied:'Copied ✓',
       foot:'© 2026 · Reza — that\u2019s it.', gearTitle:'Calm mode', syncTitle:'Connect to site',
@@ -659,7 +651,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   var elapsedEl = document.getElementById('elapsed');
   var copyBtn = document.getElementById('copyBtn');
   var titleEl = document.getElementById('scrambleTitle');
-  var banner = document.getElementById('banner');
   var bannerLeft = document.getElementById('bannerLeft');
   var notesPreview = document.getElementById('notesPreview');
   var room = document.getElementById('room');
@@ -975,16 +966,20 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
 
   function bannerTick(now){
     var diff = DEADLINE - now.getTime();
-    if(diff <= 0){ banner.style.display = 'none'; return; }
-    banner.style.display = 'flex';
+    if(diff <= 0) return;
     var d = I18N[CUR_LANG];
     var days = Math.floor(diff / 864e5); diff -= days * 864e5;
     var hours = Math.floor(diff / 36e5); diff -= hours * 36e5;
     var mins = Math.floor(diff / 6e4); diff -= mins * 6e4;
     var secs = Math.floor(diff / 1e3);
-    bannerLeft.textContent = d.bannerLbl + ' ' + num(days) + ' ' + d.units.d + d.and +
+    var timerText = d.bannerLbl + ' ' + num(days) + ' ' + d.units.d + d.and +
       num(hours) + ' ' + d.units.h + d.and + num(mins) + ' ' + d.units.m + d.and +
       num(secs) + ' ' + d.units.s;
+    
+    document.querySelectorAll('.custom-banner[data-timer]').forEach(function(el){
+      var leftSpan = el.querySelector('.timer-left');
+      if(leftSpan) leftSpan.textContent = timerText;
+    });
   }
 
   function tick(){
@@ -1190,6 +1185,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
         div.innerHTML = 
           '<input type="text" value="' + esc(b.text || '') + '" placeholder="متن بنر..." data-idx="' + i + '" data-field="text">' +
           '<input type="color" value="' + (b.color || '#ff5d6c') + '" data-idx="' + i + '" data-field="color">' +
+          '<label><input type="checkbox" ' + (b.timer ? 'checked' : '') + ' data-idx="' + i + '" data-field="timer"> ⏱ تایمر</label>' +
           '<button class="banner-del" data-idx="' + i + '">✕</button>';
         bannersList.appendChild(div);
       });
@@ -1200,27 +1196,28 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
         if(!b.text) return;
         var el = document.createElement('div');
         el.className = 'custom-banner';
-        el.style.display = 'flex';
+        if(b.timer) el.setAttribute('data-timer', '');
         el.style.borderColor = b.color || '#ff5d6c';
         el.style.border = '1px solid ' + (b.color || '#ff5d6c');
         el.style.background = 'linear-gradient(145deg, ' + (b.color || '#ff5d6c') + '26, ' + (b.color || '#ff5d6c') + '0d)';
         el.style.boxShadow = '0 0 22px ' + (b.color || '#ff5d6c') + '40';
-        el.innerHTML = '<span class="txt" style="color:' + (b.color || '#ff5d6c') + '"><span class="red-dot" style="background:' + (b.color || '#ff5d6c') + ';box-shadow:0 0 10px ' + (b.color || '#ff5d6c') + '"></span> ' + esc(b.text) + '</span>';
+        var timerHtml = b.timer ? '<span class="timer-left" style="color:' + (b.color || '#ff5d6c') + '">' + I18N[CUR_LANG].bannerLbl + ' …</span>' : '';
+        el.innerHTML = '<span class="txt" style="color:' + (b.color || '#ff5d6c') + ';font-weight:700;display:flex;align-items:center;gap:8px"><span class="red-dot" style="background:' + (b.color || '#ff5d6c') + ';box-shadow:0 0 10px ' + (b.color || '#ff5d6c') + '"></span> ' + esc(b.text) + '</span>' + timerHtml;
         bannersContainer.appendChild(el);
       });
     }
+    tick(); // به‌روزرسانی تایمرها
   }
-
-  if(addBannerBtn) addBannerBtn.addEventListener('click', function(){
-    BANNERS.push({text: '', color: '#ff5d6c'});
-    renderBanners();
-  });
 
   if(bannersList) bannersList.addEventListener('input', function(e){
     var idx = parseInt(e.target.dataset.idx);
     var field = e.target.dataset.field;
     if(!isNaN(idx) && field){
-      BANNERS[idx][field] = e.target.value;
+      if(e.target.type === 'checkbox'){
+        BANNERS[idx][field] = e.target.checked;
+      } else {
+        BANNERS[idx][field] = e.target.value;
+      }
       renderBanners();
     }
   });
@@ -1240,7 +1237,7 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
     showToast('✓ بنرها ذخیره شدن', 'ok');
   });
 
-  // === CODE INJECTION (FIXED) ===
+  // === CODE INJECTION ===
   var saveCodeBtn = document.getElementById('saveCodeBtn');
   var injectedTA = document.getElementById('injectedCode');
 
