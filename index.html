@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
 <meta name="theme-color" content="#14172b">
 <title>رضا — گوشهٔ من</title>
 <meta name="description" content="یه صفحهٔ شخصی ساده؛ نه بیشتر، نه کمتر.">
@@ -18,8 +18,8 @@
   --blue:#5b8cff; --cyan:#4dd6ff; --purple:#b07cff; --gold:#ffc94d; --green:#3ee6a0; --red:#ff5d6c;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--txt);font-family:'Vazirmatn',tahoma,sans-serif;line-height:1.9;overflow-x:hidden}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
+body{background:var(--bg);color:var(--txt);font-family:'Vazirmatn',tahoma,sans-serif;line-height:1.9;overflow-x:hidden;min-height:100vh;min-height:100dvh;}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:radial-gradient(640px 320px at 88% -60px,rgba(176,124,255,.30),transparent 60%),
              radial-gradient(540px 300px at 8% -50px,rgba(91,140,255,.28),transparent 60%);
@@ -30,26 +30,227 @@ body.calm::before{opacity:.25}
 h1,h2,.clock,.tw-handle,.room-title{font-family:'Lalezar','Vazirmatn',sans-serif;font-weight:400}
 button{font-family:inherit}
 
+/* ===== شیشه‌ای کردن همه‌چیز (بهینه برای موبایل) ===== */
+body {
+  background: rgba(20, 23, 43, 0.25) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+}
+body::before {
+  opacity: 0.20 !important;
+}
+
+.sheet,
+.card,
+.t-box,
+.note,
+.rnote,
+.composer,
+.tw-card,
+.admin-panel,
+.modal .mbox,
+.auth-box,
+.toast,
+.pill,
+.tb-btn,
+.sync-row,
+.banner-item,
+.guide,
+.mwarn,
+.custom-banner,
+.room,
+.room-inner,
+.room-head,
+.topbar {
+  background: rgba(26, 29, 51, 0.40) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+}
+
+.room {
+  background: rgba(13, 15, 30, 0.45) !important;
+  backdrop-filter: blur(32px) !important;
+  -webkit-backdrop-filter: blur(32px) !important;
+}
+.room-inner {
+  background: rgba(13, 15, 30, 0.30) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-radius: 32px !important;
+  padding: 24px !important;
+}
+.room-head {
+  background: rgba(13, 15, 30, 0.35) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+
+.topbar {
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  background: rgba(20, 23, 43, 0.35) !important;
+  border-radius: 32px !important;
+  padding: 12px 22px !important;
+  margin-top: 12px !important;
+}
+.pill {
+  background: rgba(30, 34, 56, 0.40) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.cta {
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  background: rgba(53, 80, 255, 0.45) !important;
+}
+.cta.ghosty {
+  background: rgba(35, 41, 72, 0.45) !important;
+}
+.cta.ok {
+  background: rgba(31, 122, 74, 0.50) !important;
+}
+.cta.danger {
+  background: rgba(42, 26, 34, 0.50) !important;
+}
+
+input,
+textarea,
+.auth-input,
+.banner-item input {
+  background: rgba(18, 20, 42, 0.40) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+input:focus,
+textarea:focus {
+  border-color: rgba(91, 140, 255, 0.50) !important;
+  box-shadow: 0 0 24px rgba(91, 140, 255, 0.12) !important;
+}
+
+.banner-item,
+.guide,
+.mwarn {
+  background: rgba(24, 28, 48, 0.40) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.exit-admin-btn {
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  background: rgba(255, 93, 108, 0.12) !important;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: rgba(0, 0, 0, 0.08);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.clock,
+.elapsed,
+.room-title,
+.tw-handle,
+h1 {
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.06) !important;
+}
+
+.card.active {
+  border-color: rgba(91, 140, 255, 0.50) !important;
+  box-shadow: 0 0 0 1.5px rgba(91, 140, 255, 0.30),
+              0 0 48px rgba(91, 140, 255, 0.12) !important;
+}
+
+.badge {
+  background: rgba(91, 140, 255, 0.40) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+}
+
+/* ===== بهینه‌سازی برای گوشی ===== */
+@media (max-width: 560px) {
+  body {
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+  }
+  .sheet,
+  .card,
+  .t-box,
+  .note,
+  .rnote,
+  .composer,
+  .tw-card,
+  .admin-panel,
+  .modal .mbox,
+  .auth-box,
+  .toast,
+  .pill,
+  .tb-btn,
+  .sync-row,
+  .banner-item,
+  .guide,
+  .mwarn,
+  .custom-banner,
+  .room,
+  .room-inner,
+  .room-head,
+  .topbar {
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-radius: 18px !important;
+  }
+  .topbar {
+    padding: 10px 16px !important;
+    margin-top: 8px !important;
+  }
+  .cta {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
+  }
+  .pill .t1 {
+    font-size: 0.8rem !important;
+  }
+  .pill .t2 {
+    font-size: 0.65rem !important;
+  }
+  .tb-btn {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 13px !important;
+  }
+  .room-inner {
+    padding: 16px !important;
+    border-radius: 24px !important;
+  }
+}
+
+/* ===== بقیه استایل‌های اصلی ===== */
 .topbar{max-width:1020px;margin-inline:auto;padding:16px 16px 6px;display:flex;align-items:center;gap:8px}
-.pill{display:flex;align-items:center;gap:10px;background:#1e2238;border:1px solid #2c3352;border-radius:16px;padding:8px 14px}
-.pill .ava{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;
-  background:linear-gradient(135deg,#3550ff,#8b3dff);box-shadow:0 0 14px rgba(139,61,255,.5)}
+.pill{display:flex;align-items:center;gap:10px;border-radius:16px;padding:8px 14px}
+.pill .ava{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,#3550ff,#8b3dff);box-shadow:0 0 14px rgba(139,61,255,.5);flex-shrink:0}
 .pill .t1{font-size:.9rem;font-weight:700;color:#fff}
 .pill .t2{font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:6px}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-.tb-btn{width:44px;height:44px;border-radius:50%;border:1px solid #2c3352;background:#1e2238;color:var(--cyan);font-size:15px;font-weight:700;cursor:pointer;transition:transform .4s,border-color .3s;text-shadow:0 0 10px rgba(77,214,255,.8)}
+.tb-btn{width:44px;height:44px;border-radius:50%;border:1px solid #2c3352;background:#1e2238;color:var(--cyan);font-size:15px;font-weight:700;cursor:pointer;transition:transform .4s,border-color .3s;text-shadow:0 0 10px rgba(77,214,255,.8);flex-shrink:0}
 .tb-btn:hover{transform:translateY(-2px);border-color:var(--cyan)}
 .tb-btn.linked{border-color:var(--green);color:#7ff0c0}
 #gearBtn{font-size:19px}
 #gearBtn:hover{transform:rotate(90deg)}
 #gearBtn.spin{transform:rotate(360deg)}
 
-.custom-banner{max-width:1020px;margin:4px auto 0;padding:10px 16px;border-radius:16px;
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;animation:bannerPulse 2.4s infinite}
+.custom-banner{max-width:1020px;margin:4px auto 0;padding:10px 16px;border-radius:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;animation:bannerPulse 2.4s infinite}
 @keyframes bannerPulse{0%,100%{box-shadow:0 0 22px rgba(255,60,80,.25),inset 0 0 18px rgba(255,60,80,.08)}50%{box-shadow:0 0 36px rgba(255,60,80,.5),inset 0 0 18px rgba(255,60,80,.08)}}
-.red-dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:pulse 1.4s infinite}
-.banner .txt{color:#ff7b88;font-weight:700;font-size:.95rem;text-shadow:0 0 12px rgba(255,80,90,.7);display:flex;align-items:center;gap:8px}
+.red-dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:pulse 1.4s infinite;flex-shrink:0}
 .timer-left{font-size:.78rem;background:rgba(255,60,80,.12);border:1px dashed rgba(255,93,108,.5);padding:4px 12px;border-radius:99px;color:var(--muted)}
 
 .sheet{max-width:1020px;margin:10px auto 0;background:linear-gradient(180deg,var(--sheet1),var(--sheet2));
@@ -390,7 +591,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
       <p class="comp-hint" data-i18n="compHint">نوت‌ها رو ثبت کن، بعد «انتشار نوت‌ها» رو بزن — فقط نوت‌ها روی سایت عوض می‌شن، بقیهٔ کد دست نمی‌خوره.</p>
     </div>
 
-    <!-- ADMIN PANEL -->
     <div class="admin-panel owner-only" id="adminPanel" hidden>
       <h4>🔐 پنل مدیریت پیشرفته</h4>
       
@@ -416,7 +616,6 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   </div>
 </div>
 
-<!-- AUTH MODAL -->
 <div id="authModal" class="auth-modal">
   <div class="auth-box">
     <h3>🔐 ورود به پنل مدیریت</h3>
