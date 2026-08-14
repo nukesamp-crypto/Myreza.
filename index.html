@@ -601,7 +601,26 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
         <button id="saveBannersBtn" class="cta sm ok" type="button" style="margin-top:8px">💾 ذخیره بنرها</button>
       </details>
 
+            <details style="margin-bottom:16px">
+        <summary style="cursor:pointer;color:var(--cyan);font-weight:700;padding:8px 0">🎨 شخصی‌سازی سریع رنگ تم</summary>
+        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+          <button type="button" class="cta sm" style="background:#5b8cff" onclick="setAccent('#5b8cff')">آبی</button>
+          <button type="button" class="cta sm" style="background:#3ee6a0;color:#12142a" onclick="setAccent('#3ee6a0')">سبز</button>
+          <button type="button" class="cta sm" style="background:#b07cff" onclick="setAccent('#b07cff')">بنفش</button>
+          <button type="button" class="cta sm" style="background:#ffc94d;color:#12142a" onclick="setAccent('#ffc94d')">طلایی</button>
+          <button type="button" class="cta sm" style="background:#ff5d6c" onclick="setAccent('#ff5d6c')">قرمز</button>
+        </div>
+      </details>
+
       <details style="margin-bottom:16px">
+        <summary style="cursor:pointer;color:var(--cyan);font-weight:700;padding:8px 0">📊 آمار و وضعیت سیستم</summary>
+        <div id="adminStats" style="background:#12142a;border:1px solid #343b5e;border-radius:10px;padding:12px;font-size:.8rem;color:var(--muted);margin-top:8px;line-height:1.6">
+          در حال بارگذاری اطلاعات سیستم...
+        </div>
+        <button id="refreshStatsBtn" class="cta sm ghosty" type="button" style="margin-top:8px">🔄 به‌روزرسانی آمار</button>
+      </details>
+
+<details style="margin-bottom:16px">
         <summary style="cursor:pointer;color:var(--cyan);font-weight:700;padding:8px 0">💉 تزریق کد (HTML/CSS/JS)</summary>
         <p style="font-size:.75rem;color:var(--dim);margin:8px 0">کدهایی که اینجا بنویسی به فایل اصلی تزریق میشن.</p>
         <textarea id="injectedCode" placeholder="<!-- کد HTML، CSS یا JS خود را اینجا بنویسید -->"></textarea>
@@ -1813,6 +1832,38 @@ footer{padding:26px 0 36px;text-align:center;color:var(--dim);font-size:.78rem}
   applyAdmin();
   applyInjected();
 })();
+
+function setAccent(color) {
+  document.documentElement.style.setProperty('--cyan', color);
+  document.documentElement.style.setProperty('--blue', color);
+  localStorage.setItem('myreza_accent', color);
+  if(typeof showToast === 'function') showToast('رنگ تم با موفقیت تغییر کرد!', 'ok');
+}
+var savedAccent = localStorage.getItem('myreza_accent');
+if(savedAccent) {
+  document.documentElement.style.setProperty('--cyan', savedAccent);
+  document.documentElement.style.setProperty('--blue', savedAccent);
+}
+
+function updateAdminStats() {
+  var statsEl = document.getElementById('adminStats');
+  if(!statsEl) return;
+  var ua = navigator.userAgent;
+  var res = window.screen.width + ' × ' + window.screen.height;
+  var lang = navigator.language;
+  var storageSize = (JSON.stringify(localStorage).length / 1024).toFixed(2) + ' KB';
+  statsEl.innerHTML = '🖥️ <b>مرورگر:</b> ' + ua.substring(0, 60) + '...<br>' +
+                      '📐 <b>رزولوشن صفحه:</b> ' + res + '<br>' +
+                      '🌐 <b>زبان مرورگر:</b> ' + lang + '<br>' +
+                      '💾 <b>حجم حافظه محلی:</b> ' + storageSize + '<br>' +
+                      '⚡ <b>وضعیت اتصال:</b> ' + (navigator.onLine ? '🟢 آنلاین' : '🔴 آفلاین');
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  var refBtn = document.getElementById('refreshStatsBtn');
+  if(refBtn) refBtn.addEventListener('click', updateAdminStats);
+  updateAdminStats();
+});
 </script>
 </body>
 </html>
